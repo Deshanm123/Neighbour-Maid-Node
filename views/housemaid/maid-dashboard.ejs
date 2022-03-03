@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <!-- style sheet -->
+  <link rel="stylesheet" href="../../public/style/style.css">
+  <!-- page title -->
+  <title>NeighbourMaid | Home</title>
+</head>
+
+<body>
+  <!-- navbar -->
+  <%- include('_housemaid-nav')%>
+    <!-- end of navbar -->
+
+
+    <!-- housemaid  details screen -->
+    <section id="housemaid-details" style="background-color:#e9ecef">
+      <div class="container">
+        <div class="row">
+          <div class="col-7">
+            <div class="jumbotron " id="housemaid-dashborad-jumbotron">
+              <h1 class="display-4">
+                Hello, Amanda!
+                <span id="user-verified-status"><i class="fas fa-user-check"></i></span>
+              </h1>
+              <p class="lead">If your service is avialable/unemployed or currently unavialable/already employed please
+                make sure to adjust the service avialibility status accordingly.
+              </p>
+              <hr class="my-4">
+              <div class="row">
+                <div class="col-9">
+                  <p></p>
+                  <p> Service Avialibility Status</p>
+                </div>
+                <div class="col-3">
+                  <p class="lead">
+                    <input type="checkbox" id="housemaid-status-checkbox" checked data-toggle="toggle"
+                      data-on="Avialable" data-off="Not Avialable" data-onstyle="success" data-offstyle="danger">
+                  </p>
+
+
+                </div>
+              </div>
+
+
+              <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+              </p>
+            </div>
+          </div>
+          <!-- <div class="col-5">
+      </div> -->
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- end of  housemaid  details screen -->
+
+
+
+
+    <!-- view householder requests section -->
+    <section id="householder-request-section">
+      <div class="container  pt-4">
+        <!-- question-->
+
+        <h2>My Employee Interviews</h2>
+        <!-- review -->
+        <div class="householder-list">
+          <div class="row">
+            <div class="table-responsive py-5">
+              <table class="table table w-auto">
+                <thead>
+                  <tr>
+                    <th scope="col">Householder</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Handle</th>
+                  </tr>
+                </thead>
+                <tbody class>
+
+                  <!-- interview entry -->
+                  <tr>
+                    <!-- image column  -->
+                    <td>
+                      <div class="row">
+                        <div class="col-6 pr-0 ">
+                          <div class="img-container d-flex justify-content-start p-0 m-0">
+                            <img src="./person-1.jpeg" id="householder-interview-request-img" alt="" />
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <pre id="householder-name">Alexa</pre>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p>
+                        Are you available?
+                      </p>
+                    </td>
+                    <!-- time -->
+                    <td>
+                      <h5>Fri,Jan 23 </h5>
+                      <small>9.45 AM</small>
+                    </td>
+
+                    <!-- action column -->
+                    <td>
+                      <button type="button" class="btn btn-success px-4">join</button>
+                    </td>
+                  </tr>
+                  <!-- end of interview entry -->
+
+                  <!-- interview entry -->
+                  <tr>
+                    <!-- image column  -->
+                    <td>
+                      <div class="row">
+                        <div class="col-6 pr-0 ">
+                          <div class="img-container d-flex justify-content-start p-0 m-0">
+                            <img src="" id="householder-interview-request-img" alt="" />
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <pre id="householder-name">Alexa</pre>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p>
+                        Let me know if that works for you or if you prefer another day or time
+                        this week.
+                      </p>
+                    </td>
+                    <!-- time -->
+                    <td>
+                      <h5>Fri,Jan 20 </h5>
+                      <small>9.45 AM</small>
+                    </td>
+
+                    <!-- action column -->
+                    <td>
+                      <button type="button" class="btn btn-success px-4">join</button>
+                    </td>
+                  </tr>
+                  <!-- end of interview entry -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+      </div>
+    </section>
+    <!-- end of view householder requests section-->
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small unique-color-dark">
+      <div style="background-color: #6351ce;">
+        <div class="container">
+          <!-- Grid row-->
+          <div class="row py-4 d-flex align-items-center">
+            <!-- Grid column -->
+            <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+              <h6 class="mb-0">Get connected with us on social networks!</h6>
+            </div>
+            <!-- Grid column -->
+            <div class="col-md-6 col-lg-7 text-center text-md-right">
+              <!-- Facebook -->
+              <a class="fb-ic">
+                <i class="fab fa-facebook-f white-text mr-4"> </i>
+              </a>
+              <!-- Twitter -->
+              <a class="tw-ic">
+                <i class="fab fa-twitter white-text mr-4"> </i>
+              </a>
+              <!-- Google +-->
+              <a class="gplus-ic">
+                <i class="fab fa-google-plus-g white-text mr-4"> </i>
+              </a>
+              <!--Linkedin -->
+              <a class="li-ic">
+                <i class="fab fa-linkedin-in white-text mr-4"> </i>
+              </a>
+              <!--Instagram-->
+              <a class="ins-ic">
+                <i class="fab fa-instagram white-text"> </i>
+              </a>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row-->
+        </div>
+      </div>
+      <!-- Footer Links -->
+      <div class="container text-center text-md-left mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase font-weight-bold">Neighbour Maid</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed totam eaque iste at ipsum quam deserunt ullam id exercitationem tenetur?</p> -->
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+                allowfullscreen></iframe>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <!-- Links -->
+            <h6 class="text-uppercase font-weight-bold">Services</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>
+              <a href="#!">Cleaning</a>
+            </p>
+            <p>
+              <a href="#!">Gardening</a>
+            </p>
+            <p>
+              <a href="#!">Cooking</a>
+            </p>
+            <p>
+              <a href="#!">Baby Sitting</a>
+            </p>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <!-- Links -->
+            <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>
+              <a href="./maid-account-registration.html">Your Account</a>
+            </p>
+            <a href="./courses-list.html">courses-list</a>
+            </p>
+            <p>
+              <a href="./register.html">Become a Maid</a>
+            </p>
+            <p>
+              <a href="#!">About</a>
+            </p>
+            <p>
+              <a href="#!">Help</a>
+            </p>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+            <!-- Links -->
+            <h6 class="text-uppercase font-weight-bold">Contact</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>
+              <i class="fas fa-home mr-3"></i> Colombo,Sri Lanka
+            </p>
+            <p>
+              <i class="fas fa-envelope mr-3"></i> Neighbourmaid@outlook.com
+            </p>
+            <p>
+              <i class="fas fa-phone mr-3"></i> + 94 77 368 5922
+            </p>
+            <p>
+              <i class="fas fa-print mr-3"></i> + 94 234 567 89
+            </p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+      <!-- Footer Links -->
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2021 Copyright:
+        <a href="https://mdbootstrap.com/">Neighbour Maid</a>
+      </div>
+      <!-- Copyright -->
+
+    </footer>
+
+    <!-- end of footer -->
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <script src="script.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+    <!-- bootstrap toggle button -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <!-- style sheet -->
+  <link rel="stylesheet" href="../../public/style/style.css">
+  <!-- page title -->
+  <title>NeighbourMaid | Home</title>
+</head>
+
+<body>
+  <!-- navbar -->
+  <%- include('_housemaid-nav')%>
+    <!-- end of navbar -->
+    <!-- requirements-section -->
+    <section id="requirements-section">
+      <div class="container">
+        <div class="row">
+
+          <!-- photo section -->
+          <div class="col-md-2 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+              <img class="rounded-circle bg-primary mt-5" width="150px" src="/profile.png">
+              <span class="font-weight-bold">Edogaru</span>
+              <span class="text-black-50">edogaru@mail.com.my</span>
+              <!-- File Button -->
+              <div class="form-group pt-3">
+                <label class="control-label" for="Upload photo">Upload photo</label>
+                <!-- <div class="col-md-3"> -->
+                <input id="Upload photo" name="Upload photo" class="input-file" type="file">
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+          <!--end of  photo section -->
+
+          <!-- ------------------------------------------------ -->
+
+          <div class="col-md-1 hidden-xs"></div>
+          <!-- personal details -->
+
+
+          <div class="col-md-4 border-right">
+            <!-- <form class="form-horizontal"> -->
+            <fieldset>
+              <!-- Form Name -->
+              <div class="form-group">
+                <label class="control-label" for="Name (Full name)">Name (Full name)</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-user">
+                    </i>
+                  </div>
+                  <input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="Name (Full name)"
+                    class="form-control input-md">
+                </div>
+
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="Date Of Birth">
+                  Date Of Birth
+                </label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-birthday-cake"></i>
+                  </div>
+                  <input id="Date Of Birth" name="Date Of Birth" type="text" placeholder="Date Of Birth"
+                    class="form-control input-md">
+                </div>
+              </div>
+
+              <!-- Multiple Radios (inline) -->
+              <div class="form-group">
+                <label class="control-label" for="Gender">Gender</label>
+
+                <label class="radio-inline" for="Gender-0">
+                  <input type="radio" name="Gender" id="Gender-0" value="1" checked="checked">
+                  Male
+                </label>
+                <label class="radio-inline" for="Gender-1">
+                  <input type="radio" name="Gender" id="Gender-1" value="2">
+                  Female
+                </label>
+                <label class="radio-inline" for="Gender-2">
+                  <input type="radio" name="Gender" id="Gender-2" value="3">
+                  Other
+                </label>
+
+              </div>
+
+              <!-- Multiple Radios (inline) -->
+              <div class="form-group">
+                <label class="control-label" for="radios">Marital Status:</label>
+
+                <label class="radio-inline" for="radios-0">
+                  <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
+                  Married
+                </label>
+                <label class="radio-inline" for="radios-1">
+                  <input type="radio" name="radios" id="radios-1" value="2">
+                  Unmarried
+                </label>
+
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-xs-12" for="Permanent Address">Permanent Address</label>
+                <div class="col-xs-4">
+                  <input id="Permanent Address" name="Permanent Address" type="text" placeholder="District"
+                    class="form-control input-md ">
+                </div>
+                <div class="col-xs-4">
+                  <input id="Permanent Address" name="Permanent Address" type="text" placeholder="Area"
+                    class="form-control input-md ">
+                </div>
+                <div class="col-xs-4">
+                  <input id="Permanent Address" name="Permanent Address" type="text" placeholder="Street"
+                    class="form-control input-md ">
+                </div>
+              </div>
+
+
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="Phone number ">Phone number </label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-phone"></i>
+                  </div>
+                  <input id="Phone number " name="Phone number " type="text" placeholder="Primary Phone number "
+                    class="form-control input-md">
+                </div>
+
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class=" control-label" for="Available Service Area">Available Service Area</label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-street-view"></i>
+                  </div>
+                  <input id="Available Service Area" name="Available Service Area" type="text"
+                    placeholder="Available Service Area" class="form-control input-md">
+                </div>
+
+              </div>
+
+              <!-- NIC:Text input-->
+              <div class="form-group">
+                <label class="control-label" for="Citizenship No.">National Id</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fas fa-id-card"></i>
+                  </div>
+                  <input id="National Id" name="National Id" type="text" placeholder="National Id."
+                    class="form-control input-md">
+                </div>
+              </div>
+
+              <!-- Languages: Multiple Checkboxes -->
+              <div class="form-group">
+                <label class="control-label" for="Languages Known">Languages Known</label>
+                <div class="checkbox pl-2">
+                  <label for="Languages Known-0">
+                    <input type="checkbox" name="Languages Known" id="Languages Known-0" value="1">
+                    Sinhala
+                  </label>
+                </div>
+                <div class="checkbox pl-2">
+                  <label for="Languages Known-1">
+                    <input type="checkbox" name="Languages Known" id="Languages Known-1" value="2">
+                    Tamil
+                  </label>
+                </div>
+                <div class="checkbox pl-2">
+                  <label for="Languages Known-2">
+                    <input type="checkbox" name="Languages Known" id="Languages Known-2" value="3">
+                    English
+                  </label>
+                </div>
+                <div class="checkbox pl-2">
+                  <label for="Languages Known-3">
+                    <input type="checkbox" name="Languages Known" id="Languages Known-3" value="4">
+                    Other
+                  </label>
+                </div>
+
+
+
+              </div>
+            </fieldset>
+            </form>
+          </div>
+          <!-- ------------------------------------------------------------ -->
+          <div class="col-md-1 hidden-xs"></div>
+          <!-- experience -->
+          <div class="col-md-4 hidden-xs">
+            <!-- <img src="http://websamplenow.com/30/userprofile/images/avatar.jpg" class="img-responsive img-thumbnail "> -->
+            <!--Work Experience: input-->
+            <div class="form-group">
+              <label class="control-label" for="Working Experience (time period)">Working Experience (time
+                period)</label>
+
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input id="Working Experience (time period)" name="Working Experience" type="text"
+                  placeholder="Enter time period " class="form-control input-md">
+              </div>
+            </div>
+
+            <!--Primary Occupation: Text input-->
+            <div class="form-group">
+              <label class="control-label" for="Primary Occupation">Primary Occupation</label>
+
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-briefcase"></i>
+                </div>
+                <input id="Primary Occupation" name="Primary Occupation" type="text" placeholder="Primary Occupation"
+                  class="form-control input-md">
+              </div>
+
+            </div>
+
+            <!-- Previous Occupation:Text input-->
+            <div class="form-group">
+              <label class=" control-label" for="Secondary Occupation (if any)">Previous Occupation (if any) </label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-briefcase"></i>
+                </div>
+                <input id="Secondary Occupation (if any)" name="Secondary Occupation (if any)" type="text"
+                  placeholder="Secondary Occupation (if any)" class="form-control input-md">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="control-label" for="Skills">Skills</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-graduation-cap"></i>
+                </div>
+                <input id="Skills" name="Skills" type="text" placeholder="Skills" class="form-control input-md">
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="form-group">
+              <label class="control-label" for="Overview (max 200 words)">Overview (max 200 words)</label>
+              <textarea class="form-control" rows="10" id="Overview (max 200 words)" name="Overview (max 200 words)">Overview
+            </textarea>
+
+            </div>
+
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti corporis, voluptates dicta, cum
+              blanditiis officia maiores veniam repudiandae nihil eligendi quibusdam atque sint, cupiditate quidem
+              dolorem
+              iste impedit sit. Quidem nihil error, laudantium quod recusandae molestias minima. Nesciunt, ducimus
+              quidem!
+            </p>
+            <div class="form-group">
+              <label class="control-label"></label>
+
+              <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Save Changes</a>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      </div>
+    </section>
+    <!-- End of Reqirements -->
+
+
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small unique-color-dark">
+      <div style="background-color: #6351ce;">
+        <div class="container">
+          <!-- Grid row-->
+          <div class="row py-4 d-flex align-items-center">
+            <!-- Grid column -->
+            <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+              <h6 class="mb-0">Get connected with us on social networks!</h6>
+            </div>
+            <!-- Grid column -->
+            <div class="col-md-6 col-lg-7 text-center text-md-right">
+              <!-- Facebook -->
+              <a class="fb-ic">
+                <i class="fab fa-facebook-f white-text mr-4"> </i>
+              </a>
+              <!-- Twitter -->
+              <a class="tw-ic">
+                <i class="fab fa-twitter white-text mr-4"> </i>
+              </a>
+              <!-- Google +-->
+              <a class="gplus-ic">
+                <i class="fab fa-google-plus-g white-text mr-4"> </i>
+              </a>
+              <!--Linkedin -->
+              <a class="li-ic">
+                <i class="fab fa-linkedin-in white-text mr-4"> </i>
+              </a>
+              <!--Instagram-->
+              <a class="ins-ic">
+                <i class="fab fa-instagram white-text"> </i>
+              </a>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row-->
+        </div>
+      </div>
+      <!-- Footer Links -->
+      <div class="container text-center text-md-left mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase font-weight-bold">Neighbour Maid</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed totam eaque iste at ipsum quam deserunt ullam id exercitationem tenetur?</p> -->
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+                allowfullscreen></iframe>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <!-- Links -->
+            <h6 class="text-uppercase font-weight-bold">Services</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>
+              <a href="#!">Cleaning</a>
+            </p>
+            <p>
+              <a href="#!">Gardening</a>
+            </p>
+            <p>
+              <a href="#!">Cooking</a>
+            </p>
+            <p>
+              <a href="#!">Baby Sitting</a>
+            </p>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <!-- Links -->
+            <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>
+              <a href="./maid-account-registration.html">Your Account</a>
+            </p>
+            <a href="./courses-list.html">courses-list</a>
+            </p>
+            <p>
+              <a href="./register.html">Become a Maid</a>
+            </p>
+            <p>
+              <a href="#!">About</a>
+            </p>
+            <p>
+              <a href="#!">Help</a>
+            </p>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+            <!-- Links -->
+            <h6 class="text-uppercase font-weight-bold">Contact</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>
+              <i class="fas fa-home mr-3"></i> Colombo,Sri Lanka
+            </p>
+            <p>
+              <i class="fas fa-envelope mr-3"></i> Neighbourmaid@outlook.com
+            </p>
+            <p>
+              <i class="fas fa-phone mr-3"></i> + 94 77 368 5922
+            </p>
+            <p>
+              <i class="fas fa-print mr-3"></i> + 94 234 567 89
+            </p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+      <!-- Footer Links -->
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2021 Copyright:
+        <a href="https://mdbootstrap.com/">Neighbour Maid</a>
+      </div>
+      <!-- Copyright -->
+
+    </footer>
+
+    <!-- end of footer -->
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <script src="script.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+    <!-- bootstrap toggle button -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+</body>
+
+</html>

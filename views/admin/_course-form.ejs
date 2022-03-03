@@ -1,0 +1,69 @@
+<div class="form-row">
+  <div class="form-group col-md-6">
+    <label for="courseTitle">Course Title</label>
+    <% if(course.courseTitle !="" ) {%>
+      <input type="text" class="form-control" name="courseTitle" id="courseTitle" placeholder="How to ...."
+        value="<%= course.courseTitle %> " required>
+      <%} else {%>
+        <input type="text" class="form-control" name="courseTitle" id="courseTitle" placeholder="How to ...." value=""
+          required>
+        <%}%>
+  </div>
+  <div class="form-group col-md-6">
+    <label for="courseCategory">Course Category</label>
+
+    <select id="courseCategory" name="courseCategory" class="form-control" required>
+      <!-- <option selected>Choose...</option> -->
+      <option>Choose...</option>
+      <option <%=(course.courseCategory=="Cleaning" )?"SELECTED":"" %> value="Cleaning">Cleaning</option>
+      <option <%=(course.courseCategory=="Gardening" )?"SELECTED":"" %> value="Gardening">Gardening</option>
+      <option <%=(course.courseCategory=="Laundring" )?"SELECTED":"" %> value="Laundring" >Laundring</option>
+    </select>
+  </div>
+</div>
+<%# <div class="form-group">
+  <label for="course-author">Course Author</label>
+  <input type="text" class="form-control" id="course-author" placeholder="Author Name">
+  </div> --> %>
+
+
+
+
+  <!-- course introduction -->
+  <div class="form-group">
+    <label for="courseIntro">Course Intro:</label>
+    <textarea class="form-control" rows="2" name="courseIntro" id="courseIntro"><%=course.courseIntro%></textarea>
+  </div>
+
+  <!-- course description -->
+  <div class="form-group">
+    <label for="courseDescription">Course Description:</label>
+    <textarea class="form-control" rows="8" name="courseDescription" id="courseDescription" required><%=course.courseDescription%>
+    </textarea>
+  </div>
+
+
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <!-- image upload -->
+      <label for="courseCategory">Cover image for course</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <input type="file" id="avatar" name="avatar">
+        </div>
+      </div>
+    </div>
+    <!-- publish date -->
+    <!-- <div class="form-group col-md-6">
+      <label for="courseCategory">Course publish-date</label>
+      <div class="input-group date">
+        <input type="text" class="form-control" value="12-02-2012">
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-th"></span>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+  <!-- image upload -->
