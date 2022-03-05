@@ -4,6 +4,7 @@ const path = require('path');
 var bodyParser = require('body-parser');
 const courseRouter = require('./routes/courses');
 const adminRouter = require('./routes/adminRoutes');
+const generalRouter = require('./routes/generalRoutes');
 const housemaidRouter = require('./routes/housemaidRoutes');
 const methodOverride = require('method-override');
 const fileUpload = require('express-fileUpload');
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('uploads'));
 
 // configuring routes
+app.use('/', generalRouter);
 app.use('/courses', courseRouter);
 app.use('/housemaid', housemaidRouter);
 app.use('/admin', adminRouter);

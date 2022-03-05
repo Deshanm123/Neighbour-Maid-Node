@@ -1,7 +1,5 @@
 const Course = require('../models/Course');
 const Coursemodel = require('../models/Coursemodel');
-const routes = require('../routes/courses');
-const express = require('express');
 const moment = require('moment');
 
 

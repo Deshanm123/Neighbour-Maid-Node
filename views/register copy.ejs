@@ -16,22 +16,9 @@
 
 
   <!-- style sheet -->
-  <link rel="stylesheet" href="regstyle.css">
-  <style>
-
-
-
-
-
-  </style>
-
-
-
-
+  <link rel="stylesheet" href="style.css">
   <!-- page title -->
   <title>NeighbourMaid | Login</title>
-
-
 </head>
 
 <body>
@@ -46,11 +33,11 @@
           <div class="col col-xl-10">
             <div class="card" style="border-radius: 1rem;">
               <div class="row g-0">
-                <div class="col-md-6 col-lg-7 d-none d-md-block">
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
                     alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
                 </div>
-                <div class="col-md-6 col-lg-5 d-flex align-items-center">
+                <div class="col-md-6 col-lg-7 d-flex align-items-center">
                   <div class="card-body p-4 p-lg-5 text-black">
 
 
@@ -60,7 +47,7 @@
                     <form id="registration-form" action="/register" method="POST">
                       <h5 class="fw-normal m-3 pb-3" style="letter-spacing: 1px;">Register your account</h5>
 
-                      <!-- <div class="row">
+                      <div class="row">
                         <div class="col-md-6 mb-4">
                           <div class="form-outline">
                             <input type="text" class="form-control form-control-lg" name="fName" />
@@ -73,56 +60,58 @@
                             <label class="form-label" for="last Name">Last name</label>
                           </div>
                         </div>
-                      </div> -->
+                      </div>
+                      <div class="form-outline mb-4">
+                        <input type="text" class="form-control form-control-lg" name="address" />
+                        <label class="form-label" for="address">Address</label>
+                      </div>
+
+                      <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                        <h6 class="mb-0 mr-3 me-4">Gender: </h6>
+                        <div class="form-check form-check-inline mb-0 me-4">
+                          <input class="form-check-input" type="radio" name="gender" value="female" />
+                          <label class="form-check-label" for="femaleGender">Female</label>
+                        </div>
+
+                        <div class="form-check form-check-inline mb-0 me-4">
+                          <input class="form-check-input" type="radio" name="gender" value="male" />
+                          <label class="form-check-label" for="maleGender">Male</label>
+                        </div>
+
+                        <div class="form-check form-check-inline mb-0">
+                          <input class="form-check-input" type="radio" name="gender" id="otherGender" value="other" />
+                          <label class="form-check-label" for="otherGender">Other</label>
+                        </div>
+
+                      </div>
 
                       <div class="form-outline mb-4">
+                        <input type="email" class="form-control form-control-lg" name="email" />
                         <label class="form-label" for="email">Email Address</label>
-                        <input type="email" class="form-control form-control-lg " name="email" id="email" />
-                        <!-- <div class="valid-feedback">
-                          valid email address
-                        </div> -->
-                        <div class="invalid-feedback">
-                          Please provide a valid User Name.
-                        </div>
-                        <!-- <small>Error message</small> -->
                       </div>
 
+                      <div class="row">
+                        <div class="col-md-5 mb-4 pb-2">
 
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="address">User Name</label>
-                        <input type="text" class="form-control form-control-lg" name="userName" id="userName" />
-                        <!-- <div class="valid-feedback">
-                          user Name can be used
-                        </div> -->
-                        <div class="invalid-feedback">
-                          Please provide a valid User Name.
+                          <div class="form-outline form-white">
+                            <!-- <input type="text" class="form-control form-control-lg" name="countryCode" /> -->
+                            <select class="form-control  form-control-lg" name="countryCode">
+                              <option value="+94">+94</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                            <label class=" form-label" for="countryCode">Phone Country Code </label>
+                          </div>
+
                         </div>
-                        <!-- <small>Error message</small> -->
-                      </div>
-
-
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="repeat-password">Enter your password</label>
-                        <input type="text" class="form-control form-control-lg" name="password" id="password" />
-                        <!-- <div class="valid-feedback">
-                          Looks good!
-                        </div> -->
-                        <div class="invalid-feedback">
-                          Please provide a valid User Name.
+                        <div class="col-md-7 mb-4 pb-2">
+                          <div class="form-outline form-white">
+                            <input type="text" class="form-control form-control-lg" name="phoneNumber" />
+                            <label class=" form-label" for="phoneNumber">Phone Number</label>
+                          </div>
                         </div>
-                        <!-- <small>Error message</small> -->
-                      </div>
-
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="repeat-password">Repeat your password</label>
-                        <input type="text" class="form-control form-control-lg" name="cPassword" id="cPassword" />
-                        <!-- <div class="valid-feedback">
-                          Looks good!
-                        </div> -->
-                        <div class="invalid-feedback">
-                          Please provide a valid User Name.
-                        </div>
-                        <!-- <small>Error message</small> -->
                       </div>
 
                       <div class="pt-1 mb-4">
@@ -169,10 +158,8 @@
     <%- include('_footer')%>
       <!-- footer -->
 
-      <!-- clientside validation -->
-
       <!-- Optional JavaScript -->
-      <script src="regscript.js"></script>
+      <script src="script.js"></script>
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
