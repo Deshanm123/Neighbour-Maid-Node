@@ -1,12 +1,10 @@
 
-const form = document.getElementById('registration-form');
-const userName = document.getElementById('userName');
+const form = document.getElementById('login-form');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
-const cPassword = document.getElementById('cPassword');
+
 
 let readyToSubmit = [];
-
 // Show input error message
 function showError(input, message) {
   input.classList.add('is-invalid');
@@ -27,17 +25,16 @@ function checkEmail(input) {
     showSuccess(input);
   } else {
     readyToSubmit.push(false);
-    showError(input, 'Email is not valid');
+    showError(input, 'Email format is not valid');
   }
 }
 
 // Check required fields
 function checkRequired(inputArr) {
   inputArr.forEach(function (input) {
-
     if (input.value.trim() === '') {
       readyToSubmit.push(false);
-      showError(input, `${getFieldName(input)} is required`);
+      showError(input, `${input.id} is required`);
     } else {
       readyToSubmit.push(true);
       showSuccess(input);
@@ -51,13 +48,13 @@ function checkLength(input, min, max) {
     readyToSubmit.push(false);
     showError(
       input,
-      `${getFieldName(input)} must be at least ${min} characters`
+      `${input.id} must be at least ${min} characters`
     );
   } else if (input.value.length > max) {
     readyToSubmit.push(false);
     showError(
       input,
-      `${getFieldName(input)} must be less than ${max} characters`
+      `${input.id} must be less than ${max} characters`
     );
   } else {
     readyToSubmit.push(true);
@@ -65,37 +62,14 @@ function checkLength(input, min, max) {
   }
 }
 
-// // Check passwords match
-function checkPasswordsMatch(input1, input2) {
-  if (input1.value !== input2.value) {
-    readyToSubmit.push(false);
-    showError(input2, 'Passwords do not match');
-  }
-}
-
-// Get fieldname
-function getFieldName(input) {
-  let nameStr;
-  if (input.id == cPassword) {
-    nameStr = "confirm password";
-  }
-  else if (input.id == userName) {
-    str = "User Name";
-  } else {
-    nameStr = input.id
-  }
-  return nameStr;
-}
-
 
 // Event listeners
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-  checkRequired([userName, email, password, cPassword]);
-  checkLength(userName, 3, 15);
+  checkRequired([email, password]);
   checkLength(password, 6, 25);
   checkEmail(email);
-  checkPasswordsMatch(password, cPassword);
+
   let res = true;
   readyToSubmit.forEach(flag => {
     res = flag && res;
@@ -103,23 +77,21 @@ form.addEventListener('submit', function (e) {
   //resetting  
   readyToSubmit = [];
 
-
-  // data
-
-
   if (res) {
     //allow form submission
     $.ajax({
       type: "POST",
-      url: "/register",
+      url: "/login",
       contentType: "application/json",
       data: JSON.stringify({
         email: email.value,
-        userName: userName.value,
         password: password.value,
-        cPassword: cPassword.value,
-      })
-
+      }),
+      success: (data) => {
+        console.log(data);
+        // TODO check data is not null
+        location.assign('/housemaid/');
+      }
       // do errror hadnling
     })
 

@@ -16,7 +16,7 @@
 
 
   <!-- style sheet -->
-  <link rel="stylesheet" href="regstyle.css">
+  <!-- <link rel="stylesheet" href="regstyle.css"> -->
   <style>
 
 
@@ -77,7 +77,7 @@
 
                       <div class="form-outline mb-4">
                         <label class="form-label" for="email">Email Address</label>
-                        <input type="email" class="form-control form-control-lg " name="email" id="email" />
+                        <input type="text" class="form-control form-control-lg " name="email" id="email" />
                         <!-- <div class="valid-feedback">
                           valid email address
                         </div> -->
@@ -103,7 +103,7 @@
 
                       <div class="form-outline mb-4">
                         <label class="form-label" for="repeat-password">Enter your password</label>
-                        <input type="text" class="form-control form-control-lg" name="password" id="password" />
+                        <input type="password" class="form-control form-control-lg" name="password" id="password" />
                         <!-- <div class="valid-feedback">
                           Looks good!
                         </div> -->
@@ -115,7 +115,7 @@
 
                       <div class="form-outline mb-4">
                         <label class="form-label" for="repeat-password">Repeat your password</label>
-                        <input type="text" class="form-control form-control-lg" name="cPassword" id="cPassword" />
+                        <input type="password" class="form-control form-control-lg" name="cPassword" id="cPassword" />
                         <!-- <div class="valid-feedback">
                           Looks good!
                         </div> -->
@@ -168,15 +168,12 @@
     <!-- footer -->
     <%- include('_footer')%>
       <!-- footer -->
-
-      <!-- clientside validation -->
+      <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
 
       <!-- Optional JavaScript -->
-      <script src="regscript.js"></script>
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -185,6 +182,8 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+      <!-- clientside validation -->
+      <script src="/regscript.js"></script>
 
 </body>
 

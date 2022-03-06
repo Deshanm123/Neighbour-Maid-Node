@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser')
 const courseRouter = require('./routes/courses');
 const adminRouter = require('./routes/adminRoutes');
 const generalRouter = require('./routes/generalRoutes');
@@ -17,22 +18,21 @@ app.use(fileUpload());
 // setting ejs view engine
 app.set('view engine', 'ejs');
 
+// configuring cookie pareser to manage cookies
+app.use(cookieParser());
 // body parser midddleware
 app.use(bodyParser.json());
 // access parameters in req.body
 app.use(bodyParser.urlencoded({ extended: false }));
 // var urlencodedParser = bodyParser.urlencoded({ extended: false });
-
-
-
 // override with methods in the forms having ?_method=
 app.use(methodOverride('_method'));
-
 // setting static folder //serves resuources from public folder
 app.use(express.static(path.join(__dirname, 'public')));
 // configuring acess to upload 
-
 app.use(express.static('uploads'));
+
+
 
 // configuring routes
 app.use('/', generalRouter);
