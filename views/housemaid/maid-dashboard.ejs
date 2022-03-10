@@ -24,6 +24,78 @@
     <!-- end of navbar -->
 
 
+    <!-- maid location Pop up
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Modal title
+            </h5>
+            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+    <!-- <div class="modal fade show" id="exampleCentralModal5" tabindex="-1" aria-labelledby="exampleModalLabel"
+      data-gtm-vis-first-on-screen-2340190_1302="57260" data-gtm-vis-total-visible-time-2340190_1302="100"
+      data-gtm-vis-has-fired-2340190_1302="1" style="display: block; padding-left: 0px; padding-right: 1px;"
+      aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Watch it</h5>
+            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="embed-responsive embed-responsive-16by9">
+            <!-- <iframe class="embed-responsive-item"
+              src="https://www.youtube.com/embed/vlDzYIIOYmM?enablejsapi=1&amp;origin=https%3A%2F%2Fmdbootstrap.com"
+              title="YouTube video" allowfullscreen="" data-gtm-yt-inspected-2340190_699="true" id="403319044">
+            </iframe> -->
+    </div>
+    </div>
+    </div>
+    </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- maid location Pop up -->
+
+    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+      Launch demo modal
+    </button>
+
+
+
+
+
+
+
     <!-- housemaid  details screen -->
     <section id="housemaid-details" style="background-color:#e9ecef">
       <div class="container">
@@ -31,12 +103,14 @@
           <div class="col-7">
             <div class="jumbotron " id="housemaid-dashborad-jumbotron">
               <h1 class="display-4">
-                Hello, Amanda!
-                <span id="user-verified-status"><i class="fas fa-user-check"></i></span>
+                Hello, <%= user.userName%>
+                  <span id="user-verified-status"><i class="fas fa-user-check"></i></span>
               </h1>
               <p class="lead">If your service is avialable/unemployed or currently unavialable/already employed please
                 make sure to adjust the service avialibility status accordingly.
               </p>
+              <h3>my service region</h3>
+              <h3> my service location</h3>
               <hr class="my-4">
               <div class="row">
                 <div class="col-9">
@@ -175,141 +249,8 @@
 
 
     <!-- Footer -->
-    <footer class="page-footer font-small unique-color-dark">
-      <div style="background-color: #6351ce;">
-        <div class="container">
-          <!-- Grid row-->
-          <div class="row py-4 d-flex align-items-center">
-            <!-- Grid column -->
-            <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-              <h6 class="mb-0">Get connected with us on social networks!</h6>
-            </div>
-            <!-- Grid column -->
-            <div class="col-md-6 col-lg-7 text-center text-md-right">
-              <!-- Facebook -->
-              <a class="fb-ic">
-                <i class="fab fa-facebook-f white-text mr-4"> </i>
-              </a>
-              <!-- Twitter -->
-              <a class="tw-ic">
-                <i class="fab fa-twitter white-text mr-4"> </i>
-              </a>
-              <!-- Google +-->
-              <a class="gplus-ic">
-                <i class="fab fa-google-plus-g white-text mr-4"> </i>
-              </a>
-              <!--Linkedin -->
-              <a class="li-ic">
-                <i class="fab fa-linkedin-in white-text mr-4"> </i>
-              </a>
-              <!--Instagram-->
-              <a class="ins-ic">
-                <i class="fab fa-instagram white-text"> </i>
-              </a>
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row-->
-        </div>
-      </div>
-      <!-- Footer Links -->
-      <div class="container text-center text-md-left mt-5">
-        <!-- Grid row -->
-        <div class="row mt-3">
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <!-- Content -->
-            <h6 class="text-uppercase font-weight-bold">Neighbour Maid</h6>
-            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed totam eaque iste at ipsum quam deserunt ullam id exercitationem tenetur?</p> -->
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
-                allowfullscreen></iframe>
-            </div>
-
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-
-            <!-- Links -->
-            <h6 class="text-uppercase font-weight-bold">Services</h6>
-            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-            <p>
-              <a href="#!">Cleaning</a>
-            </p>
-            <p>
-              <a href="#!">Gardening</a>
-            </p>
-            <p>
-              <a href="#!">Cooking</a>
-            </p>
-            <p>
-              <a href="#!">Baby Sitting</a>
-            </p>
-
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-
-            <!-- Links -->
-            <h6 class="text-uppercase font-weight-bold">Useful links</h6>
-            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-            <p>
-              <a href="./maid-account-registration.html">Your Account</a>
-            </p>
-            <a href="./courses-list.html">courses-list</a>
-            </p>
-            <p>
-              <a href="./register.html">Become a Maid</a>
-            </p>
-            <p>
-              <a href="#!">About</a>
-            </p>
-            <p>
-              <a href="#!">Help</a>
-            </p>
-
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-
-            <!-- Links -->
-            <h6 class="text-uppercase font-weight-bold">Contact</h6>
-            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-            <p>
-              <i class="fas fa-home mr-3"></i> Colombo,Sri Lanka
-            </p>
-            <p>
-              <i class="fas fa-envelope mr-3"></i> Neighbourmaid@outlook.com
-            </p>
-            <p>
-              <i class="fas fa-phone mr-3"></i> + 94 77 368 5922
-            </p>
-            <p>
-              <i class="fas fa-print mr-3"></i> + 94 234 567 89
-            </p>
-          </div>
-          <!-- Grid column -->
-        </div>
-        <!-- Grid row -->
-      </div>
-      <!-- Footer Links -->
-
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">© 2021 Copyright:
-        <a href="https://mdbootstrap.com/">Neighbour Maid</a>
-      </div>
-      <!-- Copyright -->
-
-    </footer>
-
-    <!-- end of footer -->
+    <%- include('_housemaid-footer')%>
+      <!-- end of footer -->
 
 
 
@@ -319,21 +260,23 @@
 
 
 
-    <!-- Optional JavaScript -->
-    <script src="script.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
-    <!-- bootstrap toggle button -->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
+      <!-- Optional JavaScript -->
+      <script src="script.js"></script>
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+      <!-- bootstrap toggle button -->
+      <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+      <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 </body>
 

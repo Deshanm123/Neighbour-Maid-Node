@@ -41,6 +41,21 @@ function checkRequired(inputArr) {
     }
   });
 }
+// function resetFields(inputArr) {
+//   inputArr.forEach(function (input) {
+//     if (input.classList.contains('is-invalid')) {
+//       console.log('reset invalid')
+//       let x = input.parentNode.querySelector('.invalid-feedback');
+//       x.innerHTML = '';
+//       inputArr.classList.remove('is-invalid');
+//     }
+//     if (input.classList.contains('is-valid')) {
+//       inputArr.classList.contains('is-valid');
+//       console.log('reset valid');
+//     }
+//   });
+//   console.log('reset');
+// }
 
 // // Check input length
 function checkLength(input, min, max) {
@@ -63,9 +78,11 @@ function checkLength(input, min, max) {
 }
 
 
+
 // Event listeners
 form.addEventListener('submit', function (e) {
   e.preventDefault();
+  // resetFields([email, password]);
   checkRequired([email, password]);
   checkLength(password, 6, 25);
   checkEmail(email);

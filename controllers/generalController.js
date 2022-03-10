@@ -48,7 +48,7 @@ exports.postRegistration = async (req, res) => {
         // creating JWT
         const jwToken = createJWToken(maidId);
         // storing JWT inside a cookie
-        res.cookie('jwt', jwToken, { maxAge: maxAge, httpOnly: true });
+        res.cookie('jwt', jwToken, { maxAge: maxAge * 1000, httpOnly: true });
         //sucessfully created
         res.status(201).json({ userId: maidId });
 
@@ -89,8 +89,8 @@ exports.postLogin = async (req, res) => {
 
     } else {
       console.log('Please enter the correct password');
-      
-     }
+
+    }
   } else {
     console.log(`${email} is not registered.login failed`);
   }

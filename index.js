@@ -8,12 +8,14 @@ const adminRouter = require('./routes/adminRoutes');
 const generalRouter = require('./routes/generalRoutes');
 const housemaidRouter = require('./routes/housemaidRoutes');
 const methodOverride = require('method-override');
-const fileUpload = require('express-fileUpload');
+
+
+
 
 var app = express();
 // default option layout for  express-upload
-// can configure mlimit size
-app.use(fileUpload());
+
+app.use(express.static('uploads'));
 
 // setting ejs view engine
 app.set('view engine', 'ejs');
@@ -29,8 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 // setting static folder //serves resuources from public folder
 app.use(express.static(path.join(__dirname, 'public')));
-// configuring acess to upload 
-app.use(express.static('uploads'));
+
 
 
 

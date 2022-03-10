@@ -1,14 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const housemaidController = require('../controllers/housemaidController');
-const {requireAuth} = require('./../middleware/authMiddleware');
+const imgUpload = require('../services/imageUploadService');
+const { requireAuth, tokenUserInfoAccess } = require('./../middleware/authMiddleware');
 
-router.get('/', requireAuth ,(req, res) => {
+//for all the get requests
+router.get('*', tokenUserInfoAccess)
+
+router.get('/', requireAuth, (req, res) => {
   res.render('housemaid/maid-dashboard');
 });
 
 // logout
-router.get('/logout', requireAuth ,housemaidController.logOut);
+router.get('/logout', requireAuth, housemaidController.logOut);
 
 
 // courses routes
@@ -16,10 +20,14 @@ router.get('/courses', requireAuth, housemaidController.getAllCourses);
 router.get('/courses/:id', requireAuth, housemaidController.getSingleCourse);
 
 // myaccount
-router.get('/myAccount', (req, res) => {
-  res.render('housemaid/maid-my_account');
+router.get('/myAccount', requireAuth,housemaidController.getAccount);
 
-});
+  
+
+
+
+router.post('/myAccount/profileImg/upload', imgUpload.upload.single('photo'), housemaidController.uploadProfileImg);
+router.post('/myAccount', housemaidController.addDetails);
 
 
 

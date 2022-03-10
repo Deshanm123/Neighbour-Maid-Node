@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const Housemaid = require('../models/Housemaid');
 // const User = require()
 
 const requireAuth = (req, res, next) => {
@@ -21,4 +22,47 @@ const requireAuth = (req, res, next) => {
   }
 }
 
-module.exports = { requireAuth };
+
+
+//getuser //display user info 
+const tokenUserInfoAccess = (req, res, next) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
+      if (err) {
+        // console.log(err)
+        res.locals.user = null;
+        // move on to next handler 
+        next();
+      } else {
+        // console.log("decoded Token " + decodedToken.id);
+        let user = await Housemaid.getUserInfo(decodedToken.id)
+        console.log('user from decoded Token', user[0])
+        res.locals.user = user[0];
+        next();
+      }
+    });
+  } else {
+    // user not logged in
+    res.locals.user = null;
+    next();
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = { requireAuth, tokenUserInfoAccess };

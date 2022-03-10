@@ -1,6 +1,6 @@
 const pool = require('../config/db');
 const uuid = require('uuid');
-
+let userId = uuid.v4();
 
 class Housemaid {
   // constructor(courseCategory, courseTitle, courseDate, courseIntro, courseDescription) {
@@ -91,7 +91,24 @@ class Housemaid {
     });
   }
 
+  static getUserInfo(id) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(" SELECT * FROM user_tb WHERE userId = ?  ", [id], (err, rows) => {
+          // return connection to the pool
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
 
+  }
 
 
 
