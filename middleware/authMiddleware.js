@@ -12,7 +12,6 @@ const requireAuth = (req, res, next) => {
         console.log(err.message);
         res.redirect('/login');
       } else {
-        console.log(decodedToken);
         next();
       }
     })
@@ -36,8 +35,7 @@ const tokenUserInfoAccess = (req, res, next) => {
         next();
       } else {
         // console.log("decoded Token " + decodedToken.id);
-        let user = await Housemaid.getUserInfo(decodedToken.id)
-        console.log('user from decoded Token', user[0])
+        let user = await Housemaid.getUserInfo(decodedToken.id);
         res.locals.user = user[0];
         next();
       }

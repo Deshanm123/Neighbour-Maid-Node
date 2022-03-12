@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- IMPORTANT  phone input is taken as uMobile -->
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+  <!-- page title -->
+  <title>NeighbourMaid | Home</title>
+  <script type="text/javascript" src="/city_state.js"></script>
+
+  <style>
+    * {
+      font-size: 16px;
+    }
+
+    .input-group-addon {
+
+      font-size: 20px;
+      padding-right: 5px;
+      text-align: center;
+      justify-content: center;
+    }
+
+    #uLanguageTxtInput {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- navbar -->
+  <%- include('_housemaid-nav')%>
+    <!-- end of navbar -->
+
+    <div class=container" id="message">
+      <div class="alert alert-success alert-dismissible fade show py-3 text-center" role="alert" id="alert-role"
+        id="message">
+        <strong id="message-area">Holy guacamole!</strong> .
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <!-- alert message -->
+
+
+
+    <!-- requirements-section -->
+    <section id="requirements-section">
+      <div class="container-fluid px-5 py-4 ">
+        <div class="row">
+
+          <!-- photo section -->
+          <div class="col-md-3 ">
+
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+
+
+              <% if(profileImg !==null ){%>
+                <img class="rounded-circle bg-primary mt-5" width="150px" src="/<%=profileImg%>">
+                <%}else{%>
+                  <img class="rounded-circle bg-primary mt-5" width="150px" src="/profile.png">
+                  <%}%>
+
+                    <!-- from res.locals -->
+                    <span class="font-weight-bold">
+                      <%= user.userName%>
+                    </span>
+                    <span class="text-black-50">
+                      <%= user.userEmail%>
+                    </span>
+                    <!-- end from res.locals -->
+                    <!-- image upload form -->
+                    <form action="/housemaid/myAccount/profileImg/upload" enctype="multipart/form-data" method="POST">
+                      <div class="form-group pt-3">
+                        <div class="col-md-3">
+                          <input id="Upload photo" name="photo" class="input-file" type="file">
+                        </div>
+                        <button type="submit" class="btn pl-1">Upload Photo</button>
+                      </div>
+                    </form>
+            </div>
+          </div>
+
+          <!--end of  photo section -->
+          <div class="col-md-4 ">
+            <!-- personal details -->
+
+
+
+
+            <form id="maid-personal-update-form" action="/housemaid/myAccount/edit?_method=PUT" method="POST">
+              <% personalDetails.forEach(pd=>{ %>
+                <fieldset>
+                  <!-- Form Name -->
+                  <div class="form-group">
+                    <label class="control-label" for="Name">Name</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-user  ">
+                        </i>
+                      </div>
+                      <% if(pd.uFName==null ){%>
+                        <input id="uFName" name="uFName" type="text" placeholder="First Name"
+                          class="form-control input-md">
+                        <% }else{%>
+                          <input id="uFName" name="uFName" type="text" placeholder="First Name"
+                            class="form-control input-md" value="<%=pd.uFName%>">
+                          <%}%>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-user ">
+                        </i>
+                      </div>
+                      <% if(pd.uLName==null ){%>
+                        <input id="uLName" name="uLName" type="text" placeholder="Last Name"
+                          class="form-control input-md">
+                        <% }else{%>
+                          <input id="uLName" name="uLName" type="text" placeholder="Last Name"
+                            class="form-control input-md" value="<%=pd.uLName%>">
+                          <% }%>
+                    </div>
+                  </div>
+
+
+                  <!-- DOB -->
+                  <div class="form-group">
+                    <label class="control-label" for="Date Of Birth">
+                      Date Of Birth
+                    </label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-birthday-cake "></i>
+                      </div>
+                      <% if(pd.uDOB==null ){%>
+                        <input id="uDOB" name="uDOB" type="date" placeholder="Date Of Birth"
+                          class="form-control input-md">
+                        <% }else{%>
+                          <input id="uDOB" name="uDOB" type="date" placeholder="Date Of Birth"
+                            class="form-control input-md" value="<%=pd.uDOB%>">
+                          <% }%>
+                    </div>
+
+                  </div>
+                  <div class="form-group ">
+                    <label class="control-label col-xs-12" for="Current Address">Current Address</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-map-pin"></i>
+                      </div>
+                      <% if(pd.uPAddress==null ){%>
+                        <textarea placeholder="current address" class="form-control" rows="2" id="uPAddress"
+                          name="uPAddress"></textarea>
+                        <% }else{%>
+                          <textarea placeholder="current address" class="form-control" rows="2" id="uPAddress"
+                            name="uPAddress"><%=pd.uPAddress%></textarea>
+                          <% }%>
+                    </div>
+
+                  </div>
+
+
+                  <!-- phone number-->
+                  <div class="form-group pt-2">
+                    <label class="control-label col-xs-12" for="Phone number ">Phone number </label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-phone"></i>
+                      </div>
+                      <% if(pd.uMobile==null ){%>
+                        <input id="uPhone" name="uPhone" type="text" placeholder="Primary Phone number "
+                          class="form-control input-md">
+                        <% }else{%>
+                          <input id="uPhone" name="uPhone" type="text" placeholder="Primary Phone number "
+                            class="form-control input-md" value="<%=pd.uMobile%>">
+                          <% }%>
+                    </div>
+
+                  </div>
+
+
+
+                  <!-- NIC:Text input-->
+                  <div class="form-group">
+                    <label class="control-label" for="Citizenship No.">National Id</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-id-card"></i>
+                      </div>
+                      <% if(pd.uNIC==null ){%>
+                        <input id="uNIC" name="uNIC" type="text" placeholder="National Id."
+                          class="form-control input-md">
+                        <% }else{%>
+                          <input id="uNIC" name="uNIC" type="text" placeholder="National Id."
+                            class="form-control input-md" value="<%=pd.uNIC%>">
+                          <% }%>
+                    </div>
+                  </div>
+
+                  <!-- Gender : Multiple Radios (inline) -->
+                  <div class="form-group">
+                    <label class="control-label" for="radios">Gender:</label>
+                    <div class="container">
+                      <label class="radio-inline" for="Gender-0">
+                        <input type="radio" name="uGender" id="uGender-0" value="Male" <%=(pd.uGender=="Male"
+                          )?"CHECKED":"" %> >
+                        Male
+                      </label>
+                      <br>
+                      <label class="radio-inline" for="Gender-1">
+                        <input type="radio" name="uGender" id="uGender-1" value="Female" <%=(pd.uGender=="Female"
+                          )?"CHECKED":"" %> >
+                        Female
+                      </label>
+                      <br>
+                      <label class="radio-inline" for="Gender-2">
+                        <input type="radio" name="uGender" id="uGender-2" value="Other" <%=(pd.uGender=="Other"
+                          )?"CHECKED":"" %>>
+                        Other
+                      </label>
+                    </div>
+
+                  </div>
+
+                  <!-- Marital Status:Multiple Radios (inline) -->
+                  <div class="form-group">
+                    <label class="control-label" for="radios">Marital Status:</label>
+                    <div class="container">
+
+                      <label class="radio-inline" for="radios-0">
+                        <input type="radio" name="uMaritalStatus" id="radios-0" value="Single"
+                          <%=(pd.uMaritalStatus=="Single" )?"CHECKED":"" %>>
+                        Single
+                      </label>
+                      <br>
+                      <label class="radio-inline" for="radios-1">
+                        <input type="radio" name="uMaritalStatus" id="radios-1" value="Married"
+                          <%=(pd.uMaritalStatus=="Married" )?"CHECKED":"" %>>
+                        Married
+                      </label>
+                      <br>
+                      <label class="radio-inline" for="radios-1">
+                        <input type="radio" name="uMaritalStatus" id="radios-2" value="Divorced"
+                          <%=(pd.uMaritalStatus=="Divorced" )?"CHECKED":"" %>>
+                        Divorced
+                      </label>
+                      <br>
+                      <label class="radio-inline" for="radios-1">
+                        <input type="radio" name="uMaritalStatus" id="radios-3" value="Widowed"
+                          <%=(pd.uMaritalStatus=="Widowed" )?"CHECKED":"" %>>
+                        Widowed
+                      </label>
+                    </div>
+                  </div>
+
+
+                </fieldset>
+
+          </div>
+
+          <div class="col-md-5 pt-4 pl-4">
+            <!-- Languages: Multiple Checkboxes -->
+            <% if(pd.uLanguage==null || pd.uLanguage=="{}" ){%>
+              <div class="form-group">
+                <label class="control-label" for="Languages Known">Languages Known</label>
+                <div class="checkbox pl-2">
+                  <label for="Languages Known-0">
+                    <input type="checkbox" name="uLanguage" class="uLanguage" id="Languages Known-0" value="Sinhala">
+                    Sinhala
+                  </label>
+                </div>
+                <div class="checkbox pl-2">
+                  <label for="Languages Known-1">
+                    <input type="checkbox" name="uLanguage" class="uLanguage" id="Languages Known-1" value="Tamil">
+                    Tamil
+                  </label>
+                </div>
+                <div class="checkbox pl-2">
+                  <label for="Languages Known-2">
+                    <input type="checkbox" name="uLanguage" class="uLanguage" id="Languages Known-2" value="English">
+                    English
+                  </label>
+                </div>
+                <div class="checkbox pl-2">
+                  <label for="Languages Known-3">
+                    <input type="checkbox" name="uLanguage" class="uLanguage" id="uLanguage-other" value="Other">
+                    Other
+                  </label>
+                  <input type="text" class="form-control border-secondary" id="uLanguageTxtInput"
+                    name="other-language-text-input" place-holder="use commas to input multiple languages">
+                </div>
+              </div>
+              <% }else{ %>
+                <% let languages=pd.uLanguage; %>
+                  <% let checkSinhala=false,checkEnglish=false,checkTamil=false;checkOther=false, other=[]; %>
+
+                    <% for(let i=0 ; i< Object.keys(languages).length;i++){ %>
+
+                      <%if(languages[i]=="Sinhala"){%>
+                        <% checkSinhala=true %>
+                          <%}else if(languages[i]=="English" ){%>
+                            <% checkEnglish=true %>
+                              <% }else if(languages[i]=="Tamil" ) {%>
+                                <% checkTamil=true %>
+                                  <% }else{ %>
+                                    <%checkOther=true;%>
+                                      <%other.push(languages[i]);%>
+                                        <%}%>
+
+                                          <% } %>
+
+
+
+                                            <!-- need modifications -->
+                                            <div class="form-group">
+                                              <label class="control-label" for="Languages Known">Languages Known</label>
+                                              <div class="checkbox pl-2">
+                                                <label for="Languages Known-0">
+                                                  <input type="checkbox" name="uLanguage" class="uLanguage"
+                                                    id="Languages Known-0" value="Sinhala"
+                                                    <%=(checkSinhala)?"CHECKED":"" %>
+                                                  >
+                                                  Sinhala
+                                                </label>
+                                              </div>
+                                              <div class="checkbox pl-2">
+                                                <label for="Languages Known-1">
+                                                  <input type="checkbox" name="uLanguage" class="uLanguage"
+                                                    id="Languages Known-1" value="Tamil" <%=(checkTamil)?"CHECKED":"" %>
+                                                  >
+                                                  Tamil
+                                                </label>
+                                              </div>
+                                              <div class="checkbox pl-2">
+                                                <label for="Languages Known-2">
+                                                  <input type="checkbox" name="uLanguage" class="uLanguage"
+                                                    id="Languages Known-2" value="English" <%=(checkEnglish
+                                                    )?"CHECKED":"" %>>
+                                                  English
+                                                </label>
+                                              </div>
+                                              <div class="checkbox pl-2">
+                                                <label for="Languages Known-3">
+                                                  <input type="checkbox" name="uLanguage" class="uLanguage"
+                                                    id="uLanguage-other" value="Other" <%=(checkOther )?"CHECKED":"" %>>
+                                                  Other
+                                                </label>
+                                                <%if(checkOther) {%>
+                                                  <input type="text" class="form-control border-secondary"
+                                                    id="uLanguageTxtInput" name="other-language-text-input"
+                                                    place-holder="use commas to input multiple languages"
+                                                    values=" <%= other%>">
+                                                  <script>
+                                                    document.getElementById('uLanguageTxtInput').style.display = 'block';
+                                                    document.getElementById('uLanguageTxtInput').value = "<%= other%>";
+                                                  </script>
+
+                                              </div>
+                                              <% }%>
+                                            </div>
+                                            <%}%>
+
+
+                                              <!-- overview -->
+                                              <div class="form-group">
+                                                <label class="control-label" for="Overview (max 200 words)">Overview
+                                                  (max 200 words)</label>
+                                                <% if(pd.uOverview==null ){%>
+                                                  <textarea
+                                                    placeholder="This content displaying the houseowners tell them aout your self"
+                                                    class="form-control" rows="10" id="uOverview"
+                                                    name="uOverview"></textarea>
+                                                  <% }else{%>
+                                                    <textarea
+                                                      placeholder="This content displaying the houseowners tell them aout your self"
+                                                      class="form-control" rows="10" id="uOverview"
+                                                      name="uOverview"><%= pd.uOverview %></textarea>
+                                                    <% }%>
+                                              </div>
+
+                                              <p class="pb-3">
+                                                By saving the details, I declare by the laws of state that all
+                                                information
+                                                are
+                                                up to date and accurate
+                                                to
+                                                best of my knowledge
+                                              </p>
+                                              <div class="form-group">
+                                                <label class="control-label"></label>
+
+                                                <!-- <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Save Changes</a> -->
+                                                <button type="submit" class="btn btn-success">Save Changes</button>
+                                              </div>
+
+          </div>
+          </form>
+          <%});%>
+
+        </div>
+      </div>
+      </div>
+    </section>
+    <!-- End of Reqirements -->
+    <!-- end of the personal form details -->
+
+    <!-- service Area -->
+    <section id="service-providing-area">
+      <div class="container">
+        <form>
+
+          <!-- Avialable Service Area -->
+          <div class="form-group">
+            <label class=" control-label" for="Available Service Area">Available Service Area</label>
+            <!-- SSS -->
+
+            <div id="widget">
+              <form>
+                <div class="form-group">
+                  Region : <select onchange="set_country(this,country,city_state)" size="1" name="region">
+                    <option value="" selected="selected">SELECT REGION</option>
+                    <!-- <option value=""></option> -->
+                    <script type="text/javascript">
+                      setRegions(this);
+                    </script>
+                  </select>
+                </div>
+                <div class="form-group">
+                  Country:
+                  <select name="country" size="1" disabled="disabled"
+                    onchange="set_city_state(this,city_state)"></select>
+                </div>
+                <div class="form-group">
+                  City/State:
+                  <select name="city_state" size="1" disabled="disabled"
+                    onchange="print_city_state(country,this)"></select>
+                </div>
+
+              </form>
+              <div id="txtregion"></div>
+              <div id="txtplacename"></div>
+            </div>
+
+            <!-- SSS -->
+
+          </div>
+
+        </form>
+      </div>
+
+    </section>
+    <!-- end of service Area -->
+
+
+
+    <!-- Footer -->
+    <%- include('_housemaid-footer')%>
+      <!-- end of footer -->
+
+
+
+
+
+
+
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <!-- new jQuery -->
+      <<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+        <!-- bootstrap toggle button -->
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <!-- ajax JavaScript -->
+        <script type="text/javascript" src="/maid_myaccount_update_ajax.js"></script>
+
+</body>
+
+</html>

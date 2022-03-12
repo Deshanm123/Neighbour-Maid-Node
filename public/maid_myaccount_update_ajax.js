@@ -1,5 +1,6 @@
 
-const form = document.getElementById('maid-personal-details-form');
+const updateForm = document.getElementById('maid-personal-update-form');
+
 
 // const uId = document.getElementById('uId');
 const uFName = document.getElementById('uFName');
@@ -133,7 +134,7 @@ $(document).ready(() => {
 
   $('#message').hide();
 
-  form.addEventListener('submit', function (e) {
+  updateForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     let checkedLanguages = getLanguages();
@@ -162,8 +163,8 @@ $(document).ready(() => {
     // if (true) {
     // allow form submission
     $.ajax({
-      type: "POST",
-      url: "/housemaid/myAccount/",
+      type: "PUT",
+      url: "/housemaid/myAccount/edit",
       contentType: "application/json",
       data: JSON.stringify({
         id: 222,
@@ -180,7 +181,7 @@ $(document).ready(() => {
       }),
       success: (res) => {
         $('#message').show();
-        $('#message-area').html(res.msg );
+        $('#message-area').html(res.msg);
       }
     })
   });

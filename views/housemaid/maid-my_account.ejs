@@ -40,6 +40,21 @@
   <!-- navbar -->
   <%- include('_housemaid-nav')%>
     <!-- end of navbar -->
+<!-- alert message :sucessfull-->
+<div class=container" id="message">
+  <div class="alert alert-success alert-dismissible fade show py-3 text-center" role="alert" id="alert-role"
+        id="message">
+        <strong id="message-area">Holy guacamole!</strong> .
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  <!-- alert message -->
+
+
+
 
     <!-- requirements-section -->
     <section id="requirements-section">
@@ -63,8 +78,8 @@
                     <span class="text-black-50">
                       <%= user.userEmail%>
                     </span>
-                    <!-- File Button -->
 
+                    <!-- image upload form -->
                     <form action="/housemaid/myAccount/profileImg/upload" enctype="multipart/form-data" method="POST">
                       <div class="form-group pt-3">
                         <div class="col-md-3">
@@ -73,8 +88,6 @@
                         <button type="submit" class="btn pl-1">Upload Photo</button>
                       </div>
                     </form>
-
-
             </div>
           </div>
 
@@ -86,7 +99,6 @@
               <fieldset>
                 <!-- Form Name -->
                 <div class="form-group">
-
                   <label class="control-label" for="Name">Name</label>
                   <div class="input-group">
                     <div class="input-group-addon">
@@ -106,6 +118,7 @@
                     </div>
                     <input id="uLName" name="uLName" type="text" placeholder="Last Name" class="form-control input-md">
                   </div>
+
                 </div>
 
 
@@ -165,17 +178,17 @@
                   <label class="control-label" for="radios">Gender:</label>
                   <div class="container">
                     <label class="radio-inline" for="Gender-0">
-                      <input type="radio" name="uGender" id="uGender-0" value="1">
+                      <input type="radio" name="uGender" id="uGender-0" value="Male">
                       Male
                     </label>
                     <br>
                     <label class="radio-inline" for="Gender-1">
-                      <input type="radio" name="uGender" id="uGender-1" value="2">
+                      <input type="radio" name="uGender" id="uGender-1" value="Female">
                       Female
                     </label>
                     <br>
                     <label class="radio-inline" for="Gender-2">
-                      <input type="radio" name="uGender" id="uGender-2" value="3">
+                      <input type="radio" name="uGender" id="uGender-2" value="Other">
                       Other
                     </label>
                   </div>
@@ -188,35 +201,28 @@
                   <div class="container">
 
                     <label class="radio-inline" for="radios-0">
-                      <input type="radio" name="uMaritalStatus" id="radios-0" value="1">
+                      <input type="radio" name="uMaritalStatus" id="radios-0" value="Single">
                       Single
                     </label>
                     <br>
                     <label class="radio-inline" for="radios-1">
-                      <input type="radio" name="uMaritalStatus" id="radios-1" value="2">
+                      <input type="radio" name="uMaritalStatus" id="radios-1" value="Married">
                       Married
                     </label>
                     <br>
                     <label class="radio-inline" for="radios-1">
-                      <input type="radio" name="uMaritalStatus" id="radios-2" value="3">
+                      <input type="radio" name="uMaritalStatus" id="radios-2" value="Divorced">
                       Divorced
                     </label>
                     <br>
                     <label class="radio-inline" for="radios-1">
-                      <input type="radio" name="uMaritalStatus" id="radios-3" value="4">
+                      <input type="radio" name="uMaritalStatus" id="radios-3" value="Widowed">
                       Widowed
                     </label>
                   </div>
                 </div>
-
-
               </fieldset>
-
           </div>
-          <!-- ------------------------------------------------------------ -->
-
-          <!-- experience -->
-
 
           <div class="col-md-5 pt-4 pl-4">
             <!-- Languages: Multiple Checkboxes -->
@@ -242,7 +248,7 @@
               </div>
               <div class="checkbox pl-2">
                 <label for="Languages Known-3">
-                  <input type="checkbox" name="uLanguage" class="uLanguage" id="other" value="Other">
+                  <input type="checkbox" name="uLanguage" class="uLanguage" id="uLanguage-other" value="Other">
                   Other
                 </label>
                 <input type="text" class="form-control border-secondary" id="uLanguageTxtInput"
@@ -294,6 +300,7 @@
     <!-- End of Reqirements -->
     </form>
     <!-- end of the personal form details -->
+
 
     <!-- service Area -->
     <section id="service-providing-area">
@@ -355,21 +362,21 @@
 
 
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-      <!-- bootstrap toggle button -->
-      <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-      <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-      <!-- ajax JavaScript -->
-      <script type="text/javascript" src="/maid_myaccount_ajax.js"></script>
+      <!-- new jQuery -->
+      <<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+        <!-- bootstrap toggle button -->
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <!-- ajax JavaScript -->
+        <script type="text/javascript" src="/maid_myaccount_ajax.js"></script>
 
 </body>
 

@@ -111,6 +111,80 @@ class Housemaid {
   }
 
 
+  static addPersonalDetails(input, userId) {
+
+    const { uFName, uLName, uDOB, uPAddress, uPhone, uNIC, uGender, uLanguage, uMaritalStatus, uOverview } = input
+    //  converting json language
+    let languagejson = JSON.stringify(Object.assign({}, uLanguage));
+
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(
+          "INSERT INTO user_personal_details_tb(uId,uFName,uLName,uDOB,uPAddress,uMobile,uNIC,uGender,uMaritalStatus,uLanguage,uOverview) VALUES(?,?,?,?,?,?,?,?,?,?,?)", [userId, uFName, uLName, uDOB, uPAddress, uPhone, uNIC, uGender, uMaritalStatus, languagejson, uOverview]
+          , (err, rows) => {
+            // return connection to the pool
+            connection.release();
+            if (!err) {
+              resolve(rows);
+            }
+            else {
+              reject(err);
+            }
+          });
+      });
+    });
+  }
+
+  static updatePersonalDetails(input, userId) {
+
+    const { uFName, uLName, uDOB, uPAddress, uPhone, uNIC, uGender, uLanguage, uMaritalStatus, uOverview } = input
+    //  converting json language
+    let languagejson = JSON.stringify(Object.assign({}, uLanguage));
+
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(
+          "UPDATE user_personal_details_tb SET uFName = ? ,uLName =? ,uDOB = ? ,uPAddress = ? ,uMobile = ? ,uNIC = ?,uGender = ? ,uMaritalStatus = ? ,uLanguage =?,uOverview = ?  WHERE uId = ?", [uFName, uLName, uDOB, uPAddress, uPhone, uNIC, uGender, uMaritalStatus, languagejson, uOverview, userId]
+          , (err, rows) => {
+            // return connection to the pool
+            connection.release();
+            if (!err) {
+              resolve(rows);
+            }
+            else {
+              reject(err);
+            }
+          });
+      });
+    });
+  }
+
+
+  static getPersonalDetails(userId) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(
+          "SELECT * FROM user_personal_details_tb WHERE uId =?", [userId], (err, rows) => {
+            // return connection to the pool
+            connection.release();
+            if (!err) {
+              resolve(rows);
+            }
+            else {
+              reject(err);
+            }
+          });
+      });
+    });
+  }
+
+
+
+
+
 
 
 

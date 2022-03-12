@@ -10,6 +10,9 @@ router.get('*', tokenUserInfoAccess)
 router.get('/', requireAuth, (req, res) => {
   res.render('housemaid/maid-dashboard');
 });
+router.get('/portifolio', requireAuth, (req, res) => {
+  res.render('housemaid/maid-view_my_account');
+});
 
 // logout
 router.get('/logout', requireAuth, housemaidController.logOut);
@@ -19,15 +22,17 @@ router.get('/logout', requireAuth, housemaidController.logOut);
 router.get('/courses', requireAuth, housemaidController.getAllCourses);
 router.get('/courses/:id', requireAuth, housemaidController.getSingleCourse);
 
-// myaccount
-router.get('/myAccount', requireAuth,housemaidController.getAccount);
+// myaccount //my account edit  -get directed according to specs
+router.get('/myAccount', requireAuth, housemaidController.getAccount);
+// my accounnt-edit
+router.get('/myAccount/edit', requireAuth, housemaidController.getAccount);
+router.put('/myAccount/edit', requireAuth, housemaidController.puteditAccount);
 
-  
 
 
 
 router.post('/myAccount/profileImg/upload', imgUpload.upload.single('photo'), housemaidController.uploadProfileImg);
-router.post('/myAccount', housemaidController.addDetails);
+router.post('/myAccount', housemaidController.addPersonalDetails);
 
 
 

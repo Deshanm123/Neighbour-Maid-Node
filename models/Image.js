@@ -6,7 +6,6 @@ class Image {
 
   // upload
   static uploadImage(fileName, userId) {
-    userId = 'a94dd8e6-831e-43ef-addd-403ff21bcb5a';
     return new Promise((resolve, reject) => {
       pool.getConnection((err, connection) => {
         if (err) throw ` Pool Connection Error:${err}`;
