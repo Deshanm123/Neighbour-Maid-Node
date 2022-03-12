@@ -34,7 +34,7 @@ exports.logOut = (req, res) => {
 exports.getAllCourses = async (req, res,) => {
   try {
     let courses = await Coursemodel.getAvialableCourses();
-
+    res.status(200).render('housemaid/courses-list', { courses: courses });
   } catch (error) {
     res.status(404);
     console.log(error);
@@ -201,3 +201,37 @@ exports.puteditAccount = async (req, res) => {
 //     throw 'image is not found';
 //   }
 // }
+
+
+// ///////////////////////////////////////////////////PORTIFOLIO///////////////////////////////////////////////////
+exports.viewPortifolio = async (req, res) => {
+
+  let userImg = null;
+  let token = req.cookies.jwt;
+  let userId = await this.userIdFromToken(token);
+  // console.log(userId);
+  let imgUrl = await Image.getProfilePhotorById(userId);
+
+  if (imgUrl.length > 0) {
+    userImg = imgUrl[0].profileImg;
+  }
+
+  let personalDetails = await Housemaid.getPersonalDetails(userId);
+  res.render('housemaid/maid-view_my_account', { profileImg: userImg, personalDetails: personalDetails });
+
+}
+
+
+
+
+
+
+
+
+
+// ///////////////////////////////////////////////////ENND OF PORTIFOLIO///////////////////////////////////////////////////
+
+
+
+////////////////////////////////// service Location///////////////////////////////////////////////////////////////
+//////////////////////////////////services///////////////////////////////////////////////////////////////
