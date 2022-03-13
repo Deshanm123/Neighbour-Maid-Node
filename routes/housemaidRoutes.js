@@ -27,11 +27,16 @@ router.get('/myAccount', requireAuth, housemaidController.getAccount);
 router.get('/myAccount/edit', requireAuth, housemaidController.getAccount);
 router.put('/myAccount/edit', requireAuth, housemaidController.puteditAccount);
 
-
-
-
 router.post('/myAccount/profileImg/upload', imgUpload.upload.single('photo'), housemaidController.uploadProfileImg);
 router.post('/myAccount', housemaidController.addPersonalDetails);
+
+
+// myservices
+router.get('/myService', requireAuth, housemaidController.getMyService);
+
+
+
+
 
 
 

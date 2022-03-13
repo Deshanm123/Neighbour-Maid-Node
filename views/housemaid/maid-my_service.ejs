@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+
+  <!-- essentials for leaflet map -->
+  <!-- leafletjs css -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <!-- leafletjs js -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+  <!-- page title -->
+  <title>NeighbourMaid | Home</title>
+  <script type="text/javascript" src="/city_state.js"></script>
+
+  <style>
+    * {
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- navbar -->
+
+  <%- include('_housemaid-nav')%>
+
+    <!-- service provide section -->
+    <section id="service-providing-area">
+
+      <div class="container">
+        <h1 class="text-center">My Service</h1>
+        <form id="services" action="">
+
+          <!-- Vacant Nature -->
+          <div class="form-group ">
+            <label for="skills" class="col-sm-2 col-form-label font-weight-bold">Vacant nature</label>
+            <select class="form-select form-control  border-dark" aria-label="Default select example">
+              <option value="1">FullTime</option>
+              <option value="2">Part Time</option>
+            </select>
+          </div>
+
+          <!-- Skill input -->
+          <div class="form-group row">
+            <label for="skills" class="col-sm-2 col-form-label font-weight-bold">Skills</label>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div id="inputFormRow">
+                    <div class="input-group  mb-3">
+                      <input type="text" name="title[]" class="form-control m-input  border-info skill-input"
+                        placeholder="Enter your skills" autocomplete="off" value="Cleaning">
+                      <div class="input-group-append">
+                        <button id="removeRow" type="button" class="btn btn-danger" onclick="remove()">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="inputFormRow">
+                    <div class="input-group  mb-3">
+                      <input type="text" name="title[]" class="form-control m-input  border-info skill-input"
+                        placeholder="Enter your skills" autocomplete="off" value="Cooking">
+                      <div class="input-group-append">
+                        <button id="removeRow" type="button" class="btn btn-danger" onclick="remove()">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="inputFormRow">
+                    <div class="input-group  mb-3">
+                      <input type="text" name="title[]" class="form-control m-input  border-info skill-input"
+                        placeholder="Enter your skills like Babysitting, Gardening " autocomplete="off">
+                      <div class="input-group-append">
+                        <button id="removeRow" type="button" class="btn btn-danger" onclick="remove()">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="newRow"></div>
+                  <button id="addRow" type="button" class="btn btn-info">Add Skills </button>
+                </div>
+                <div class="col-md-6">
+                  <img width="100%" src="\contact-us-sm.jpg">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Avialable Service Area -->
+          <div class="form-group">
+            <label class=" control-label font-weight-bold" for="Available Service Area">Available Service Area</label>
+            <div id="widget">
+              <!-- <form> -->
+              <!-- <div class="form-group"> -->
+              Region : <select onchange="set_country(this,country,city_state)" size="1" name="region"
+                class="form-select form-control  border-dark">
+                <option value="" selected="selected">SELECT REGION</option>
+                <!-- <option value=""></option> -->
+                <script type="text/javascript">
+                  setRegions(this);
+                </script>
+              </select>
+              <!-- </div> -->
+              <!-- <div class="form-group"> -->
+              Country:
+              <select name="country" size="1" disabled="disabled" onchange="set_city_state(this,city_state)"
+                class="form-select form-control  border-dark"></select>
+              <!-- </div> -->
+              <!-- <div class="form-group"> -->
+              City/State:
+              <select name="city_state" size="1" disabled="disabled" onchange="print_city_state(country,this)"
+                class="form-select form-control  border-dark"></select>
+              <!-- </div> -->
+
+              <div class="d-flex justify-content-end" id="txtregion"></div>
+              <div class="d-flex justify-content-end" id="txtplacename"></div>
+            </div>
+          </div>
+
+          <div class="container" id="map-region">
+
+            <p class="font-weight-bold">Please Click "Find My Location" to get your coordinates. Please drag the marker
+              to pinpoint the exact location </p>
+            <div class="align-self-center mx-auto">
+              <button class="btn  btn-dark" onclick="getLocation()">Find My Location</button>
+            </div>
+            <p id="x"></p>
+            <div id="map" style="height:500px;" class="mb-3"></div>
+          </div>
+
+          <button class="btn btn-primary my-4 p-2" type="submit"> submit </button>
+        </form>
+
+      </div>
+    </section>
+
+    <!-- service provide section -->
+
+
+
+
+    <!-- view Profile -->
+    <%- include('_housemaid-footer')%>
+      <!-- end of footer -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <!-- new jQuery -->
+      <<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+        <!-- bootstrap toggle button -->
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <!-- ajax JavaScript -->
+        <script type="text/javascript" src="/housemaid_map_script.js"></script>
+        <script type="text/javascript">
+          // add row
+          $("#addRow").click(() => {
+            var html = '';
+            html += '<div id="inputFormRow">';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" name="title[]" class="form-control m-input border-info skill-input" placeholder="Enter title" autocomplete="off">';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeRow" type="button" class="btn btn-danger" onclick="remove()">Remove</button>';
+            html += '</div>';
+            html += '</div>';
+
+            $('#newRow').append(html);
+          });
+
+          // remove row
+
+          $(document).on('click', '#removeRow', (e) => {
+            e.target.parentNode.parentNode.remove();
+          });
+
+
+          function remove() {
+            console.log('remove');
+            //$(this).closest('#inputFormRow').remove();
+          }
+
+
+          $(document).ready(() => {
+
+
+            $("#services").submit((e) => {
+              const skillInputs = document.querySelectorAll('.skill-input');
+              skillInputs.forEach((input) => {
+                console.log(input.value);
+              })
+
+              e.preventDefault();
+            });
+
+
+          });
+
+        </script>
+
+</body>
+
+</html>

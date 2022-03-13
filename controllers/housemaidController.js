@@ -220,16 +220,38 @@ exports.viewPortifolio = async (req, res) => {
   res.render('housemaid/maid-view_my_account', { profileImg: userImg, personalDetails: personalDetails });
 
 }
-
-
-
-
-
-
-
-
-
 // ///////////////////////////////////////////////////ENND OF PORTIFOLIO///////////////////////////////////////////////////
+// /////////////////////////////////////////MY Services/////////////////////////////////////////////
+exports.getMyService = async (req, res) => {
+  // let userImg = null;
+  // let token = req.cookies.jwt;
+  // let userId = await this.userIdFromToken(token);
+  // // console.log(userId);
+  // let imgUrl = await Image.getProfilePhotorById(userId);
+
+  // if (imgUrl.length > 0) {
+  //   userImg = imgUrl[0].profileImg;
+  // }
+  // let personalDetails = await Housemaid.getPersonalDetails(userId);
+  // // if user details available direct to edit page
+  // if (personalDetails.length > 0) {
+  //   res.status(200).render('housemaid/maid-my_account_edit', { profileImg: userImg, personalDetails: personalDetails });
+  // } else {
+  //   // if user is new direct to the  new entry page
+  //   res.status(200).render('housemaid/maid-my_account', { profileImg: userImg });
+  // }
+  res.status(200).render('housemaid/maid-my_service');
+}
+
+
+
+// /////////////////////////////////////////MY Services/////////////////////////////////////////////
+
+
+
+
+
+
 
 
 
