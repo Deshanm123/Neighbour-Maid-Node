@@ -1,5 +1,9 @@
 let latitude;
 let longitude;
+// declaring  as global variable so the myservice ajax .js can access it 
+
+const lat_P = document.getElementById('lat');
+const long_P = document.getElementById('long');
 
 var options = {
   enableHighAccuracy: true,
@@ -10,7 +14,7 @@ var options = {
 
 
 function mapIt(latitude, longitude) {
-  x.innerHTML = " ";
+
   let marker;
   var map = L.map('map').setView([latitude, longitude], 17);
 
@@ -27,12 +31,17 @@ function mapIt(latitude, longitude) {
 
   marker.on('dragend', function (event) {
     var latlng = event.target.getLatLng();
+    // console.log(latlng)
     latitude = latlng.lat;
     longitude = latlng.lng;
-    x.innerHTML = "Latitude: " + latitude + "<br>Longitude: " + longitude;
+    // x.innerHTML = "Latitude: " + latitude + "<br>Longitude: " + longitude;
+    // $("#lat").innerHTML = latlng.lat;
+    // $("#long").innerHTML = latlng.lat;
+    lat_P.innerHTML = latitude;
+    long_P.innerHTML = longitude;
   });
 
-  
+
 }
 
 
@@ -58,17 +67,18 @@ function showError(error) {
 
 
 function getLocation() {
-  
 
   if (navigator.geolocation) {
     // navigator.geolocation.getCurrentPosition(success, error, options);
     navigator.geolocation.getCurrentPosition((position) => {
       latitude = position.coords.latitude;
       longitude = position.coords.longitude;
-      mapIt(latitude, longitude)
+      // initial location values  //important
+      lat_P.innerHTML = latitude;
+      long_P.innerHTML = longitude;
 
-    }
-      , showError, options);
+      mapIt(latitude, longitude);
+    }, showError, options);
 
   } else {
     map.innerHTML = "Geolocation is not supported by this browser.";
@@ -83,8 +93,6 @@ function getLocation() {
 
 //    Mapit(latitude, longitude);
 // }
-
-
 
 
 

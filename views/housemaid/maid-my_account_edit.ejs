@@ -20,6 +20,7 @@
 
   <style>
     * {
+
       font-size: 16px;
     }
 
@@ -32,6 +33,7 @@
     }
 
     #uLanguageTxtInput {
+
       display: none;
     }
   </style>
@@ -302,7 +304,7 @@
                     Other
                   </label>
                   <input type="text" class="form-control border-secondary" id="uLanguageTxtInput"
-                    name="other-language-text-input" place-holder="use commas to input multiple languages">
+                    name="uLanguageTxtInput" place-holder="use commas to input multiple languages">
                 </div>
               </div>
               <% }else{ %>
@@ -310,103 +312,111 @@
                   <% let checkSinhala=false,checkEnglish=false,checkTamil=false;checkOther=false, other=[]; %>
 
                     <% for(let i=0 ; i< Object.keys(languages).length;i++){ %>
-
-                      <%if(languages[i]=="Sinhala"){%>
-                        <% checkSinhala=true %>
-                          <%}else if(languages[i]=="English" ){%>
-                            <% checkEnglish=true %>
-                              <% }else if(languages[i]=="Tamil" ) {%>
-                                <% checkTamil=true %>
-                                  <% }else{ %>
-                                    <%checkOther=true;%>
-                                      <%other.push(languages[i]);%>
-                                        <%}%>
-
-                                          <% } %>
+                      <% console.log(languages[i])%>
+                        <%if(languages[i]=="Sinhala"){%>
+                          <% checkSinhala=true %>
+                            <%}else if(languages[i]=="English" ){%>
+                              <% checkEnglish=true %>
+                                <% }else if(languages[i]=="Tamil" ) {%>
+                                  <% checkTamil=true %>
+                                    <% }else{ %>
+                                      <%checkOther=true;%>
 
 
+                                        <%other.push(languages[i]);%>
+                                          <%}%>
 
-                                            <!-- need modifications -->
-                                            <div class="form-group">
-                                              <label class="control-label" for="Languages Known">Languages Known</label>
-                                              <div class="checkbox pl-2">
-                                                <label for="Languages Known-0">
-                                                  <input type="checkbox" name="uLanguage" class="uLanguage"
-                                                    id="Languages Known-0" value="Sinhala"
-                                                    <%=(checkSinhala)?"CHECKED":"" %>
-                                                  >
-                                                  Sinhala
-                                                </label>
-                                              </div>
-                                              <div class="checkbox pl-2">
-                                                <label for="Languages Known-1">
-                                                  <input type="checkbox" name="uLanguage" class="uLanguage"
-                                                    id="Languages Known-1" value="Tamil" <%=(checkTamil)?"CHECKED":"" %>
-                                                  >
-                                                  Tamil
-                                                </label>
-                                              </div>
-                                              <div class="checkbox pl-2">
-                                                <label for="Languages Known-2">
-                                                  <input type="checkbox" name="uLanguage" class="uLanguage"
-                                                    id="Languages Known-2" value="English" <%=(checkEnglish
-                                                    )?"CHECKED":"" %>>
-                                                  English
-                                                </label>
-                                              </div>
-                                              <div class="checkbox pl-2">
-                                                <label for="Languages Known-3">
-                                                  <input type="checkbox" name="uLanguage" class="uLanguage"
-                                                    id="uLanguage-other" value="Other" <%=(checkOther )?"CHECKED":"" %>>
-                                                  Other
-                                                </label>
-                                                <%if(checkOther) {%>
-                                                  <input type="text" class="form-control border-secondary"
-                                                    id="uLanguageTxtInput" name="other-language-text-input"
-                                                    place-holder="use commas to input multiple languages"
-                                                    values=" <%= other%>">
-                                                  <script>
-                                                    document.getElementById('uLanguageTxtInput').style.display = 'block';
-                                                    document.getElementById('uLanguageTxtInput').value = "<%= other%>";
-                                                  </script>
-
-                                              </div>
-                                              <% }%>
-                                            </div>
-                                            <%}%>
+                                            <% } %>
+                                              <!-- end of for loop -->
 
 
-                                              <!-- overview -->
+                                              <!-- need modifications -->
                                               <div class="form-group">
-                                                <label class="control-label" for="Overview (max 200 words)">Overview
-                                                  (max 200 words)</label>
-                                                <% if(pd.uOverview==null ){%>
-                                                  <textarea
-                                                    placeholder="This content displaying the houseowners tell them aout your self"
-                                                    class="form-control" rows="10" id="uOverview"
-                                                    name="uOverview"></textarea>
-                                                  <% }else{%>
+                                                <label class="control-label" for="Languages Known">Languages
+                                                  Known</label>
+                                                <div class="checkbox pl-2">
+                                                  <label for="Languages Known-0">
+                                                    <input type="checkbox" name="uLanguage" class="uLanguage"
+                                                      id="Languages Known-0" value="Sinhala"
+                                                      <%=(checkSinhala)?"CHECKED":"" %>
+                                                    >
+                                                    Sinhala
+                                                  </label>
+                                                </div>
+                                                <div class="checkbox pl-2">
+                                                  <label for="Languages Known-1">
+                                                    <input type="checkbox" name="uLanguage" class="uLanguage"
+                                                      id="Languages Known-1" value="Tamil" <%=(checkTamil)?"CHECKED":""
+                                                      %>
+                                                    >
+                                                    Tamil
+                                                  </label>
+                                                </div>
+                                                <div class="checkbox pl-2">
+                                                  <label for="Languages Known-2">
+                                                    <input type="checkbox" name="uLanguage" class="uLanguage"
+                                                      id="Languages Known-2" value="English" <%=(checkEnglish
+                                                      )?"CHECKED":"" %>>
+                                                    English
+                                                  </label>
+                                                </div>
+                                                <div class="checkbox pl-2">
+                                                  <label for="Languages Known-3">
+                                                    <input type="checkbox" name="uLanguage" class="uLanguage"
+                                                      id="uLanguage-other" value="Other" <%=(checkOther )?"CHECKED":""
+                                                      %>>
+                                                    Other
+                                                  </label>
+                                                  <%if(checkOther) {%>
+                                                    <input type="text" class="form-control border-secondary"
+                                                      id="uLanguageTxtInput" name="other-language-text-input"
+                                                      place-holder="use commas to input multiple languages"
+                                                      values=" <%= other%>">
+                                                    <script>
+                                                      document.getElementById('uLanguageTxtInput').style.display = 'block';
+                                                      document.getElementById('uLanguageTxtInput').value = "<%= other%>";
+                                                    </script>
+
+                                                    <% }%>
+                                                </div>
+                                              </div>
+
+
+                                              <%}%>
+                                                <!-- //end of language else stattement -->
+
+
+                                                <!-- overview -->
+                                                <div class="form-group">
+                                                  <label class="control-label" for="Overview (max 200 words)">Overview
+                                                    (max 200 words)</label>
+                                                  <% if(pd.uOverview==null ){%>
                                                     <textarea
                                                       placeholder="This content displaying the houseowners tell them aout your self"
                                                       class="form-control" rows="10" id="uOverview"
-                                                      name="uOverview"><%= pd.uOverview %></textarea>
-                                                    <% }%>
-                                              </div>
+                                                      name="uOverview"></textarea>
+                                                    <% }else{%>
+                                                      <textarea
+                                                        placeholder="This content displaying the houseowners tell them aout your self"
+                                                        class="form-control" rows="10" id="uOverview"
+                                                        name="uOverview"><%= pd.uOverview %></textarea>
+                                                      <% }%>
+                                                </div>
 
-                                              <p class="pb-3">
-                                                By saving the details, I declare by the laws of state that all
-                                                information
-                                                are
-                                                up to date and accurate
-                                                to
-                                                best of my knowledge
-                                              </p>
-                                              <div class="form-group">
-                                                <label class="control-label"></label>
+                                                <p class="pb-3">
+                                                  By saving the details, I declare by the laws of state that all
+                                                  information
+                                                  are
+                                                  up to date and accurate
+                                                  to
+                                                  best of my knowledge
+                                                </p>
+                                                <div class="form-group">
+                                                  <label class="control-label"></label>
 
-                                                <!-- <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Save Changes</a> -->
-                                                <button type="submit" class="btn btn-success">Save Changes</button>
-                                              </div>
+                                                  <!-- <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Save Changes</a> -->
+                                                  <button type="submit" class="btn btn-success">Save Changes</button>
+                                                </div>
 
           </div>
           </form>

@@ -37,7 +37,8 @@
 <body>
   <!-- navbar -->
 
-
+  <!-- PORTTIFOLIO -->
+  <!-- TO DO : DIsable porttifolio if user hasnott entered details PORTTIFOLIO -->
 
   <%- include('_housemaid-nav')%>
 
@@ -190,16 +191,16 @@
               //console.log();
               // var birthday = new Date(1998, 04, 01)
               let birthday = '<%= personalDetails[0].uDOB %>';
-              
+
               function _calculateAge(inputBirthday) {
-                 // birthday is a date
-                 let birthday =  new Date(inputBirthday);
+                // birthday is a date
+                let birthday = new Date(inputBirthday);
                 var ageDifMs = Date.now() - birthday.getTime();
                 var ageDate = new Date(ageDifMs); // miliseconds from epoch
                 return Math.abs(ageDate.getUTCFullYear() - 1970);
               }
               let age = _calculateAge('<%= personalDetails[0].uDOB %>');
-             // console.log(age);
+              // console.log(age);
               document.getElementById('age').innerHTML = age;
             </script>
 

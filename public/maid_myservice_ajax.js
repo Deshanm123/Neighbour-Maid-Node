@@ -1,189 +1,122 @@
 
-const form = document.getElementById('maid-personal-details-form');
-
-// const uId = document.getElementById('uId');
-const uFName = document.getElementById('uFName');
-const uLName = document.getElementById('uLName');
-const uPAddress = document.getElementById('uPAddress');
-const uPhone = document.getElementById('uPhone');
-const uNIC = document.getElementById('uNIC');
-const uGender = document.getElementById('uGender');
-const uMaritalStatus = document.getElementById('uMaritalStatus ');
-const uLanguage = document.getElementById('uLanguage');
-const uRegion = document.getElementById('region');
-const uCountry = document.getElementById('country');
-const uState = document.getElementById('city_state');
-const uOverview = document.getElementById('uOverview');
+// const languageTxtInput = document.getElementById('uLanguageTxtInput');
 
 
-// let readyToSubmit = [];
 
-// Show input error message
-// function showError(input, message) {
-//   input.classList.add('is-invalid');
-//   let x = input.parentNode.querySelector('.invalid-feedback')
-//   x.innerHTML = message;
-// }
+// var languageCheckboxes = document.querySelectorAll("input[type=checkbox][name=uLanguage]");
+// languageCheckboxes.forEach((checkbox) => {
+//   checkbox.addEventListener('change', (e) => {
+//     if (e.target.id == 'uLanguage-other') {
+//       if (e.target.checked) {
+//         languageTxtInput.style.display = "block";
 
-// // Show success outline
-// function showSuccess(input) {
-//   input.classList.add('is-valid')
-// }
-
-
-// // Check required fields
-// function checkRequired(inputArr) {
-//   inputArr.forEach(function (input) {
-
-//     if (input.value.trim() === '') {
-//       readyToSubmit.push(false);
-//       showError(input, `${getFieldName(input)} is required`);
-//     } else {
-//       readyToSubmit.push(true);
-//       showSuccess(input);
+//       } else {
+//         languageTxtInput.style.display = "none";
+//         languageTxtInput.value = '';
+//       }
 //     }
 //   });
+// });
+
+
+// function getLanguages() {
+//   let checkedLanguages = [];
+//   languageCheckboxes.forEach((checkbox) => {
+//     if (checkbox.id == 'uLanguage-other') {
+//       let inputStr = languageTxtInput.value;
+//       let reParttern = /(.+?)(?:,|$)/g; //donot add quotation this REgexp Obj
+//       while (item = reParttern.exec(inputStr)) {
+//         checkedLanguages.push(item[1].trim());
+//       }
+//     } else {
+//       //   //collect information from other check boxes
+//       if (checkbox.checked) {
+//         checkedLanguages.push(checkbox.value);
+//       }
+//     }
+//   });
+//   return checkedLanguages;
 // }
 
-// // // Check input length
-// function checkLength(input, min, max) {
-//   if (input.value.length < min) {
-//     readyToSubmit.push(false);
-//     showError(
-//       input,
-//       `${getFieldName(input)} must be at least ${min} characters`
-//     );
-//   } else if (input.value.length > max) {
-//     readyToSubmit.push(false);
-//     showError(
-//       input,
-//       `${getFieldName(input)} must be less than ${max} characters`
-//     );
-//   } else {
-//     readyToSubmit.push(true);
-//     showSuccess(input);
-//   }
-// }
 
+$("#addRow").click(() => {
+  var html = '';
+  html += '<div id="inputFormRow">';
+  html += '<div class="input-group mb-3">';
+  html += '<input type="text" name="title[]" class="form-control m-input border-info skill-input" placeholder="Enter title" autocomplete="off">';
+  html += '<div class="input-group-append">';
+  html += '<button id="removeRow" type="button" class="btn btn-danger" >Remove</button>';
+  html += '</div>';
+  html += '</div>';
 
-
-// // Get fieldname
-// function getFieldName(input) {
-//   let nameStr;
-//   if (input.id == cPassword) {
-//     nameStr = "confirm password";
-//   }
-//   else if (input.id == userName) {
-//     str = "User Name";
-//   } else {
-//     nameStr = input.id
-//   }
-//   return nameStr;
-// }
-
-// id regex =^([0-9]{9}[x|X|v|V]|[0-9]{12})$ //new and old
-
-
-// checkbox
-
-const languageTxtInput = document.getElementById('uLanguageTxtInput');
-
-
-
-var languageCheckboxes = document.querySelectorAll("input[type=checkbox][name=uLanguage]");
-languageCheckboxes.forEach((checkbox) => {
-  checkbox.addEventListener('change', (e) => {
-    if (e.target.id == 'uLanguage-other') {
-      if (e.target.checked) {
-        languageTxtInput.style.display = "block";
-
-      } else {
-        languageTxtInput.style.display = "none";
-        languageTxtInput.value = '';
-      }
-    }
-  });
+  $('#newRow').append(html);
 });
 
+// remove row
 
-function getLanguages() {
-  let checkedLanguages = [];
-  languageCheckboxes.forEach((checkbox) => {
-    if (checkbox.id == 'uLanguage-other') {
-      let inputStr = languageTxtInput.value;
-      let reParttern = /(.+?)(?:,|$)/g; //donot add quotation this REgexp Obj
-      while (item = reParttern.exec(inputStr)) {
-        checkedLanguages.push(item[1].trim());
-      }
-    } else {
-      //   //collect information from other check boxes
-      if (checkbox.checked) {
-        checkedLanguages.push(checkbox.value);
-      }
+$(document).on('click', '#removeRow', (e) => {
+  e.target.parentNode.parentNode.remove();
+});
+
+const skillInputs = document.querySelectorAll('.skill-input');
+function getSkills() {
+  let skillArr = [];
+  // skills
+  skillInputs.forEach((input) => {
+    if (input.value.trim() !== "") {
+      skillArr.push(input.value);
     }
-  });
-  return checkedLanguages;
+  })
+  return skillArr;
+
 }
 
-
-
-
-
 $(document).ready(() => {
-
   $('#message').hide();
 
-  form.addEventListener('submit', function (e) {
+  $("#maid-service").submit((e) => {
+
     e.preventDefault();
+    let skillArr = getSkills();
 
-    let checkedLanguages = getLanguages();
-    let maritalStatus = $("input[type='radio'][name='uMaritalStatus']:checked").val();
-    let gender = $("input[type='radio'][name='uGender']:checked").val();
+    // // user region
+    let cityState = $('#txtplacename').text().trim().split(',');
+    let city = cityState[0];
+    let country = cityState[1];
+    // console.log(city);
+    // console.log(country);
 
-    // getting values
-    // console.log(checkedLanguages);
-    // console.log(maritalStatus);
-    // console.log(gender);
-
-    // need reset after submit othervise repeatition occur
-
-    // checkRequired([userName, email, password, cPassword]);
-    // checkLength(userName, 3, 15);
-    // checkLength(password, 6, 25);
-    // checkEmail(email);
-    // checkPasswordsMatch(password, cPassword);
-    // let res = true;
-    // readyToSubmit.forEach(flag => {
-    //   res = flag && res;
-    // });
-    // //resetting  
-    // readyToSubmit = [];
-
-    // if (true) {
-    // allow form submission
     $.ajax({
       type: "POST",
-      url: "/housemaid/myAccount/",
+      url: "/housemaid/myService/",
       contentType: "application/json",
       data: JSON.stringify({
-        id: 222,
-        uFName: uFName.value,
-        uLName: uLName.value,
-        uDOB: uDOB.value,
-        uPAddress: uPAddress.value,
-        uPhone: uPhone.value,
-        uNIC: uNIC.value,
-        uMaritalStatus: maritalStatus,
-        uGender: gender,
-        uLanguage: checkedLanguages,
-        uOverview: uOverview.value
+        userEmpService: $('#employment-nature').val(),
+        userSkills: skillArr,
+        userLocContinent: $('#txtregion').text(),
+        userLocCity: city,
+        userLocCountry: country,
+        userLatCoords: $('#lat').text(),
+        userLongCoords: $('#lat').text()
+
       }),
       success: (res) => {
         $('#message').show();
-        $('#message-area').html(res.msg );
+        $('#message-area').html(res.msg);
       }
     })
+
+
   });
-  // });
+
 
 });
+
+
+
+
+    // let checkedLanguages = getLanguages();
+    // let maritalStatus = $("input[type='radio'][name='uMaritalStatus']:checked").val();
+    // let gender = $("input[type='radio'][name='uGender']:checked").val();
+
+

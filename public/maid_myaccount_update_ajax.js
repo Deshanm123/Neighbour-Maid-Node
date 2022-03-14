@@ -100,7 +100,7 @@ languageCheckboxes.forEach((checkbox) => {
 
       } else {
         languageTxtInput.style.display = "none";
-        languageTxtInput.value = '';
+        // please donot make inputt ='' in here
       }
     }
   });
@@ -134,7 +134,29 @@ $(document).ready(() => {
 
   $('#message').hide();
 
+  // let languageTxtInput = document.getElementById('uLanguageTxtInput');
+  // var languageCheckboxes = document.querySelectorAll("input[type=checkbox][name=uLanguage]");
+
+  // languageCheckboxes.forEach((checkbox) => {
+  //   checkbox.addEventListener('change', (e) => {
+  //     if (e.target.id == 'uLanguage-other') {
+  //       if (e.target.checked) {
+  //         languageTxtInput.style.display = "block" ;
+  //       }
+  //     }
+  //         // $('#uLanguageTxtInput').show();
+
+
+
+  //   });
+  // });
+
+
+
+
+
   updateForm.addEventListener('submit', function (e) {
+
     e.preventDefault();
 
     let checkedLanguages = getLanguages();

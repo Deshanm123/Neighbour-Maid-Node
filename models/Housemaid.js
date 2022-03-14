@@ -182,9 +182,35 @@ class Housemaid {
   }
 
 
+  // service dettails
 
+  static addServiceDetails(userId, input) {
 
+  
+    const { userEmpService, userSkills, userLocContinent, userLocCity, userLocCountry, userLatCoords, userLongCoords } = input
 
+    //  converting json language
+    let skillsjson = JSON.stringify(Object.assign({}, userSkills));
+   
+
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(
+          "INSERT INTO maid_service_tb(userId,userEmpService,userSkills,userLocContinent,userLocCity,userLocCountry, userLatCoords, userLongCoords) VALUES(?,?,?,?,?,?,?,?)", [userId, userEmpService, skillsjson, userLocContinent, userLocCity, userLocCountry, userLatCoords, userLongCoords]
+          , (err, rows) => {
+            // return connection to the pool
+            connection.release();
+            if (!err) {
+              resolve(rows);
+            }
+            else {
+              reject(err);
+            }
+          });
+      });
+    });
+  }
 
 
 

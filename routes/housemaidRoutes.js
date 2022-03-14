@@ -33,6 +33,7 @@ router.post('/myAccount', housemaidController.addPersonalDetails);
 
 // myservices
 router.get('/myService', requireAuth, housemaidController.getMyService);
+router.post('/myService', requireAuth, housemaidController.postMyService);
 
 
 

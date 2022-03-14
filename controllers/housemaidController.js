@@ -163,7 +163,7 @@ exports.puteditAccount = async (req, res) => {
       if (result == null) res.redirect('/');
       else {
         let msg = ` Congratualations user:${userId}! We have sucessfully updated  your personal details.`
-        res.status(200).send({ msg: msg });
+        res.status(201).send({ msg: msg });
       }
     } else {
       res.redirect('/');
@@ -223,29 +223,32 @@ exports.viewPortifolio = async (req, res) => {
 // ///////////////////////////////////////////////////ENND OF PORTIFOLIO///////////////////////////////////////////////////
 // /////////////////////////////////////////MY Services/////////////////////////////////////////////
 exports.getMyService = async (req, res) => {
-  // let userImg = null;
-  // let token = req.cookies.jwt;
-  // let userId = await this.userIdFromToken(token);
-  // // console.log(userId);
-  // let imgUrl = await Image.getProfilePhotorById(userId);
-
-  // if (imgUrl.length > 0) {
-  //   userImg = imgUrl[0].profileImg;
-  // }
-  // let personalDetails = await Housemaid.getPersonalDetails(userId);
-  // // if user details available direct to edit page
-  // if (personalDetails.length > 0) {
-  //   res.status(200).render('housemaid/maid-my_account_edit', { profileImg: userImg, personalDetails: personalDetails });
-  // } else {
-  //   // if user is new direct to the  new entry page
-  //   res.status(200).render('housemaid/maid-my_account', { profileImg: userImg });
-  // }
   res.status(200).render('housemaid/maid-my_service');
+}
+
+exports.postMyService = async (req, res) => {
+
+
+  let token = req.cookies.jwt;
+  let userId = await this.userIdFromToken(token);
+
+  try {
+    let result = await Housemaid.addServiceDetails(userId, req.body)
+    if (result == null) res.redirect('/');
+    else {
+      console.log(result);
+      let msg = ` Congratualations user-${userId}! We have sucessfully recorded your service details.`
+      res.status(201).send({ msg: msg });
+    }
+  } catch (error) {
+    res.status(404);
+    console.log(error);
+  }
 }
 
 
 
-// /////////////////////////////////////////MY Services/////////////////////////////////////////////
+// /////////////////////////////////////////MY Services/////////////////////////////////
 
 
 
@@ -254,6 +257,4 @@ exports.getMyService = async (req, res) => {
 
 
 
-
-////////////////////////////////// service Location///////////////////////////////////////////////////////////////
 //////////////////////////////////services///////////////////////////////////////////////////////////////

@@ -39,20 +39,41 @@
   <!-- navbar -->
 
   <%- include('_housemaid-nav')%>
+    <!-- alert -->
+    <div class=container" id="message">
+      <div class="alert alert-success alert-dismissible fade show py-3 text-center" role="alert" id="alert-role"
+        id="message">
+        <strong id="message-area">Holy guacamole!</strong>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- this initialy get hiidden using jquery -->
+    <!-- after sucess ajax ,itt will gett showed witth the message -->
+    <!-- alert -->
+
 
     <!-- service provide section -->
     <section id="service-providing-area">
 
       <div class="container">
         <h1 class="text-center">My Service</h1>
-        <form id="services" action="">
+
+
+
+        <form id="maid-service" method="POST">
 
           <!-- Vacant Nature -->
           <div class="form-group ">
-            <label for="skills" class="col-sm-2 col-form-label font-weight-bold">Vacant nature</label>
-            <select class="form-select form-control  border-dark" aria-label="Default select example">
-              <option value="1">FullTime</option>
-              <option value="2">Part Time</option>
+            <label for="skills" class="col-sm-4 col-form-label font-weight-bold pl-0">Employment nature</label>
+            <!-- //pl-0 is essential -->
+            <select class="form-select form-control  border-dark" aria-label="Default select example"
+              name="employment-nature" id="employment-nature">
+              <option value="Full_Time">FullTime</option>
+              <option value="Part_Time">Part Time</option>
             </select>
           </div>
 
@@ -67,7 +88,7 @@
                       <input type="text" name="title[]" class="form-control m-input  border-info skill-input"
                         placeholder="Enter your skills" autocomplete="off" value="Cleaning">
                       <div class="input-group-append">
-                        <button id="removeRow" type="button" class="btn btn-danger" onclick="remove()">Remove</button>
+                        <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
                       </div>
                     </div>
                   </div>
@@ -76,7 +97,7 @@
                       <input type="text" name="title[]" class="form-control m-input  border-info skill-input"
                         placeholder="Enter your skills" autocomplete="off" value="Cooking">
                       <div class="input-group-append">
-                        <button id="removeRow" type="button" class="btn btn-danger" onclick="remove()">Remove</button>
+                        <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
                       </div>
                     </div>
                   </div>
@@ -85,7 +106,7 @@
                       <input type="text" name="title[]" class="form-control m-input  border-info skill-input"
                         placeholder="Enter your skills like Babysitting, Gardening " autocomplete="off">
                       <div class="input-group-append">
-                        <button id="removeRow" type="button" class="btn btn-danger" onclick="remove()">Remove</button>
+                        <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
                       </div>
                     </div>
                   </div>
@@ -107,7 +128,7 @@
             <div id="widget">
               <!-- <form> -->
               <!-- <div class="form-group"> -->
-              Region : <select onchange="set_country(this,country,city_state)" size="1" name="region"
+              Continent : <select onchange="set_country(this,country,city_state)" size="1" name="region"
                 class="form-select form-control  border-dark">
                 <option value="" selected="selected">SELECT REGION</option>
                 <!-- <option value=""></option> -->
@@ -127,19 +148,29 @@
                 class="form-select form-control  border-dark"></select>
               <!-- </div> -->
 
-              <div class="d-flex justify-content-end" id="txtregion"></div>
               <div class="d-flex justify-content-end" id="txtplacename"></div>
+              <div class="d-flex justify-content-end" id="txtregion"></div>
             </div>
           </div>
 
           <div class="container" id="map-region">
 
-            <p class="font-weight-bold">Please Click "Find My Location" to get your coordinates. Please drag the marker
+            <p class="font-weight-bold">Please Click "Find My Location" to get your coordinates. Please drag the
+              marker
               to pinpoint the exact location </p>
             <div class="align-self-center mx-auto">
-              <button class="btn  btn-dark" onclick="getLocation()">Find My Location</button>
+              <button class="btn  btn-dark" type="button" onclick="getLocation()">Find My Location</button>
             </div>
             <p id="x"></p>
+
+
+            <div>
+              lattitude-location<p id="lat"></p>
+              lattitude-location <p id="long"></p>
+            </div>
+
+
+
             <div id="map" style="height:500px;" class="mb-3"></div>
           </div>
 
@@ -173,50 +204,11 @@
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <!-- ajax JavaScript -->
         <script type="text/javascript" src="/housemaid_map_script.js"></script>
-        <script type="text/javascript">
+        <script type="text/javascript" src="/maid_myservice_ajax.js"></script>
+        <!-- <script type="text/javascript">
           // add row
-          $("#addRow").click(() => {
-            var html = '';
-            html += '<div id="inputFormRow">';
-            html += '<div class="input-group mb-3">';
-            html += '<input type="text" name="title[]" class="form-control m-input border-info skill-input" placeholder="Enter title" autocomplete="off">';
-            html += '<div class="input-group-append">';
-            html += '<button id="removeRow" type="button" class="btn btn-danger" onclick="remove()">Remove</button>';
-            html += '</div>';
-            html += '</div>';
-
-            $('#newRow').append(html);
-          });
-
-          // remove row
-
-          $(document).on('click', '#removeRow', (e) => {
-            e.target.parentNode.parentNode.remove();
-          });
-
-
-          function remove() {
-            console.log('remove');
-            //$(this).closest('#inputFormRow').remove();
-          }
-
-
-          $(document).ready(() => {
-
-
-            $("#services").submit((e) => {
-              const skillInputs = document.querySelectorAll('.skill-input');
-              skillInputs.forEach((input) => {
-                console.log(input.value);
-              })
-
-              e.preventDefault();
-            });
-
-
-          });
-
-        </script>
+        
+        </script> -->
 
 </body>
 
