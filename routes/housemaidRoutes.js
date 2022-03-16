@@ -10,8 +10,8 @@ router.get('*', tokenUserInfoAccess)
 router.get('/', requireAuth, (req, res) => {
   res.render('housemaid/maid-dashboard');
 });
-
-router.get('/portifolio', requireAuth,housemaidController.viewPortifolio);
+// portifolio
+router.get('/portifolio', requireAuth, housemaidController.viewPortifolio);
 
 // logout
 router.get('/logout', requireAuth, housemaidController.logOut);
@@ -34,6 +34,7 @@ router.post('/myAccount', housemaidController.addPersonalDetails);
 // myservices
 router.get('/myService', requireAuth, housemaidController.getMyService);
 router.post('/myService', requireAuth, housemaidController.postMyService);
+router.put('/myService/edit', requireAuth, housemaidController.putEditMyService);
 
 
 

@@ -33,8 +33,13 @@ exports.logOut = (req, res) => {
 // getting all the courses
 exports.getAllCourses = async (req, res,) => {
   try {
-    let courses = await Coursemodel.getAvialableCourses();
-    res.status(200).render('housemaid/courses-list', { courses: courses });
+    let page = req.query.page ? Number(req.query.page) : 1;
+    if (page < 1) {
+      res.status(200).redirect('/housemaid/courses?page=' + encodeURIComponent(1));
+    } else {
+      let courses = await Coursemodel.getAvialableCourses(page);
+      res.status(200).render('housemaid/courses-list', { courses: courses.result, page: courses.page, pageCount: courses.numOfPages });
+    }
   } catch (error) {
     res.status(404);
     console.log(error);
@@ -217,18 +222,33 @@ exports.viewPortifolio = async (req, res) => {
   }
 
   let personalDetails = await Housemaid.getPersonalDetails(userId);
-  res.render('housemaid/maid-view_my_account', { profileImg: userImg, personalDetails: personalDetails });
+  let serviceDetails = await Housemaid.getServiceDetails(userId);
+
+  res.render('housemaid/maid-my_portifolio', { profileImg: userImg, personalDetails: personalDetails, serviceDetails: serviceDetails });
 
 }
 // ///////////////////////////////////////////////////ENND OF PORTIFOLIO///////////////////////////////////////////////////
+
 // /////////////////////////////////////////MY Services/////////////////////////////////////////////
+
+
 exports.getMyService = async (req, res) => {
-  res.status(200).render('housemaid/maid-my_service');
+  let token = req.cookies.jwt;
+  let userId = await this.userIdFromToken(token);
+
+  let serviceDetails = await Housemaid.getServiceDetails(userId);
+  // if user details available direct to edit page
+  if (serviceDetails.length > 0) {
+    res.status(200).render('housemaid/maid-my_service_edit', { serviceDetails: serviceDetails });
+  } else {
+    // if user is new direct to the  new entry page
+    res.status(200).render('housemaid/maid-my_service');
+  }
+
+
 }
 
 exports.postMyService = async (req, res) => {
-
-
   let token = req.cookies.jwt;
   let userId = await this.userIdFromToken(token);
 
@@ -247,8 +267,39 @@ exports.postMyService = async (req, res) => {
 }
 
 
+exports.putEditMyService = async (req, res) => {
 
-// /////////////////////////////////////////MY Services/////////////////////////////////
+  try {
+    // let userImg = null;
+    let token = req.cookies.jwt;
+    let userId = await this.userIdFromToken(token);
+
+    // getting filled details
+    let result = await Housemaid.updateServiceDetails(req.body, userId);
+    console.log(result.affectedRows);
+
+    if (result.affectedRows > 0) {
+      if (result == null) res.redirect('/');
+      else {
+        let msg = ` Congratualations user:${userId}! We have sucessfully updated  your service details.`
+        res.status(201).send({ msg: msg });
+      }
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  // res.status(200).render('housemaid/maid-my_account_edit', {profileImg: userImg, personalDetails: personalDetails });
+}
+
+
+
+
+
+
+
+// /////////////////////////////////////////END OF MY Services/////////////////////////////////
 
 
 

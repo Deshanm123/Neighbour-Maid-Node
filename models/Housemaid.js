@@ -121,7 +121,7 @@ class Housemaid {
       pool.getConnection((err, connection) => {
         if (err) throw err;
         connection.query(
-          "INSERT INTO user_personal_details_tb(uId,uFName,uLName,uDOB,uPAddress,uMobile,uNIC,uGender,uMaritalStatus,uLanguage,uOverview) VALUES(?,?,?,?,?,?,?,?,?,?,?)", [userId, uFName, uLName, uDOB, uPAddress, uPhone, uNIC, uGender, uMaritalStatus, languagejson, uOverview]
+          "INSERT INTO user_personal_details_tb(userId,uFName,uLName,uDOB,uPAddress,uMobile,uNIC,uGender,uMaritalStatus,uLanguage,uOverview) VALUES(?,?,?,?,?,?,?,?,?,?,?)", [userId, uFName, uLName, uDOB, uPAddress, uPhone, uNIC, uGender, uMaritalStatus, languagejson, uOverview]
           , (err, rows) => {
             // return connection to the pool
             connection.release();
@@ -146,7 +146,7 @@ class Housemaid {
       pool.getConnection((err, connection) => {
         if (err) throw err;
         connection.query(
-          "UPDATE user_personal_details_tb SET uFName = ? ,uLName =? ,uDOB = ? ,uPAddress = ? ,uMobile = ? ,uNIC = ?,uGender = ? ,uMaritalStatus = ? ,uLanguage =?,uOverview = ?  WHERE uId = ?", [uFName, uLName, uDOB, uPAddress, uPhone, uNIC, uGender, uMaritalStatus, languagejson, uOverview, userId]
+          "UPDATE user_personal_details_tb SET uFName = ? ,uLName =? ,uDOB = ? ,uPAddress = ? ,uMobile = ? ,uNIC = ?,uGender = ? ,uMaritalStatus = ? ,uLanguage =?,uOverview = ?  WHERE userId = ?", [uFName, uLName, uDOB, uPAddress, uPhone, uNIC, uGender, uMaritalStatus, languagejson, uOverview, userId]
           , (err, rows) => {
             // return connection to the pool
             connection.release();
@@ -167,7 +167,7 @@ class Housemaid {
       pool.getConnection((err, connection) => {
         if (err) throw err;
         connection.query(
-          "SELECT * FROM user_personal_details_tb WHERE uId =?", [userId], (err, rows) => {
+          "SELECT * FROM user_personal_details_tb WHERE userId =?", [userId], (err, rows) => {
             // return connection to the pool
             connection.release();
             if (!err) {
@@ -182,17 +182,15 @@ class Housemaid {
   }
 
 
-  // service dettails
+
+
+
+  //////////////////////////////MY SERVICE /////////////////////////////////////////////////////////
 
   static addServiceDetails(userId, input) {
-
-  
     const { userEmpService, userSkills, userLocContinent, userLocCity, userLocCountry, userLatCoords, userLongCoords } = input
-
     //  converting json language
     let skillsjson = JSON.stringify(Object.assign({}, userSkills));
-   
-
     return new Promise((resolve, reject) => {
       pool.getConnection((err, connection) => {
         if (err) throw err;
@@ -212,13 +210,54 @@ class Housemaid {
     });
   }
 
+  static getServiceDetails(userId) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(
+          "SELECT * FROM maid_service_tb WHERE userId =?", [userId], (err, rows) => {
+            // return connection to the pool
+            connection.release();
+            if (!err) {
+              resolve(rows);
+            }
+            else {
+              reject(err);
+            }
+          });
+      });
+    });
+  }
+
+
+  static updateServiceDetails(input, userId) {
+
+    const { userEmpService, userSkills, userLocContinent, userLocCity, userLocCountry, userLatCoords, userLongCoords } = input
+    //  converting json language
+    let skillsjson = JSON.stringify(Object.assign({}, userSkills));
+
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(
+          "UPDATE maid_service_tb SET userEmpService = ? ,userSkills =? ,userLocContinent = ? ,userLocCity = ? ,userLocCountry = ? ,userLatCoords = ?,userLongCoords = ? WHERE userId = ?", [userEmpService, skillsjson, userLocContinent, userLocCity, userLocCountry, userLatCoords, userLongCoords, userId]
+          , (err, rows) => {
+            // return connection to the pool
+            connection.release();
+            if (!err) {
+              resolve(rows);
+            }
+            else {
+              reject(err);
+            }
+          });
+      });
+    });
+  }
 
 
 
-
-
-
-
+  //////////////////////////////MY SERVICE /////////////////////////////////////////////////////////
 
 
 

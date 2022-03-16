@@ -107,17 +107,19 @@ exports.putEditCourse = async (req, res,) => {
 
 
 
-// getting all the courses
-exports.getAllCourses = async (req, res,) => {
-  try {
-    let courses = await Coursemodel.getAvialableCourses();
-    res.status(200).render('courses/courses-list', { courses: courses });
-    // res.status(200).json({ courses: courses });
-  } catch (error) {
-    res.status(404);
-    console.log(error);
-  }
-}
+// // getting all the courses
+// exports.getAllCourses = async (req, res,) => {
+//   try {
+
+
+//     let courses = await Coursemodel.getAvialableCourses();
+//     res.status(200).render('courses/courses-list', { courses: courses });
+//     // res.status(200).json({ courses: courses });
+//   } catch (error) {
+//     res.status(404);
+//     console.log(error);
+//   }
+// }
 
 // select course by id
 exports.getSingleCourse = async (req, res) => {

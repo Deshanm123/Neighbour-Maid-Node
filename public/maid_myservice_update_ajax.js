@@ -43,7 +43,7 @@ $("#addRow").click(() => {
   var html = '';
   html += '<div id="inputFormRow">';
   html += '<div class="input-group mb-3">';
-  html += '<input type="text" name="title[]" class="form-control m-input border-info skill-input" placeholder="Enter title" autocomplete="off">';
+  html += '<input type="text" name="title[]" class="form-control m-input border-info new-skill-input" placeholder="Enter title" autocomplete="off" >';
   html += '<div class="input-group-append">';
   html += '<button id="removeRow" type="button" class="btn btn-danger" >Remove</button>';
   html += '</div>';
@@ -55,10 +55,16 @@ $("#addRow").click(() => {
 // remove row
 
 $(document).on('click', '#removeRow', (e) => {
-  e.target.parentNode.parentNode.remove();
+  // update function different than add
+  const selectedInputIdForm = e.target.parentNode.parentNode;
+  selectedInputIdForm.querySelector('.skill-input').value = '';
+  selectedInputIdForm.remove();
+
 });
 
 const skillInputs = document.querySelectorAll('.skill-input');
+
+
 function getSkills() {
   let skillArr = [];
   // skills
@@ -71,28 +77,51 @@ function getSkills() {
 
 }
 
+
+function getNewSkills() {
+  const newSkillInputs = document.querySelectorAll('.new-skill-input');
+  let newArr = [];
+  // skills
+  newSkillInputs.forEach((input) => {
+    if (input.value.trim() !== "") {
+      newArr.push(input.value);
+    }
+  })
+  return newArr;
+
+}
+
 $(document).ready(() => {
   $('#message').hide();
 
-  $("#maid-service").submit((e) => {
+
+
+  $("#maid-service-update").submit((e) => {
 
     e.preventDefault();
+
     let skillArr = getSkills();
+
+    let newSkillsArr = getNewSkills();
+    // new array with duplications
+    let filteredSkillArray = [...new Set([...skillArr, ...newSkillsArr])];
+    // console.log(filteredSkillArray);
 
     // // user region
     let cityState = $('#txtplacename').text().trim().split(',');
     let city = cityState[0];
     let country = cityState[1];
-    // console.log(city);
-    // console.log(country);
+
+
+
 
     $.ajax({
-      type: "POST",
-      url: "/housemaid/myService/",
+      type: "PUT",
+      url: "/housemaid/myService/edit",
       contentType: "application/json",
       data: JSON.stringify({
         userEmpService: $('#employment-nature').val(),
-        userSkills: skillArr,
+        userSkills: filteredSkillArray,
         userLocContinent: $('#txtregion').text(),
         userLocCity: city,
         userLocCountry: country,

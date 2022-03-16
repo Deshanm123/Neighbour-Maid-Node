@@ -12,14 +12,24 @@ class Coursemodel {
 
 
   // get all courses
-  static getAvialableCourses() {
+  static getAvialableCourses(page) {
+    let resultsPerPage = 2;
     return new Promise((resolve, reject) => {
       pool.getConnection((err, connection) => {
         if (err) throw err;
         connection.query("SELECT * FROM course_tb", (err, rows) => {
           connection.release();
           if (!err) {
-            resolve(rows);
+            const numOfData = rows.length;
+            const numOfPages = Math.ceil(numOfData / resultsPerPage);
+
+            const startLimit = (page - 1) * resultsPerPage;
+            let sql = `SELECT * FROM course_tb LIMIT ${startLimit},${resultsPerPage} `;
+            connection.query(sql, (err, result) => {
+              if (err) throw err;
+              resolve({ result, page, numOfPages });
+
+            });
           }
           else {
             reject(err);

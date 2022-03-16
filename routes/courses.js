@@ -5,7 +5,7 @@ const imgController = require('../controllers/imgController');
 
 
 // course home
-router.get('/', courseControllers.getAllCourses);
+// router.get('/', courseControllers.getAllCourses);
 // add course
 router.get('/addCourse', courseControllers.getAddCourse);
 
