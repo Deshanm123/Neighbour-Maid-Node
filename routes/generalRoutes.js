@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 
-
+// const {reCaptcha} = require('../middleware/recaptchaMiddleware');
 const generalController = require('../controllers/generalController');
 
 
@@ -17,7 +17,8 @@ router.post('/login', generalController.postLogin);
 
 
 router.get('/contact', generalController.getContact);
-router.post('/contact', generalController.postContact);
+// router.post('/contact',reCaptcha, generalController.postContact);
+router.post('/contact',generalController.postContact);
 
 
 // router.get('/setcookie', function (req, res) {

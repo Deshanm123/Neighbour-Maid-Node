@@ -15,6 +15,11 @@
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
   <!-- animate css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- REcaptcha cdns -->
+  <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <!-- REcaptcha cdns -->
+
   <style>
     * {
       font-size: 14px;
@@ -197,9 +202,19 @@
                 <textarea id="form-message" class="md-textarea form-control" rows="3"></textarea>
                 <label for="form-message">How we can help?</label>
               </div>
+                  <!-- captcha -->
+                  <div class="g-recaptcha" data-sitekey="6LcZo-keAAAAAKxf5bhX_3tu0doV6Lwn_GmhnCcO"></div>
+                
+                  <!--phone -->
+                  < <div class="md-form md-outline mt-3 mb-0"> 
+                    <button type="submit" class="btn btn-info btn-block ">Submit<i class="far fa-paper-plane ml-2"></i></button>
+                  <!-- </div> -->
+                </div>
+              
+              </div>
 
-              <button type="submit" class="btn btn-info btn-sm ml-0">Submit<i
-                  class="far fa-paper-plane ml-2"></i></button>
+
+              
 
             </form>
           </div>
@@ -248,31 +263,60 @@
 
         $(document).ready(() => {
 
+
           contactForm.addEventListener('submit', function (e) {
+
             e.preventDefault();
 
-            $.ajax({
-              type: "POST",
-              url: "/contact/",
-              contentType: "application/json",
-              data: JSON.stringify({
+            //important-"g-recaptcha-response" is not on the htmll body but its a part of API
+            //get the value from recaptcha-response  
+            const captcha = document.querySelector('#g-recaptcha-response').value;
+
+
+            fetch('/contact', {
+              method: 'POST',
+              headers: { 'Content-type': 'application/json' },
+              body: JSON.stringify({
                 name: $('#form-name').val(),
                 phone: $('#form-phone').val(),
                 email: $('#form-email').val(),
                 subject: $('#form-subject').val(),
                 message: $('#form-message').val(),
+                captcha: captcha
+              })
+            })
+              .then(res => res.json())
+              .then(data => {
 
-              }),
-              success: (res) => {
+                console.log(data);
+                
 
               }
-            })
+
+              );
+
+
+            // $.ajax({
+            //   type: "POST",
+            //  url: "/contact/",
+            //  contentType: "application/json",
+            //  data: JSON.stringify({
+            //    name: $('#form-name').val(),
+            //    phone: $('#form-phone').val(),
+            //    email: $('#form-email').val(),
+            //    subject: $('#form-subject').val(),
+            //    message: $('#form-message').val(),
+            //    captcha: captcha
+            //
+            //   }),
+            //  success: (res) => {
+            //   console.log("ajax" + res.json());
+            // }
+            //  })
+            //   });
           });
-          // });
 
         });
-
-
 
       </script>
 
