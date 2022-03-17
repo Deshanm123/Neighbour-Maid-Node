@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <!-- animate css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <style>
+    * {
+      font-size: 14px;
+    }
+  </style>
+
+  <!-- page title -->
+  <title>NeighbourMaid | Login</title>
+</head>
+
+<body>
+  <!-- navbar -->
+  <%- include('_navbar')%>
+    <!-- navbar -->
+
+
+    <!-- frequently asked Questions -->
+    <section id="questions-section pt-3 pb-5">
+      <div class="container">
+        <div class="title">
+          <h2>Frequently Asked Questions</h2>
+          <div class="underline"></div>
+        </div>
+        <!-- question area-->
+        <!-- question:1 -->
+        <div class="statement  text-center">
+          <!-- question -->
+          <div class="question">
+            <div class="row">
+              <div class="col">
+                <p>Who We Are? </p>
+              </div>
+              <div class="col">
+                <span class="plus-icon">
+                  <i class="fas fa-caret-square-down fa-3x"></i>
+                </span>
+                <span class="minus-icon">
+                  <i class="fas fa-caret-square-up fa-3x"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="explanation-text">
+            <p> We are platform that connecting householders and potential housemaids.</p>
+          </div>
+        </div>
+        <!-- question:2 -->
+        <div class="statement  text-center">
+          <!-- question -->
+          <div class="question">
+            <div class="row">
+              <div class="col">
+                <p>Who We Are? </p>
+              </div>
+              <div class="col">
+                <span class="plus-icon">
+                  <i class="fas fa-caret-square-down fa-3x"></i>
+                </span>
+                <span class="minus-icon">
+                  <i class="fas fa-caret-square-up fa-3x"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="explanation-text">
+            <p> We are platform that connecting householders and potential housemaids.</p>
+          </div>
+        </div>
+        <!-- question:3 -->
+        <div class="statement  text-center">
+          <!-- question -->
+          <div class="question">
+            <div class="row">
+              <div class="col">
+                <p>Who We Are? </p>
+              </div>
+              <div class="col">
+                <span class="plus-icon">
+                  <i class="fas fa-caret-square-down fa-3x"></i>
+                </span>
+                <span class="minus-icon">
+                  <i class="fas fa-caret-square-up fa-3x"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="explanation-text">
+            <p> We are platform that connecting householders and potential housemaids.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- end of frequently asked Questions -->
+
+    <!-- ss -->
+
+    <div class="container my-5 py-5 z-depth-1">
+
+
+      <!--Section: Content-->
+      <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+
+        <style>
+          .map-container {
+            height: 200px;
+            position: relative;
+          }
+
+          .map-container iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+          }
+        </style>
+
+        <!--Google map-->
+        <div id="map-container-google-1" class="z-depth-1 map-container mb-5">
+          <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+            style="border:0" allowfullscreen></iframe>
+        </div>
+        <!--Google Maps-->
+
+        <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-lg-5 col-md-12 mb-0 mb-md-0">
+
+            <h3 class="font-weight-bold">Contact Us</h3>
+            <h5>Do you have any questions?</h5>
+            <p class="text-muted">Please do not hesitate to
+              contact us directly. Our team will come back to you as soon as possible</p>
+
+            <p><span class="font-weight-bold mr-2">Email:</span><a href="">contact@NeighbourMaid.com</a></p>
+            <p><span class="font-weight-bold mr-2">Phone:</span><a href="">+48 123 456 789</a></p>
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-7 col-md-12 mb-4 mb-md-0">
+            <!-- contact form -->
+            <form id="contact-form" method="POST" action="/contact">
+
+              <!--Grid row-->
+              <div class="row">
+                <div class="col-md-6">
+                  <!-- name -->
+                  <div class="md-form md-outline mb-0">
+                    <input type="text" id="form-name" class="form-control">
+                    <label for="form-first-name">Name</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <!--phone -->
+                  <div class="md-form md-outline mb-0">
+                    <input type="text" id="form-phone" class="form-control">
+                    <label for="form-form-phone"> Phone Number</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Material outline input -->
+              <div class="md-form md-outline mt-3">
+                <input type="email" id="form-email" class="form-control">
+                <label for="form-email">E-mail</label>
+              </div>
+
+              <!-- Material outline input -->
+              <div class="md-form md-outline">
+                <input type="text" id="form-subject" class="form-control">
+                <label for="form-subject">Subject</label>
+              </div>
+
+              <!--Material textarea-->
+              <div class="md-form md-outline mb-3">
+                <textarea id="form-message" class="md-textarea form-control" rows="3"></textarea>
+                <label for="form-message">How we can help?</label>
+              </div>
+
+              <button type="submit" class="btn btn-info btn-sm ml-0">Submit<i
+                  class="far fa-paper-plane ml-2"></i></button>
+
+            </form>
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+
+      </section>
+      <!--Section: Content-->
+
+
+    </div>
+
+    <!-- ss -->
+
+
+
+
+
+    <!-- footer -->
+    <%- include('_footer')%>
+      <!-- footer -->
+
+
+
+      <!-- Optional JavaScript -->
+      <script src="/login_script.js"></script>
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+      <!-- script -->
+      <script>
+        const contactForm = document.getElementById('contact-form');
+
+        $(document).ready(() => {
+
+          contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+              type: "POST",
+              url: "/contact/",
+              contentType: "application/json",
+              data: JSON.stringify({
+                name: $('#form-name').val(),
+                phone: $('#form-phone').val(),
+                email: $('#form-email').val(),
+                subject: $('#form-subject').val(),
+                message: $('#form-message').val(),
+
+              }),
+              success: (res) => {
+
+              }
+            })
+          });
+          // });
+
+        });
+
+
+
+      </script>
+
+</body>
+
+</html>

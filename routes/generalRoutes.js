@@ -13,6 +13,13 @@ router.post('/register', generalController.postRegistration);
 
 router.get('/login', generalController.getlogin);
 router.post('/login', generalController.postLogin);
+
+
+
+router.get('/contact', generalController.getContact);
+router.post('/contact', generalController.postContact);
+
+
 // router.get('/setcookie', function (req, res) {
 //   // setting cookies
 //   res.cookie('username', 'john doe', { maxAge: 900000, httpOnly: true });

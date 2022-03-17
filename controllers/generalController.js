@@ -2,7 +2,8 @@ const Coursemodel = require('../models/Coursemodel');
 const Housemaid = require('../models/HouseMaid');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
+const nodemailer = require('nodemailer');
+const { mailTransporter } = require('../services/mailService');
 
 // create json web token for 3 days
 const maxAge = 3 * 24 * 60 * 60;
@@ -96,3 +97,63 @@ exports.postLogin = async (req, res) => {
   }
 }
 
+/////////////////////////////////////// contact///////////////////////////////////////////////////////////
+
+exports.getContact = (req, res) => {
+  res.render('contact-us');
+}
+
+
+
+exports.postContact = async (req, res) => {
+
+//  mail structure
+  const output = `
+            <p>You have a contact request from ${req.body.name} </p>
+            <h2>${req.body.subject}<h2><br>
+            <p>${req.body.message}</p><br><br>
+            <h3>Contact Details</h3>
+            <ul>
+            <li>email:${req.body.email}</li>
+            <li>phone:${req.body.phone}</li>
+            </ul>
+           
+           `;
+
+  try{
+
+    // sending mail
+    let info = await mailTransporter.sendMail({
+      from: `NeighbourMaidConsumer" <${req.body.email}>`, // sender address
+      to: "deshanm123@gmail.com", // list of receivers rocess.env.EMAIL,
+      subject: `Contact Form -${req.body.subject}`, // Subject line
+      text: "Hello world?", // plain text body
+      html: output, // html body
+    });
+    // mail sent id and stattus
+    console.log("Message sent: %s", info.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+
+
+    //   // res.render('index', { msg: `email has been sent` });
+  
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Something went wrong With the Mail service.");
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////// contact///////////////////////////////////////////////////////////
