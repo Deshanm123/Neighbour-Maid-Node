@@ -8,6 +8,7 @@ const router = express.Router();
 const generalController = require('../controllers/generalController');
 
 
+
 router.get('/register', generalController.getRegistration);
 router.post('/register', generalController.postRegistration);
 

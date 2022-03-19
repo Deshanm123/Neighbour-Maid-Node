@@ -1,10 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\controllers",
     "\\public",
     "\\views",
     "\\views\\courses"
   ],
-  "SelectedNode": "\\views\\courses\\course-view.ejs",
+  "SelectedNode": "\\controllers\\generalController.js",
   "PreviewInSolutionExplorer": false
 }

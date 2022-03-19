@@ -1,13 +1,14 @@
 const Coursemodel = require('../models/Coursemodel');
 const Housemaid = require('../models/HouseMaid');
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { mailTransporter } = require('../services/mailService');
 const request = require('request');
 
 
-// create json web token for 3 days
-const maxAge = 3 * 24 * 60 * 60;
+
+const maxAge = 3 * 24 * 60 * 60 ;
 const createJWToken = (id) => {
   return jwt.sign({ id }, 'net ninja secret', {
     expiresIn: maxAge
@@ -19,6 +20,47 @@ const encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt();
   const hashedpass = await bcrypt.hash(password, salt);
   return hashedpass;
+}
+
+//get registration page
+exports.getRegistrationUser = async (req, res) => {
+  res.render('register-user');
+}
+
+exports.postRegistrationUser = async (req, res) => {
+
+  const { email, userName, password, cPassword } = req.body;
+  try {
+    if (!(await User.isEmailRegistered(email))) {
+      // register
+      // encrypting password
+      let hashedPassword = await encryptPassword(password);
+
+      let result = await User.addUser(email, userName, hashedPassword);
+      // sucessful registration 
+
+      if (result.affectedRows > 0) {
+        const result = await Housemaid.selectUserIdByEmail(email);
+        const maidId = result[0].userId;
+        console.log(maidId);
+        // creating JWT
+        const jwToken = createJWToken(maidId);
+        // storing JWT inside a cookie
+        res.cookie('jwt', jwToken, { maxAge: maxAge * 1000, httpOnly: true });
+        //sucessfully created
+        res.status(201).json({ userId: maidId });
+
+      } else {
+        // registration failed
+        console.log(`hosemaid with email ${email} registration failed`)
+      }
+    } else {
+      console.log(`  ${email} has already registered. registration failed`)
+    }
+  } catch (e) {
+    console.log(e);
+  }
+  // res.render('register-houseowner');
 }
 
 //get registration page
@@ -128,11 +170,11 @@ exports.postContact = async (req, res) => {
       return res.json({ "success": false, "msg": "Failed Captcha verification" });
     }
     // sucess 
-   // return res.json({ "success": true, "msg": "passed Captcha verification" });
+    // return res.json({ "success": true, "msg": "passed Captcha verification" });
     console.log('sending the mail')
-   
+
     //  mail structure
-      const output = `
+    const output = `
                 <p>You have a contact request from ${req.body.name} </p>
                 <h2>${req.body.subject}<h2><br>
                 <p>${req.body.message}</p><br><br>
@@ -141,24 +183,24 @@ exports.postContact = async (req, res) => {
                 <li>email:${req.body.email}</li>
                 <li>phone:${req.body.phone}</li>
                 </ul> `;
-    
-      try{
-          // sending mail
-          let info = await mailTransporter.sendMail({
-              from: `NeighbourMaidConsumer" <${req.body.email}>`, // sender address
-              to: "deshanm123@gmail.com", // list of receivers rocess.env.EMAIL,
-              subject: `Contact Form -${req.body.subject}`, // Subject line
-              text: "Hello world?", // plain text body
-              html: output, // html body
-            });
-            // mail sent id and stattus
-            console.log("Message sent: %s", info.messageId);
-            //     //   // res.render('index', { msg: `email has been sent` });
-              } catch (err) {
-                  console.log(err);
-                  res.status(500).send("Something went wrong With the Mail service.");
-                }
-            })
+
+    try {
+      // sending mail
+      let info = await mailTransporter.sendMail({
+        from: `NeighbourMaidConsumer" <${req.body.email}>`, // sender address
+        to: "deshanm123@gmail.com", // list of receivers rocess.env.EMAIL,
+        subject: `Contact Form -${req.body.subject}`, // Subject line
+        text: "Hello world?", // plain text body
+        html: output, // html body
+      });
+      // mail sent id and stattus
+      console.log("Message sent: %s", info.messageId);
+      //     //   // res.render('index', { msg: `email has been sent` });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Something went wrong With the Mail service.");
+    }
+  })
 }
 
 

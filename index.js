@@ -8,6 +8,7 @@ const adminRouter = require('./routes/adminRoutes');
 const generalRouter = require('./routes/generalRoutes');
 const housemaidRouter = require('./routes/housemaidRoutes');
 const houseownerRouter = require('./routes/houseownerRoutes');
+const userRouter = require('./routes/userRoutes');
 const methodOverride = require('method-override');
 
 
@@ -40,8 +41,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', generalRouter);
 app.use('/courses', courseRouter);
 app.use('/housemaid', housemaidRouter);
- app.use('/houseowner', houseownerRouter);
+app.use('/houseowner', houseownerRouter);
 app.use('/admin', adminRouter);
+app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
   res.render(index);
