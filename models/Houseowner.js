@@ -31,6 +31,7 @@ class Houseowner {
       });
     });
   }
+
   static getMaidProfilebyId(userId) {
     let userRole = 'housemaid'
     return new Promise((resolve, reject) => {
@@ -51,31 +52,77 @@ class Houseowner {
     });
   }
 
+
+
+  // search
   // filter view was deleted
-  // static searchOne(input) {
-  //   return new Promise((resolve, reject) => {
-  //     pool.getConnection((err, connection) => {
-  //       if (err) throw err;
-  //       connection.query("SELECT  housemaidfilter_view  where userId = ?", input, (err, rows) => {
-  //         // return connection to tthe pool
-  //         connection.release();
-  //         if (!err) {
-  //           resolve(rows);
-  //           // res.send(`course with course Name ${courseTitle} has been sucessfully added `);
-  //         }
-  //         else {
-  //           reject(err);
-  //         }
-  //       });
-  //     });
-  //   });
-  // }
+  static searchOne(input) {
+    return new Promise((resolve, reject) => {
+
+      let sqlSearch = `SELECT * FROM housemaid_dashboard_view WHERE CONCAT_WS(' ', housemaid_dashboard_view.uFName ,housemaid_dashboard_view.uLName) LIKE '%${input}%' `;
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(sqlSearch, (err, rows) => {
+          // return connection to tthe pool
+          connection.release();
+          if (!err) {
+            resolve(rows);
+            // res.send(`course with course Name ${courseTitle} has been sucessfully added `);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+
+
+  // search
+  // filter view was deleted
+  static searchByGenderAndEmpConditions(maidGender, maidEmpNature) {
+    return new Promise((resolve, reject) => {
+      // DONOT EXCUTE THIS FUNCTION IF BOTH EMPTY
+      let sqlSearch;
+      console.log("inside")
+      console.log(maidGender)
+      console.log(maidEmpNature)
+      // if ((maidGender != ' ') && (maidEmpNature != ' ')) {
+      if ((maidGender != null) && (maidEmpNature != null)) {
+        console.log('search  by gender and emp nature')
+        // column value sometimes may be null in the table to avoid that
+        // sqlSearch =`SELECT * FROM housemaid_dashboard_view WHERE ( maidGender IS NULL OR  maidGender LIKE '%${maidGender}%' )  AND ( maidEmpNature IS NULL OR maidEmpNature LIKE '%${maidEmpNature}%'  )`;
+        sqlSearch = `SELECT * FROM housemaid_dashboard_view WHERE  uGender  = '${maidGender}'  AND  userEmpService = '${maidEmpNature}'  `;
+      } else if (maidGender != null) {
+        console.log('search  by gender')
+        sqlSearch = `SELECT * FROM housemaid_dashboard_view WHERE  uGender = '${maidGender}' `; //NOTEE THAT '' is esseential in `` otherwise column error will occur
+      } else {
+        console.log('search  by employee nature')
+        sqlSearch = `SELECT * FROM housemaid_dashboard_view WHERE   userEmpService = '${maidEmpNature}'  `;
+      }
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(sqlSearch, (err, rows) => {
+          // return connection to tthe pool
+          connection.release();
+          if (!err) {
+            resolve(rows);
+            // res.send(`course with course Name ${courseTitle} has been sucessfully added `);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
+  }
 
 
 
+  // displaying the housemaids
 
   static populateDashboard(page) {
-    let resultsPerPage = 1;
+    let resultsPerPage = 2;
     return new Promise((resolve, reject) => {
       pool.getConnection((err, connection) => {
         if (err) throw err;

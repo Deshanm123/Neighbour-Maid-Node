@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 
 
+
 // UTLITY FUNCTIONS//
 
 //encrypt password
@@ -14,12 +15,12 @@ const encryptPassword = async (password) => {
   return hashedpass;
 }
 
-function generateEmailVerificationCode() {
+async function generateEmailVerificationCode() {
   // generatte seven digit password
   return Math.floor(Math.random() * 10000000 + 1);
 }
 
-const maxAge = 3 * 24 * 60 * 60 * 1 * 1000; //millsieconds
+const maxAge = 10 * 24 * 60 * 60; //millsieconds
 const createJWToken = (id) => {
   return jwt.sign({ id }, 'net ninja secret', {
     expiresIn: maxAge
@@ -28,7 +29,7 @@ const createJWToken = (id) => {
 
 
 
-
+// ////////////////////////////////////REGISTER/////////////////////////////////////////////////////
 //get registration page
 exports.getRegistrationUser = async (req, res) => {
   res.render('register-user');
@@ -38,7 +39,6 @@ exports.postRegistrationUser = async (req, res) => {
   console.log(req.body);
   const { email, userName, password, cPassword, userType } = req.body;
 
-  // let userEmailVerificationCode = 111111;
   try {
     let userRegisteredResults = await User.isEmailRegistered(email);
     console.log(userRegisteredResults);
@@ -46,8 +46,8 @@ exports.postRegistrationUser = async (req, res) => {
       console.log('user can register');
       // encrypting password
       let hashedPassword = await encryptPassword(password);
-      let emailVerificationCode = generateEmailVerificationCode();
-      // console.log(emailVerificationCode);
+      let emailVerificationCode = await generateEmailVerificationCode();
+      console.log('Email-erification-code:' + emailVerificationCode);
 
       // Mail
       let mailOption = {
@@ -66,7 +66,7 @@ exports.postRegistrationUser = async (req, res) => {
       mailTransporter.sendMail(mailOption, async (err, mailResult) => {
         if (err) { throw err }
         else {
-          console.log("Verification Message sent: %s", info.messageId);
+          console.log("Verification Message sent: %s", mailResult);
           //if verification code sent sucessful then register the account as not verfied
           let result = await User.addUser(email, userName, hashedPassword, userType, emailVerificationCode);
           //sucessful registration 
@@ -95,7 +95,7 @@ exports.postRegistrationUser = async (req, res) => {
       //   console.log('user have to verify  the verification code')
       // } else {
       console.log('User is already registered member.direct to login')
-      res.status(200).send({ msgType: "error", msg: `${email} is already registered. Please Login ` });
+      res.status(200).send({ msgType: "danger", msg: `${email} is already registered. Please Login ` });
       // }
 
     }
@@ -103,4 +103,66 @@ exports.postRegistrationUser = async (req, res) => {
     console.log(e);
   }
   // res.render('register-houseowner');
+}
+
+
+
+
+
+
+///////////////////////////////////////////////login//////////////////////////////////
+
+exports.getloginUser = async (req, res) => {
+  res.render('login-user');
+
+};
+
+
+exports.postLoginUser = async (req, res) => {
+
+  // TODO : serverside validation
+  const { email, password } = req.body;
+  //check user email already exists
+  try {
+    let userRegisteredResults = await User.isEmailRegistered(email);
+    console.log(userRegisteredResults);
+    if (userRegisteredResults.length === 0) {
+      console.log('user is not registered to login')
+      res.status(200).send({ msgType: "danger", msg: `${email} is not registered. Please Register` });
+    } else {
+      if (userRegisteredResults[0].userEmailVeifiedStatus == 1) {
+        // verified user -get userType
+        const userRecord = await User.getUserByEmail(email);
+        const isValidPassword = await bcrypt.compare(password, userRecord[0].userPassword);
+        if (isValidPassword) {
+          // console.log(userRecord);
+          // creating JWT
+          console.log(userRecord[0].userId);
+          const jwToken = createJWToken(userRecord[0].userId);
+          // storing JWT inside a cookie
+          res.cookie('jwt', jwToken, { maxAge: maxAge, httpOnly: true });
+          console.log(" sucess login " + jwToken);
+          //sucessfully created
+          // this was earlier used-must use stringify
+          res.status(200).send(JSON.stringify({ userType: userRecord[0].userRole, userId: userRecord[0].userId }));
+          // res.status(200).send({ userType: userRecord[0].userRole, userId: userRecord[0].userId });
+          // res.status(200).send({ userType: userRecord[0].userRole, userId: userRecord[0].userId });
+          // res.status(303).redirect('/housemaid');
+          // res.render('housemaid/maid-dashboard', { user: 'user' });
+
+        } else {
+          console.log('Please enter the correct password');
+        }
+
+      } else {
+        console.log('user have to verify  the verification code')
+
+        // res.status(200).send({ msgType: "danger", msg: `${email} is already registered. Please Login ` });
+      }
+    }
+
+  } catch (e) {
+    console.log(e);
+  }
+
 }

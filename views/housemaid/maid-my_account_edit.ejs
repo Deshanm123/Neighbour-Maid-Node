@@ -429,52 +429,7 @@
     <!-- End of Reqirements -->
     <!-- end of the personal form details -->
 
-    <!-- service Area -->
-    <section id="service-providing-area">
-      <div class="container">
-        <form>
 
-          <!-- Avialable Service Area -->
-          <div class="form-group">
-            <label class=" control-label" for="Available Service Area">Available Service Area</label>
-            <!-- SSS -->
-
-            <div id="widget">
-              <form>
-                <div class="form-group">
-                  Region : <select onchange="set_country(this,country,city_state)" size="1" name="region">
-                    <option value="" selected="selected">SELECT REGION</option>
-                    <!-- <option value=""></option> -->
-                    <script type="text/javascript">
-                      setRegions(this);
-                    </script>
-                  </select>
-                </div>
-                <div class="form-group">
-                  Country:
-                  <select name="country" size="1" disabled="disabled"
-                    onchange="set_city_state(this,city_state)"></select>
-                </div>
-                <div class="form-group">
-                  City/State:
-                  <select name="city_state" size="1" disabled="disabled"
-                    onchange="print_city_state(country,this)"></select>
-                </div>
-
-              </form>
-              <div id="txtregion"></div>
-              <div id="txtplacename"></div>
-            </div>
-
-            <!-- SSS -->
-
-          </div>
-
-        </form>
-      </div>
-
-    </section>
-    <!-- end of service Area -->
 
 
 

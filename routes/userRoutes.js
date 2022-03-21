@@ -6,11 +6,11 @@ const userController = require('../controllers/userController');
 
 
 router.get('/registerUser', userController.getRegistrationUser);
-router.post('/registerUSer', userController.postRegistrationUser);
+router.post('/registerUser', userController.postRegistrationUser);
 
 
-
-
+router.get('/loginUser', userController.getloginUser);
+router.post('/loginUser', userController.postLoginUser);
 
 
 

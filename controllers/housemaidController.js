@@ -100,6 +100,7 @@ exports.addPersonalDetails = async (req, res) => {
   let token = req.cookies.jwt;
   let userId = await this.userIdFromToken(token);
   console.log(req.body);
+  console.log(userId);
   // const { uFName, uLName, uDOB, uPAddress, uPhone, uNIC, uGender, uMaritalStatus, uOverview } = req.body
   try {
     let result = await Housemaid.addPersonalDetails(req.body, userId)

@@ -9,17 +9,17 @@ const generalController = require('../controllers/generalController');
 
 
 
-router.get('/register', generalController.getRegistration);
-router.post('/register', generalController.postRegistration);
+// router.get('/register', generalController.getRegistration);
+// router.post('/register', generalController.postRegistration);
 
-router.get('/login', generalController.getlogin);
+// router.get('/login', generalController.getlogin);
 router.post('/login', generalController.postLogin);
 
 
 
 router.get('/contact', generalController.getContact);
 // router.post('/contact',reCaptcha, generalController.postContact);
-router.post('/contact',generalController.postContact);
+router.post('/contact', generalController.postContact);
 
 
 // router.get('/setcookie', function (req, res) {

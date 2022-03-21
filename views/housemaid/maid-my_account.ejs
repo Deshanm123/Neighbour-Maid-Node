@@ -40,18 +40,18 @@
   <!-- navbar -->
   <%- include('_housemaid-nav')%>
     <!-- end of navbar -->
-<!-- alert message :sucessfull-->
-<div class=container" id="message">
-  <div class="alert alert-success alert-dismissible fade show py-3 text-center" role="alert" id="alert-role"
+    <!-- alert message :sucessfull-->
+    <div class=container" id="message">
+      <div class="alert alert-success alert-dismissible fade show py-3 text-center" role="alert" id="alert-role"
         id="message">
-        <strong id="message-area">Holy guacamole!</strong> 
+        <strong id="message-area">Holy guacamole!</strong>
 
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
     </div>
-  <!-- alert message -->
+    <!-- alert message -->
 
 
 
@@ -302,52 +302,6 @@
     <!-- end of the personal form details -->
 
 
-    <!-- service Area -->
-    <section id="service-providing-area">
-      <div class="container">
-        <form>
-
-          <!-- Avialable Service Area -->
-          <div class="form-group">
-            <label class=" control-label" for="Available Service Area">Available Service Area</label>
-            <!-- SSS -->
-
-            <div id="widget">
-              <form>
-                <div class="form-group">
-                  Region : <select onchange="set_country(this,country,city_state)" size="1" name="region">
-                    <option value="" selected="selected">SELECT REGION</option>
-                    <!-- <option value=""></option> -->
-                    <script type="text/javascript">
-                      setRegions(this);
-                    </script>
-                  </select>
-                </div>
-                <div class="form-group">
-                  Country:
-                  <select name="country" size="1" disabled="disabled"
-                    onchange="set_city_state(this,city_state)"></select>
-                </div>
-                <div class="form-group">
-                  City/State:
-                  <select name="city_state" size="1" disabled="disabled"
-                    onchange="print_city_state(country,this)"></select>
-                </div>
-
-              </form>
-              <div id="txtregion"></div>
-              <div id="txtplacename"></div>
-            </div>
-
-            <!-- SSS -->
-
-          </div>
-
-        </form>
-      </div>
-
-    </section>
-    <!-- end of service Area -->
 
 
 

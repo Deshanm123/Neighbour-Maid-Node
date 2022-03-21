@@ -129,10 +129,22 @@ form.addEventListener('submit', function (e) {
         userType: userType.value
       }),
       success: (data) => {
+        // resetting
+        $('#message-alert').html('');
+        
+        const alertElement =
+          ` <div class=" alert alert-${data.msgType} alert-dismissible fade show py-3 text-center" role="alert"
+            id="alert-role" >
+            <strong id="message-area">${data.msg}</strong>
 
-        data.msgType == 'success' ? $('#alert-role').addClass('alert-success') : $('#alert-role').addClass('alert-danger');
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>;
+        `
+        // 
 
-        $('#message-area').html(data.msg);
+        $('#message-alert').html(alertElement);
         $('#message-alert').show();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }

@@ -3,8 +3,10 @@ const router = express.Router();
 const houseownerController = require('../controllers/houseownerController');
 
 router.get('/', houseownerController.getsimpleDashboardView);
-router.get('/search/:searchInput', houseownerController.getSearchResults);
- 
+// router.post('/', houseownerController.getSearchResults);
+router.get('/search', houseownerController.getSearchResults);
+router.get('/searchByRequirements', houseownerController.getRequirementSearchResults);
+
 
 
 

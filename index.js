@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser');
 const courseRouter = require('./routes/courses');
 const adminRouter = require('./routes/adminRoutes');
 const generalRouter = require('./routes/generalRoutes');
@@ -33,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 // setting static folder //serves resuources from public folder
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 

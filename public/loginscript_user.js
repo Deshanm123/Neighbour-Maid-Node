@@ -98,19 +98,54 @@ form.addEventListener('submit', function (e) {
     //allow form submission
     $.ajax({
       type: "POST",
-      url: "/login",
+      url: "/user/loginUser",
       contentType: "application/json",
       data: JSON.stringify({
         email: email.value,
         password: password.value,
       }),
       success: (data) => {
-        // console.log(data);
-        // // TODO check data is not null
-        // location.assign('/housemaid/');
+        // if(JSON.parse(data))
+        //   console.log(data);
+        // let userRole = data.userType;
+        // let data = JSON.parse(data);
+        // if (JSON.parse(data).userType == 'housemaid'){
+        //   console.log(data);
+          window.location.assign('/housemaid/');
+        // }
+        // if (JSON.parse(data).userType == 'houseowner'){
+        //   window.location.assign('/houseowner/');
+        // }
+        // if (userRole == 'housemaid') {
+        //   console.log("housemaid login")
+        // }else if(userRole == 'houseowner'){
+        // }else{
+        //   console.log(data);
+
       }
       // do errror hadnling
     })
+
+    // fetch('/user/loginUser', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     // your expected POST request payload goes here
+    //     email: email.value,
+    //     password: password.value,
+    //   })
+    // })
+    //   .then((data) => {
+    //     data.json();
+    //   })
+    //   .then((e) => {
+    //     console.log(e);
+    //   })
+
+
+
 
   }
 
