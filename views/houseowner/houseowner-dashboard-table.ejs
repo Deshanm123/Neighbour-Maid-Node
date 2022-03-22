@@ -46,40 +46,35 @@
 
               <!-- housemaid -->
               <%housemaids.forEach(housemaid=>{%>
-                <%console.log( housemaid)%>
-                  <div class="col-6 col-md-6 col-lg-4 mb-3">
-                    <div class="card h-100 border-0">
+                <div class="col-6 col-md-6 col-lg-4 mb-3">
+                  <div class="card h-100 border-0">
 
-                      <div class="card-img-top">
-                        <% if(housemaid.profileImg !=='' ){%>
-                          <img src="/<%=housemaid.profileImg%>" class="img-fluid mx-auto d-block"
-                            style="width: 250px; height:250px" />
-                          <% }else{%>
+                    <div class="card-img-top">
+                      <% if(housemaid.profileImg !=='' ){%>
+                        <img src="/<%=housemaid.profileImg%>" class="img-fluid mx-auto d-block"
+                          style="width: 250px; height:250px" />
+                        <% }else{%>
 
-                            <img src="https://via.placeholder.com/240x240/5fa9f8/efefef"
-                              class="img-fluid mx-auto d-block" alt="Card image cap">
-                            <% }%>
-                      </div>
-                      <div class="card-body text-center">
-                        <h4 class="card-title">
-                          <a href="/houseowner/<%=housemaid.userId%>"
-                            class=" font-weight-bold text-dark text-uppercase small">
-                            <%= housemaid.uFName %>
-
-                              <%= housemaid.uLName%>
-                          </a>
-                        </h4>
-                        <h5 class="card-price small text-warning">
-                          <i>
-
-                            <s>$199</s> $99
-                          </i>
-                        </h5>
-                      </div>
+                          <img src="https://via.placeholder.com/240x240/5fa9f8/efefef" class="img-fluid mx-auto d-block"
+                            alt="Card image cap">
+                          <% }%>
+                    </div>
+                    <div class="card-body text-center">
+                      <h4 class="card-title">
+                        <a href="product.html" class=" font-weight-bold text-dark text-uppercase small">
+                          <%= housemaid.uFName %>
+                            <%= housemaid.uLName%>
+                        </a>
+                      </h4>
+                      <h5 class="card-price small text-warning">
+                        <i>
+                          <s>$199</s> $99</i>
+                      </h5>
                     </div>
                   </div>
-                  <%}) %>
-                    <!-- housemaid -->
+                </div>
+                <%}) %>
+                  <!-- housemaid -->
 
 
             </div>

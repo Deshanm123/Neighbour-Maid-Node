@@ -5,7 +5,10 @@ const houseownerController = require('../controllers/houseownerController');
 router.get('/', houseownerController.getsimpleDashboardView);
 // router.post('/', houseownerController.getSearchResults);
 router.get('/search', houseownerController.getSearchResults);
-router.get('/searchByRequirements', houseownerController.getRequirementSearchResults);
+// router.get('/searchByRequirements', houseownerController.getRequirementSearchResults);
+router.post('/searchByRequirements', houseownerController.postRequirementSearchResults);
+// router.get('/getRequirementTable', houseownerController.getRequirementTable);
+router.get('/:maidId', houseownerController.getMaidPortiolioView);
 
 
 

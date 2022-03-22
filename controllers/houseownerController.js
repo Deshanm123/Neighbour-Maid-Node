@@ -1,6 +1,6 @@
-const { forEach } = require('lodash');
 const Houseowner = require('../models/Houseowner');
-const { search } = require('../routes/houseownerRoutes');
+const Housemaid = require('../models/Housemaid');
+
 
 
 
@@ -60,51 +60,124 @@ exports.getSearchResults = async (req, res) => {
   }
 
 }
+exports.getMaidPortiolioView = async (req, res) => {
 
 
-exports.getRequirementSearchResults = async (req, res) => {
 
-  // have to select values for each field it's a must
-  const { maidGender, maidEmpNature, checkedSkills } = req.query;
-  console.log(checkedSkills);
+  const { maidId } = req.params;
+  console.log(maidId);
+  try {
+    let searchResults = await Housemaid.getMaidPortfolioDetails(maidId);
+    console.log(searchResults);
+    //   // res.status(200).send({ searchResults: searchResults });
 
-  let filteredFinalArr = [];
-  let searchResults = await Houseowner.searchByGenderAndEmpConditions(maidGender, maidEmpNature);
-  if (searchResults.length > 0) {
+  res.status(200).render('houseowner/maid-my_Portifolio', { portifolioDetails: searchResults })
+    //   // res.status(200).send({ searchResults: searchResults });
 
-    searchResults.forEach(user => {
-      // creating object to iterate
-      let userSkillsObj = user.userSkills;
-      // console.log(userSkillsObj)
-
-      // extracting a single skill using loop
-      Object.values(userSkillsObj).forEach(skill => {
-        for (let i = 0; i < checkedSkills.length; i++) {
-          // matching skills that donot belong to Other category
-          // if at least one matches 
-          let skillInLowerCase = skill.toLowerCase();
-          if (checkedSkills[i].toLowerCase() == skillInLowerCase) {
-            filteredFinalArr.push(user)
-            break;
-          };
-          if (checkedSkills.includes('Other')) {
-            if (checkedSkills[i].toLowerCase() !== 'cleaning' || checkedSkills[i].toLowerCase() !== 'laundering' || checkedSkills[i].toLowerCase() !== 'cooking') {
-              filteredFinalArr.push(user)
-              break;
-            }
-          }
-        }
-
-      });
-      // console.log("user skills")
-    });
-    console.log("Final Filtered user Objects");
-    console.log(filteredFinalArr);
-    // res.status(200).render('houseowner/houseowner-dashboard', { housemaids: filteredFinalArr, page: '', pageCount: '' })
-    res.send(filteredFinalArr);
-
-  } else {
-    res.send("no results");
+  } catch (e) {
+    console.log(e);
   }
 
 }
+
+
+// exports.getRequirementSearchResults = async (req, res) => {
+
+//   // // have to select values for each field it's a must
+//   const { maidGender, maidEmpNature, checkedSkills } = req.query;
+//   // console.log(checkedSkills);
+
+//   let filteredFinalArr = [];
+//   let searchResults = await Houseowner.searchByGenderAndEmpConditions(maidGender, maidEmpNature);
+//   if (searchResults.length > 0) {
+//     searchResults.forEach(user => {
+//       // creating object to iterate
+//       let userSkillsObj = user.userSkills;
+//       console.log(userSkillsObj)
+
+//       // extracting a single skill using loop
+//       Object.values(userSkillsObj).forEach(skill => {
+//         for (let i = 0; i < checkedSkills.length; i++) {
+//           // matching skills that donot belong to Other category
+//           // if at least one matches 
+//           let skillInLowerCase = skill.toLowerCase();
+//           if (checkedSkills[i].toLowerCase() == skillInLowerCase) {
+//             filteredFinalArr.push(user)
+//             break;
+//           };
+//           if (checkedSkills.includes('Other')) {
+//             if (checkedSkills[i].toLowerCase() !== 'cleaning' || checkedSkills[i].toLowerCase() !== 'laundering' || checkedSkills[i].toLowerCase() !== 'cooking') {
+//               filteredFinalArr.push(user)
+//               break;
+//             }
+//           }
+//         }
+
+//       });
+//     });
+//     //   console.log("Final Filtered user Objects");
+//     //   console.log(filteredFinalArr);
+//     res.status(200).render('houseowner/houseowner-dashboard', { housemaids: searchResults, page: '', pageCount: '' });
+//     // res.send(filteredFinalArr);
+
+//   } else {
+//     res.send("no results");
+//   }
+
+// }
+
+
+
+
+
+exports.postRequirementSearchResults = async (req, res) => {
+
+  // // have to select values for each field it's a must
+  const { maidGender, maidEmpNature, checkedSkills } = req.body;
+  try {
+
+    let searchResults = await Houseowner.searchByGenderAndEmpConditions(maidGender, maidEmpNature);
+    let filteredFinalArr = [];
+    //  console.log(searchResults)
+    if (searchResults.length > 0) {
+      searchResults.forEach(user => {
+        //     // creating object to iterate
+        let userSkillsObj = user.userSkills;
+        // console.log(userSkillsObj)
+
+        // extracting a single skill using loop
+        Object.values(userSkillsObj).forEach(skill => {
+          for (let i = 0; i < checkedSkills.length; i++) {
+            // matching skills that donot belong to Other category
+            // if at least one matches 
+            let skillInLowerCase = skill.toLowerCase();
+            if (checkedSkills[i].toLowerCase() == skillInLowerCase) {
+              filteredFinalArr.push(user)
+              break;
+            };
+            if (checkedSkills.includes('Other')) {
+              if (checkedSkills[i].toLowerCase() !== 'cleaning' || checkedSkills[i].toLowerCase() !== 'laundering' || checkedSkills[i].toLowerCase() !== 'cooking') {
+                filteredFinalArr.push(user)
+                break;
+              }
+            }
+          }
+        });
+      });
+      //   //   //   console.log("Final Filtered user Objects");
+      console.log(filteredFinalArr);
+      // res.status(200).render('houseowner/houseowner-dashboard', {
+      //   housemaids: result , page: '', pageCount: ''
+      // });
+      res.status(200).send(filteredFinalArr);
+    } else {
+      // res.status(400).send({ error: 'Something failed!' });
+      res.status(400).json({ error: 'No data' });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+
+}
+
+

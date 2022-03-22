@@ -258,7 +258,23 @@ class Housemaid {
 
 
   //////////////////////////////MY SERVICE /////////////////////////////////////////////////////////
+  static getMaidPortfolioDetails(maidId) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT * FROM housemaid_dashboard_view WHERE  userId  = ?', maidId, (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
 
+  }
 
 
 
