@@ -3,19 +3,33 @@ const express = require('express');
 const path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
 const courseRouter = require('./routes/courses');
 const adminRouter = require('./routes/adminRoutes');
 const generalRouter = require('./routes/generalRoutes');
 const housemaidRouter = require('./routes/housemaidRoutes');
 const houseownerRouter = require('./routes/houseownerRoutes');
+const chatRouter = require('./routes/chatRoutes');
 const userRouter = require('./routes/userRoutes');
 const methodOverride = require('method-override');
-
-
+const socketio = require('socket.io');
+const http = require('http');
 
 
 var app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 // default option layout for  express-upload
+
+
+// for socket.io
+const chatController = require('./controllers/chatContoller');
+io.sockets.on('connection', function (socket) {
+  // ppass socket and io
+  chatController.respond(socket, io);
+});
+
+
 
 app.use(express.static('uploads'));
 
@@ -45,10 +59,11 @@ app.use('/housemaid', housemaidRouter);
 app.use('/houseowner', houseownerRouter);
 app.use('/admin', adminRouter);
 app.use('/user', userRouter);
+app.use('/chat', chatRouter);
 
 app.get('/', (req, res) => {
   res.render(index);
 })
 
 const PORT = process.env.PORT || 5555;
-app.listen(PORT, () => `Server started on port ${PORT}`);
+server.listen(PORT, () => `Server started on port ${PORT}`);
