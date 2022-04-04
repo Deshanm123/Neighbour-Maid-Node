@@ -7,9 +7,15 @@ var ChatDetailsSchema = new Schema({
   message: { type: String },
 });
 
+var chatParticipantsSchema = new Schema({
+  housemaid_id: { type: String },
+  houseowner_id: { type: String },
+});
+
 var ChatSchema = new Schema({
   interaction: { type: String },
   time_stamp: { type: Date },
+  chatParticipants: chatParticipantsSchema, 
   chat_details: ChatDetailsSchema
 }, { versionKey: false });
 

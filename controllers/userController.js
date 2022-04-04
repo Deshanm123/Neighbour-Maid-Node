@@ -29,6 +29,7 @@ const createJWToken = (id) => {
 
 
 
+
 // ////////////////////////////////////REGISTER/////////////////////////////////////////////////////
 //get registration page
 exports.getRegistrationUser = async (req, res) => {
@@ -142,13 +143,15 @@ exports.postLoginUser = async (req, res) => {
           // storing JWT inside a cookie
           res.cookie('jwt', jwToken, { maxAge: maxAge, httpOnly: true });
           console.log(" sucess login " + jwToken);
+
+          // console.log(userRecord[0].userRole);
           //sucessfully created
           // this was earlier used-must use stringify
-          res.status(200).send(JSON.stringify({ userType: userRecord[0].userRole, userId: userRecord[0].userId }));
+          // res.status(200).send(JSON.stringify({ userType: userRecord[0].userRole, userId: userRecord[0].userId }));
+          res.status(200).json({ userType: userRecord[0].userRole, userId: userRecord[0].userId });
+
           // res.status(200).send({ userType: userRecord[0].userRole, userId: userRecord[0].userId });
-          // res.status(200).send({ userType: userRecord[0].userRole, userId: userRecord[0].userId });
-          // res.status(303).redirect('/housemaid');
-          // res.render('housemaid/maid-dashboard', { user: 'user' });
+
 
         } else {
           console.log('Please enter the correct password');
@@ -164,5 +167,15 @@ exports.postLoginUser = async (req, res) => {
   } catch (e) {
     console.log(e);
   }
+
+}
+
+
+// ////////////////////logout
+exports.logOut = (req, res) => {
+  // we cant delete the cookie frm server 
+  // but we can replace the cookie with soontobe expire cookie
+  res.cookie('jwt', '', { maxAge: 1 }); //giving a blank value andone millisec duration
+  res.redirect('/user/loginUser'); //redirect to login
 
 }

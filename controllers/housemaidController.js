@@ -1,5 +1,6 @@
 const Coursemodel = require('../models/Coursemodel');
 const Housemaid = require('../models/Housemaid');
+const Houseowner = require('../models/Houseowner');
 const Image = require('../models/Image');
 const fs = require('fs');
 const path = require('path');
@@ -20,14 +21,7 @@ exports.userIdFromToken = async (token) => {
 };
 
 
-// logout function
-exports.logOut = (req, res) => {
-  // we cant delete the cookie frm server 
-  // but we can replace the cookie with soontobe expire cookie
-  res.cookie('jwt', '', { maxAge: 1 }); //giving a blank value andone millisec duration
-  res.redirect('/login'); //redirect to login
 
-}
 // /////////////////////////////////////coursees sction/////////////////////////////////////////
 
 // getting all the courses
@@ -296,10 +290,6 @@ exports.putEditMyService = async (req, res) => {
 
 
 
-
-
-
-
 // /////////////////////////////////////////END OF MY Services/////////////////////////////////
 
 
@@ -309,4 +299,61 @@ exports.putEditMyService = async (req, res) => {
 
 
 
-//////////////////////////////////services///////////////////////////////////////////////////////////////
+//////////////////////////////////CHaT///////////////////////////////////////////////////////////////
+const mongoose = require('mongoose');
+const uri = 'mongodb+srv://deshanm123:YdG5JMjZ9AE2Hvr6@cluster0.ufsym.mongodb.net/neighbourMaidChat?retryWrites=true&w=majority';
+const Chat = require('../models/Chat')
+
+
+
+async function getchatSpaces(currentmaidId) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+      .then(() => {
+        Chat.distinct('chatParticipants.houseowner_id', { 'chatParticipants.housemaid_id': currentmaidId })
+          .then(results => {
+
+            resolve(results)
+            // res.render('housemaid/maid-chat', { chatInteractions: results})
+          })
+      })
+      .catch(err => reject(err)
+      );
+  });
+}
+
+async function getHouseOwners(houseownerIds) {
+  let houseOwnersObjArr=[];
+  for (let i = 0; i < houseownerIds.length; i++) {
+    let houseownerId = houseownerIds[i];
+    const hoObj = Object.assign({}, {
+      'id': houseownerId,
+      'name': await Houseowner.getHouseOwnerNamebyId(houseownerId)
+    });
+    houseOwnersObjArr.push(hoObj);
+  }
+  return houseOwnersObjArr;
+}
+
+
+
+
+
+
+
+
+
+exports.getChat = async (req, res) => {
+  const currentmaidId = res.locals.user.userId;
+  const houseownerIds = await getchatSpaces(currentmaidId);
+  console.log(houseownerIds)
+  let houseOwnerArr =[];
+
+  houseOwnerArr = await  getHouseOwners(houseownerIds)
+
+
+  console.log(houseOwnerArr)
+  
+  res.render('housemaid/maid-chat', { houseOwnerArr: houseOwnerArr, currentmaidId: currentmaidId})
+}
+//////////////////////////////////End of CHaT///////////////////////////////////////////////////////////////

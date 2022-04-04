@@ -13,8 +13,6 @@ router.get('/', requireAuth, (req, res) => {
 // portifolio
 router.get('/portifolio', requireAuth, housemaidController.viewPortifolio);
 
-// logout
-router.get('/logout', requireAuth, housemaidController.logOut);
 
 
 // courses routes
@@ -38,7 +36,8 @@ router.put('/myService/edit', requireAuth, housemaidController.putEditMyService)
 
 
 
-
+// chat
+router.get('/chat', requireAuth, housemaidController.getChat);
 
 
 

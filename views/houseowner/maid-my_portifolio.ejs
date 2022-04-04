@@ -86,24 +86,12 @@
                         <%= pd.userCountry%>,
                         
                       </div>
-                      <!-- <div class=" mb-4 pb-2">
-                        <button type="button" class="btn btn-outline-primary btn-floating ">
-                          <i class="fab fa-facebook-f fa-lg"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary btn-floating">
-                          <i class="fab fa-twitter fa-lg"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary btn-floating">
-                          <i class="fab fa-skype fa-lg"></i>
-                        </button>
-                    </div> -->
-
-                    <div class="d-flex justify-content-center ">
-                      <button type="button" class="btn btn-success btn-rounded btn-lg m-2  btn-sm">Message
-                        Now</button>
-                      <button type="button" class="btn btn-outline-primary btn-rounded btn-lg m-2  btn-sm">Appoint
-                        Now</button>
-
+                     
+                    <div class=" d-flex justify-content-center">
+                        <a href="/chat?hm=<%=pd.userId%>&ho=<%=currenthouseOwnerId%>&sentby=ho"
+                          class="btn btn-success btn-rounded btn-lg m-2 btn-sm">Message</a>
+                        <button type="button" class="btn btn-outline-primary btn-rounded btn-lg m-2  btn-sm">Appoint
+                          Now</button>
                     </div>
                     <!-- 
                       <div class="d-flex justify-content-between text-center mt-5 mb-2">

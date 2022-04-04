@@ -4,19 +4,22 @@ var router = express.Router();
 
 // normally routes /chat/0000
 router.get('/', (req, res) => {
-  res.send("INValid please refer chat router")
+
+  res.render('houseowner/chat-interface');
 })
 
 
-router.get('/:id', (req, res) => {
-  const chatId = req.params.id;
-  // const houseownerId = "1000"
-  // const chatRoom = `${houseownerId}__${maidId}`;
-  console.log(chatId);
-  // create
+// router.get('/:id', (req, res) => {
+//   const chatId = req.params.id;
 
-  res.render('chat-interface');
-})
+
+//   // const houseownerId = "1000"
+//   // const chatRoom = `${houseownerId}__${maidId}`;
+//   console.log(chatId);
+//   // create
+
+//   res.render('chat-interface');
+// })
 
 
 

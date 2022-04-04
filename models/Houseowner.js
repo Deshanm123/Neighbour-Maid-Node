@@ -134,22 +134,25 @@ class Houseowner {
   }
 
 
+  // CHAT SERVICE
+  static getHouseOwnerNamebyId(houseOwnerId) {
 
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT userName FROM user_tb WHERE userId = ? ', houseOwnerId, (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows[0].userName);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  }
 
 
 }

@@ -62,7 +62,7 @@ app.use('/user', userRouter);
 app.use('/chat', chatRouter);
 
 app.get('/', (req, res) => {
-  res.render(index);
+  res.render('index');
 })
 
 const PORT = process.env.PORT || 5555;

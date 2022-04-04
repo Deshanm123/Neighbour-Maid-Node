@@ -105,16 +105,25 @@ form.addEventListener('submit', function (e) {
         password: password.value,
       }),
       success: (data) => {
-        // if(JSON.parse(data))
-        //   console.log(data);
-        // let userRole = data.userType;
-        // let data = JSON.parse(data);
-        // if (JSON.parse(data).userType == 'housemaid'){
-        //   console.log(data);
-          window.location.assign('/housemaid/');
+
+        let url;
+        if (data.userType.toLowerCase() == 'housemaid') {
+          url = '/housemaid/';
+        }
+        else if (data.userType.toLowerCase() == 'houseowner') {
+          url = '/houseowner/';
+        } else {
+          url = ''
+        }
+
+        console.log("url  value is " + url);
+        url != '' ? window.location.assign(url) : console.log("Invalid url")
+        // window.location.assign(`/${JSON.parse(data).userType}/`);
+
+
         // }
         // if (JSON.parse(data).userType == 'houseowner'){
-        //   window.location.assign('/houseowner/');
+        // window.location.assign('/houseowner/');
         // }
         // if (userRole == 'housemaid') {
         //   console.log("housemaid login")

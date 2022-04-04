@@ -45,27 +45,33 @@
   --max-width: 1170px;
   --fixed-width: 620px;
 }
+
 /* endof variables */
 
-*{
-  background-color:#fff;
+* {
+  background-color: #fff;
+  font-size: 16px 
 }
+
 /* utilities */
-.style-1{
-   font-family:Arial, Helvetica, sans-serif; 
-   font-size:2.5rem; 
-   font-weight:900;
-   
+.style-1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+
   /* color:red; */
 }
-#test{
+
+#test {
   background-color: #e3e3e3;
   background-color: red;
 }
-.title{
-  text-align:center;
+
+.title {
+  text-align: center;
   margin-bottom: 4rem;
 }
+
 .underline {
   height: 0.25rem;
   width: 5rem;
@@ -75,12 +81,13 @@
   margin-right: auto;
 }
 
-.highlight-label{
-  font-family:Baskerville;
-  font-size:4rem;
-  letter-spacing:4px ;
-  color:#B52432;
+.highlight-label {
+  font-family: Baskerville;
+  font-size: 4rem;
+  letter-spacing: 4px;
+  color: #B52432;
 }
+
 .plus-icon,
 .minus-icon,
 .prev-btn,
@@ -91,50 +98,60 @@
   transition: var(--transition);
   cursor: pointer;
 }
+
 .prev-btn:hover,
 .next-btn:hover {
   color: var(--clr-primary-5);
 }
-.checkbox-label{
- font-size:10px;
+
+.checkbox-label {
+  font-size: 10px;
 }
+
 /* end of utilities */
 
 
 
 
 /* navigation  */
-.nav-link{
-  font-size:1.5rem;
-  font-weight:500
+.nav-link {
+  /* font-size: 1.5rem; */
+  font-weight: 500
 }
+
 /* dashboard */
-.explore-btn{
- 
-  background-color:#367D99;
-  border: none; 
+.explore-btn {
+
+  background-color: #367D99;
+  border: none;
 }
-.explore-btn:hover{
-   background-color:#0C858E;
+
+.explore-btn:hover {
+  background-color: #0C858E;
   /* background-color:#9C1B38; */
-   /* background-color:#17A2B8; */
+  /* background-color:#17A2B8; */
 }
+
 /* question area */
-.plus-icon{
-  background-color:#0C858E;
+.plus-icon {
+  background-color: #0C858E;
 }
-.minus-icon{
+
+.minus-icon {
   /* background-color:#0C858E; */
-   display: none;
+  display: none;
 }
-.explanation-text{
-  display:none;
+
+.explanation-text {
+  display: none;
 }
-.show-explanation{
-   display:block;
+
+.show-explanation {
+  display: block;
 }
-.show-answer{
-  display:inline;
+
+.show-answer {
+  display: inline;
 }
 
 
@@ -145,7 +162,7 @@
   padding: 1.5rem 2rem;
   box-shadow: var(--light-shadow);
   transition: var(--transition);
-  text-align:center;
+  text-align: center;
 }
 
 .img-container {
@@ -156,6 +173,7 @@
   margin: 0 auto;
   margin-bottom: 1.5rem;
 }
+
 #person-img {
   width: 100%;
   display: block;
@@ -168,12 +186,14 @@
 #author {
   margin-bottom: 0.25rem;
 }
+
 #job {
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   color: var(--clr-primary-5);
   font-size: 0.85rem;
 }
+
 #info {
   margin-bottom: 0.75rem;
 }
@@ -183,29 +203,31 @@
 /* end of  reviews */
 
 /* contact us- page */
-.map-container{
-overflow:hidden;
-padding-bottom:56.25%;
-position:relative;
-height:0;
+.map-container {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
 }
-.map-container iframe{
-left:0;
-top:0;
-height:100%;
-width:100%;
-position:absolute;
+
+.map-container iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
+
 /* end of contact page */
 
-#carouselExampleIndicators{
-  height:800px;
-  width:100%;
+#carouselExampleIndicators {
+  height: 800px;
+  width: 100%;
 }
 
-.carousel-img{
-  width:100%;
-  height:350px;
+.carousel-img {
+  width: 100%;
+  height: 350px;
 }
 
 
@@ -216,23 +238,24 @@ position:absolute;
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }
 
 /* circular progressbar */
-#progress-section{
-  width:200px;
-  height:250px;
+#progress-section {
+  width: 200px;
+  height: 250px;
   /* background-color:#222 */
 }
+
 #ProgressCircleBar {
-  width:100px;
+  width: 100px;
   text-align: center;
 }
 
 #ProgressCircleBar .round strong {
-  position:absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   margin-top: -50px;
@@ -246,32 +269,34 @@ position:absolute;
 /* Maid-Dashboard */
 /* view householder requests section */
 #householder-interview-request-img {
-  width:60px;
+  width: 60px;
   display: block;
-  height:60px;
+  height: 60px;
   object-fit: cover;
   border-radius: 50%;
   position: relative;
 }
 
-#housemaid-dashborad-jumbotron{
-  background-color:#fff !important;
-}
-#user-verified-status{
-  color:#6351ce;
-  font-size:20px;
-  
-}
-#housemaid-navbar-profile{
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  
+#housemaid-dashborad-jumbotron {
+  background-color: #fff !important;
 }
 
-#housemaid-view{
-  width:400px;
-  height:300px;
+#user-verified-status {
+  color: #6351ce;
+  font-size: 20px;
+
+}
+
+#housemaid-navbar-profile {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+
+}
+
+#housemaid-view {
+  width: 400px;
+  height: 300px;
 }
 
 /* login */
@@ -279,15 +304,15 @@ position:absolute;
  
   color:black;
 } */
-#input-error{
-  visibility:hidden;
-} 
+#input-error {
+  visibility: hidden;
+}
 
 /* #register-form small */
-  /* background-color:#e3e3e3; */
-  /* visibility:hidden; */
+/* background-color:#e3e3e3; */
+/* visibility:hidden; */
 
 /* #register-form small.show */
-  /* background-color:black; */
-  /* visibility:visible; */
+/* background-color:black; */
+/* visibility:visible; */
 /* } */

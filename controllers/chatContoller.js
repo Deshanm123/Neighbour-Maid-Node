@@ -1,4 +1,4 @@
-const Chat= require('../models/Chat');
+const Chat = require('../models/Chat');
 
 const mongoose = require('mongoose');
 const uri = 'mongodb+srv://deshanm123:YdG5JMjZ9AE2Hvr6@cluster0.ufsym.mongodb.net/neighbourMaidChat?retryWrites=true&w=majority';
@@ -41,6 +41,7 @@ module.exports.respond = (socket, endpoint) => {
   // chat space
 
 
+
   // test for chat space
   // input msgs in a room
   socket.on('input', (data) => {
@@ -57,6 +58,10 @@ module.exports.respond = (socket, endpoint) => {
       let chatMessage = new Chat({
         interaction: chatSpace,
         time_stamp: Date(),
+        chatParticipants: {
+          housemaid_id: data.housemaidId,
+          houseowner_id: data.houseownerId
+        },
         chat_details: {
           name: data.name,
           message: data.message
