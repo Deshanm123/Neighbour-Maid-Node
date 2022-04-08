@@ -13,12 +13,15 @@ router.get('/search', houseownerController.getSearchResults);
 // router.get('/searchByRequirements', houseownerController.getRequirementSearchResults);
 router.post('/searchByRequirements', houseownerController.postRequirementSearchResults);
 // router.get('/getRequirementTable', houseownerController.getRequirementTable);
-router.get('/:maidId', houseownerController.getMaidPortiolioView);
 
 // chat
-router.get('/chat', requireAuth, houseownerController.getChat);
+router.get('/chat',  houseownerController.getChat);
+
+//video chat
+router.get('/videoChat', houseownerController.getVideoChat);
 
 
+router.get('/:maidId', houseownerController.getMaidPortiolioView);
 
 
 

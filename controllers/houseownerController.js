@@ -62,7 +62,7 @@ exports.getSearchResults = async (req, res) => {
 }
 exports.getMaidPortiolioView = async (req, res) => {
   console.log("RES LOCLS")
-  let currenthouseOwnerId=res.locals.user.userId;
+  let currenthouseOwnerId = res.locals.user.userId;
   console.log(currenthouseOwnerId);
   const { maidId } = req.params;
   console.log(maidId);
@@ -71,7 +71,7 @@ exports.getMaidPortiolioView = async (req, res) => {
     console.log(searchResults);
     //   // res.status(200).send({ searchResults: searchResults });
 
-    res.status(200).render('houseowner/maid-my_Portifolio', { portifolioDetails: searchResults, currenthouseOwnerId: currenthouseOwnerId})
+    res.status(200).render('houseowner/maid-my_Portifolio', { portifolioDetails: searchResults, currenthouseOwnerId: currenthouseOwnerId })
     //   // res.status(200).send({ searchResults: searchResults });
 
   } catch (e) {
@@ -182,6 +182,11 @@ exports.postRequirementSearchResults = async (req, res) => {
 
 
 // chat
-exports.getChat= (req,res)=>{
+exports.getChat = (req, res) => {
   res.status(200).render('houseowner/chat-interface');
+}
+// vide chat
+exports.getVideoChat = (req, res) => {
+  let currentId = res.locals.user.userId;
+  res.status(200).render('houseowner/houseowner-video-chat', { currentId: currentId });
 }

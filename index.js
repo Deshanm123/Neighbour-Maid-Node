@@ -19,14 +19,22 @@ const http = require('http');
 var app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+
+const { ExpressPeerServer } = require('peer');
+const Peer = ExpressPeerServer(server, { debug: true });
+
+app.use('/peerjs', Peer);
+
 // default option layout for  express-upload
 
 
 // for socket.io
 const chatController = require('./controllers/chatContoller');
+const videoChatController = require('./controllers/videoChatController');
 io.sockets.on('connection', function (socket) {
   // ppass socket and io
   chatController.respond(socket, io);
+  videoChatController.respond(socket, io);
 });
 
 

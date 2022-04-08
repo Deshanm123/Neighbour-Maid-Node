@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+  <!-- page title -->
+  <title>NeighbourMaid | houseowner-videochat</title>
+  <!-- peer js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/2.0.0-beta.3/peerjs.min.js"
+    integrity="sha512-/b9G70XUEYGTOv2bh4ZKwvysh6pIwvrfXOkuVIvmg5nwfuJZoSH0a4MD1rF92SmQtDz4W+e3MiX9niGw15kaPw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- peer js -->
+
+  <script defer src="/socket.io/socket.io.js"></script>
+  <script>
+    let myPeerId = '<%- currentId %>';
+  </script>
+  <script defer src="/videochatjs.js"></script>
+
+
+  <style>
+    * {
+      font-size: 16px;
+    }
+
+
+    #video-grid {
+      height: 350px;
+    }
+
+    video {
+      height: 450px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- navbar -->
+  <%- include('_houseowner-nav')%>
+
+
+
+    <div class="container py-5">
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-6 mx-0 px-0">
+          <h2>Heading</h2>
+          <video id="remoteVideo" autoplay="autoplay">
+        </div>
+        <div class="col-md-6 mx-0">
+          <h2>My Stream</h2>
+          <video id="myStream" autoplay="autoplay">
+        </div>
+      </div>
+      <div class="row p-3">
+
+        <div class="col-md-6 mx-0 px-0">
+          <div onclick="muteAction()" class="btn btn-primary btn-block" id="main_mute_button">
+            <i class="fas fa-microphone" id="voice-icon"></i>
+            <span id="voice-span"> Mute</span>
+          </div>
+
+        </div>
+        <div class="col-md-6 mx-0">
+          <div onclick="playStop()" class="btn btn-primary btn-block" id=".main__video_button">
+            <i class="fas fa-video"></i>
+            <span>Stop Video</span>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+      </div>
+
+      <!-- <a class="btn btn-secondary" href="#" role="button">call</a> -->
+      <input type="text" id="connectionId" class="form-control border-primary" place-holder="Enter the connection Id">
+
+
+      <button id="connectBtn" class=" btn btn-success btn-block">connect</button>
+
+
+      <p>
+        Connection Status:
+        <span id="conn-status-msg">Not Connected</span>
+
+      </p>
+      <!-- <button id="videoCallBtn" class=" btn btn-secondary btn-block">Make call</button> -->
+      <button id="endCallBtn" class="btn btn-secondary btn-danger btn-block"> End call</button>
+
+
+
+    </div>
+
+
+
+
+
+    <!-- view Profile -->
+    <%- include('_housemaid-footer')%>
+      <!-- end of footer -->
+
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <!-- new jQuery -->
+      <<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>
