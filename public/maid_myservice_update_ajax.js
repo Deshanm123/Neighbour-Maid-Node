@@ -55,6 +55,7 @@ $("#addRow").click(() => {
 // remove row
 
 $(document).on('click', '#removeRow', (e) => {
+  console.log("remove clicked")
   // update function different than add
   const selectedInputIdForm = e.target.parentNode.parentNode;
   selectedInputIdForm.querySelector('.skill-input').value = '';
@@ -93,6 +94,7 @@ function getNewSkills() {
 
 $(document).ready(() => {
   $('#message').hide();
+  getLocation()
 
 
 

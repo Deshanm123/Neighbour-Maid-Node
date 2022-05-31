@@ -28,77 +28,6 @@
   <%- include('_housemaid-nav')%>
     <!-- end of navbar -->
 
-
-    <!-- maid location Pop up
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Modal title
-            </h5>
-            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">...</div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">
-              Save changes
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-
-    <!-- <div class="modal fade show" id="exampleCentralModal5" tabindex="-1" aria-labelledby="exampleModalLabel"
-      data-gtm-vis-first-on-screen-2340190_1302="57260" data-gtm-vis-total-visible-time-2340190_1302="100"
-      data-gtm-vis-has-fired-2340190_1302="1" style="display: block; padding-left: 0px; padding-right: 1px;"
-      aria-modal="true" role="dialog">
-      <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Watch it</h5>
-            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="embed-responsive embed-responsive-16by9">
-            <!-- <iframe class="embed-responsive-item"
-              src="https://www.youtube.com/embed/vlDzYIIOYmM?enablejsapi=1&amp;origin=https%3A%2F%2Fmdbootstrap.com"
-              title="YouTube video" allowfullscreen="" data-gtm-yt-inspected-2340190_699="true" id="403319044">
-            </iframe> -->
-    <!-- </div>
-    </div>
-    </div>
-    </div>  -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- maid location Pop up -->
-
-   
-
-
-
-
-
-
-
     <!-- housemaid  details screen -->
     <section id="housemaid-details" style="background-color:#e9ecef">
       <div class="container">
@@ -129,8 +58,6 @@
 
                 </div>
               </div>
-
-
               <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
               </p>
             </div>
@@ -142,11 +69,7 @@
     </section>
 
 
-
     <!-- end of  housemaid  details screen -->
-
-
-
 
     <!-- view householder requests section -->
     <section id="householder-request-section">
@@ -168,7 +91,7 @@
                   </tr>
                 </thead>
                 <tbody class>
-
+                <% appointments.forEach(appointment=>{ %>
                   <!-- interview entry -->
                   <tr>
                     <!-- image column  -->
@@ -180,61 +103,32 @@
                           </div>
                         </div>
                         <div class="col-6">
-                          <pre id="householder-name">Alexa</pre>
+                          <pre id="householder-name"><%= appointment.houseownerName %></pre>
                         </div>
                       </div>
                     </td>
                     <td>
                       <p>
-                        Are you available?
+                       <%= appointment.message %>
                       </p>
                     </td>
                     <!-- time -->
                     <td>
-                      <h5>Fri,Jan 23 </h5>
-                      <small>9.45 AM</small>
+                      <%= appointment.extractedDate %>
+                      <!-- <h5>Fri,Jan 23 </h5>
+                      <small>9.45 AM</small> -->
                     </td>
-
+                    
                     <!-- action column -->
                     <td>
-                      <button type="button" class="btn btn-success px-4">join</button>
+                      <a href='/housemaid/videoChat/<%= appointment.houseownerId %>'  class="btn btn-success px-4">join</a>
+                     
                     </td>
                   </tr>
                   <!-- end of interview entry -->
+              <% }) %>
 
-                  <!-- interview entry -->
-                  <tr>
-                    <!-- image column  -->
-                    <td>
-                      <div class="row">
-                        <div class="col-6 pr-0 ">
-                          <div class="img-container d-flex justify-content-start p-0 m-0">
-                            <img src="" id="householder-interview-request-img" alt="" />
-                          </div>
-                        </div>
-                        <div class="col-6">
-                          <pre id="householder-name">Alexa</pre>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p>
-                        Let me know if that works for you or if you prefer another day or time
-                        this week.
-                      </p>
-                    </td>
-                    <!-- time -->
-                    <td>
-                      <h5>Fri,Jan 20 </h5>
-                      <small>9.45 AM</small>
-                    </td>
-
-                    <!-- action column -->
-                    <td>
-                      <button type="button" class="btn btn-success px-4">join</button>
-                    </td>
-                  </tr>
-                  <!-- end of interview entry -->
+                  
                 </tbody>
               </table>
             </div>

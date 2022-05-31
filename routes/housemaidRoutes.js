@@ -7,9 +7,7 @@ const { requireAuth, tokenUserInfoAccess } = require('./../middleware/authMiddle
 //for all the get requests
 router.get('*', tokenUserInfoAccess)
 
-router.get('/', requireAuth, (req, res) => {
-  res.render('housemaid/maid-dashboard');
-});
+router.get('/', requireAuth, housemaidController.getDashboard);
 // portifolio
 router.get('/portifolio', requireAuth, housemaidController.viewPortifolio);
 
@@ -38,7 +36,8 @@ router.put('/myService/edit', requireAuth, housemaidController.putEditMyService)
 
 // chat
 router.get('/chat', requireAuth, housemaidController.getChat);
-
+//video chat
+router.get('/videoChat/:houseownerId', requireAuth, housemaidController.getVideoChat);
 
 
 

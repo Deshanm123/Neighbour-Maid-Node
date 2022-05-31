@@ -5,6 +5,15 @@ const Image = require('../models/Image');
 const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const moment = require('moment');
+
+// mongoose
+const mongoose = require('mongoose');
+const uri = 'mongodb+srv://deshanm123:YdG5JMjZ9AE2Hvr6@cluster0.ufsym.mongodb.net/neighbourMaidChat?retryWrites=true&w=majority';
+const Chat = require('../models/Chat')
+const Appointment = require('../models/Appointment')
+// mongoose
+
 
 
 exports.userIdFromToken = async (token) => {
@@ -21,7 +30,57 @@ exports.userIdFromToken = async (token) => {
 };
 
 
+///////////////////////////////////// dashboard////////////////
 
+async function getAppointmentsByHousemaid(currentmaidId) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+      .then(() => {
+        Appointment.find({ 'housemaid_id': currentmaidId })
+          .then(results => {
+            resolve(results)
+          })
+      })
+      .catch(err => reject(err)
+      );
+  });
+}
+
+
+async function getAppointmentsOfMaids(results) {
+  let appointmentArr = [];
+
+  for (let i = 0; i < results.length; i++) {
+
+    // houseowner
+    let houseownerId = results[i].houseownerId;
+    let houseownerName = await Houseowner.getHouseOwnerNamebyId(results[i].houseownerId);
+    // message
+    let message = results[i].appointmentDescription
+    let extractedDate = results[i].appointmentDateandTime.toLocaleString()
+    // let venueDate = moment(extractedDate).format('MMM DD hh:mm:ss');
+
+    const appointment = { houseownerId, houseownerName, message, extractedDate }
+    // console.log(houseOwnerName + " " + extractedDate)
+    appointmentArr.push(appointment)
+  }
+  return appointmentArr;
+}
+
+
+
+
+exports.getDashboard = async (req, res) => {
+  const housemaidId = res.locals.user.userId;
+  let results = await getAppointmentsByHousemaid(housemaidId);
+  let appointments = await getAppointmentsOfMaids(results);
+
+  console.log(appointments)
+  res.render('housemaid/maid-dashboard', { appointments: appointments });
+}
+
+
+///////////////////////////////////// dashboard////////////////
 // /////////////////////////////////////coursees sction/////////////////////////////////////////
 
 // getting all the courses
@@ -300,9 +359,7 @@ exports.putEditMyService = async (req, res) => {
 
 
 //////////////////////////////////CHaT///////////////////////////////////////////////////////////////
-const mongoose = require('mongoose');
-const uri = 'mongodb+srv://deshanm123:YdG5JMjZ9AE2Hvr6@cluster0.ufsym.mongodb.net/neighbourMaidChat?retryWrites=true&w=majority';
-const Chat = require('../models/Chat')
+
 
 
 
@@ -323,7 +380,7 @@ async function getchatSpaces(currentmaidId) {
 }
 
 async function getHouseOwners(houseownerIds) {
-  let houseOwnersObjArr=[];
+  let houseOwnersObjArr = [];
   for (let i = 0; i < houseownerIds.length; i++) {
     let houseownerId = houseownerIds[i];
     const hoObj = Object.assign({}, {
@@ -347,13 +404,24 @@ exports.getChat = async (req, res) => {
   const currentmaidId = res.locals.user.userId;
   const houseownerIds = await getchatSpaces(currentmaidId);
   console.log(houseownerIds)
-  let houseOwnerArr =[];
+  let houseOwnerArr = [];
 
-  houseOwnerArr = await  getHouseOwners(houseownerIds)
+  houseOwnerArr = await getHouseOwners(houseownerIds)
 
 
   console.log(houseOwnerArr)
-  
-  res.render('housemaid/maid-chat', { houseOwnerArr: houseOwnerArr, currentmaidId: currentmaidId})
+
+  res.render('housemaid/maid-chat', { houseOwnerArr: houseOwnerArr, currentmaidId: currentmaidId })
 }
 //////////////////////////////////End of CHaT///////////////////////////////////////////////////////////////
+
+
+
+///////Video////////
+exports.getVideoChat = (req, res) => {
+  let houseownerId = req.params.houseownerId;
+  let currentId = res.locals.user.userId;
+  res.status(200).render('housemaid/maid-video-chat', { currentId: currentId, otherPartyId: houseownerId });
+}
+
+///////Video////////

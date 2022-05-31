@@ -12,8 +12,25 @@
   <!-- font awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <!-- animating icons -->
+  <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
   <!-- style sheet -->
   <link rel="stylesheet" href="/style/style.css">
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+
+    #bg {
+      min-height: 60vh;
+      background: #009FFF;
+      background: linear-gradient(to right, #fff, #009FFF);
+      clip-path: ellipse(100vw 60vh at 50% 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
   <!-- page title -->
   <title>NeighbourMaid | Home</title>
 </head>
@@ -25,19 +42,21 @@
 
     <!-- poster-section -->
     <section id="poster-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-5 align-self-center ">
-            <h2 class="mx-1 pb-2 style-1">Tired of doing Daily Chores?</h2>
-            <h2 class="mx-1 pb-5 style-1">Are You too Busy?</h2>
-            <h2 class="pt-5">Get a</h2>
-            <p class="pt-2 pl-4 highlight-label"> professional</p>
-
+      <div class="row d-flex justify-content-center align-items-center h-100" id="bg">
+        <div class="row g-0">
+          <div class="col-md-6 col-lg-7 d-none d-md-block">
+            <img src="./img/Free Vector _ Cleaners with cleaning products housekeeping service.png" alt="index-poster"
+              class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
           </div>
-          <div class="col-7">
-            <img class="animated-worker center-block"
-              src="./img/Free Vector _ Cleaners with cleaning products housekeeping service.png" alt="">
+          <div class="col-md-6 col-lg-5 d-flex align-items-center">
+            <div class="card-body p-4 p-lg-5 text-black">
+              <div class=" align-self-center ">
+                <h1 id="poster-title" style="color:#fff;font-size:5vw">Tired of doing Daily Chores?</h1>
+                <h2>Are You too Busy?</h2>
+                <h2>Get a <span style="color:#fff;font-size:4vw">PROFESSIONAL</span> .</h2>
 
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -47,81 +66,151 @@
     <!-- howto-section -->
     <section id="howto-section">
       <div class="container">
-        <div class="title">
-          <h2>How to Find the best maid</h2>
-          <div class="underline"></div>
-        </div>
-        <div class="row">
-          <div class="col-5 align-self-center ">
-            <h2 class="mx-1 pb-2 style-1">Experienced Maids</h2>
-            <h2 class="mx-1 pb-2 style-1">Trained Maids</h2>
-            <h2 class="mx-1 pb-2 style-1">Educated Maids</h2>
-            <h2 class="mx-1 pb-5 style-1">Friendly Maids</h2>
-
-            <button type="button" class="btn  btn-info explore-btn  mt-5 ml-5">Explore Now</button>
+        <div class="container marketing">
+          <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">Find the best Maid?</h1>
+            <div class="underline mb-3"></div>
+            <p class="lead">Doesn't matter Where around the world you live by.Simply follow these simple steps to find
+              your near by housemaid that tailor for your necessities.
+              It's really easy.</p>
           </div>
-          <div class="col-7 ">
-            <ol type="1">
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, quaerat dolor velit eum tempore at?
-              </li>
-              <br>
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, quaerat dolor velit eum tempore at?
-              </li>
-              <br>
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, quaerat dolor velit eum tempore at?
-              </li>
-              <br>
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, quaerat dolor velit eum tempore at?
-              </li>
-              <br>
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, quaerat dolor velit eum tempore at?
-              </li>
 
-            </ol>
+          <!-- START THE FEATURETTES -->
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-8">
+              <h2 class="featurette-heading">Search and Filter <span class="text-muted">It'll blow your mind.</span>
+              </h2>
+              <p class="lead pt-4">"As householder, you are able to search and filter housemaids according to
+                requirements."</p>
+            </div>
+            <div class="col-md-4">
+              <!-- <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
+
+              <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" delay="1000"
+                style="width:230px;height:230px">
+              </lord-icon>
+            </div>
           </div>
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-9 order-md-2">
+              <h2 class="featurette-heading"> Interview the potential maids. <span class="text-muted">Oh yeah, it's that
+                  good.</span></h2>
+              <p class="lead  pt-4"">" you can interview the potential housemaids to employ most qualified housemaid.you
+                can fix interview schedules,video communicate ,audio communicate and message in real time with the
+                maid."</p>
+            </div>
+            <div class="col-md-3 order-md-1">
+              <lord-icon src="https://cdn.lordicon.com/soseozvi.json" trigger="loop" delay="10"
+                style="width:200px;height:200px">
+              </lord-icon>
+              </lord-icon>
+            </div>
+          </div>
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">What more to expect!!</span></h2>
+              <p class="lead">
+               Householders demand skilled domestic workers, rather than workers with little or no
+                experience.We have provided opportunity to housemaids to train their skills by themselves.
+                The NeighbourMaid platform has a diverse categories of courses for housemaids to improve their
+                skills.</p>
+            </div>
+            <div class="col-md-5">
+              <lord-icon src="https://cdn.lordicon.com/ycjlxmbw.json" trigger="loop" delay="5"
+                style="width:230px;height:230px">
+              </lord-icon>
+            </div>
+          </div>
+
+          <hr class="featurette-divider">
+
+          <!-- /END THE FEATURETTES -->
+
         </div>
       </div>
     </section>
     <!-- end of poster-section -->
 
-    <!-- frequently asked Questions -->
     <section id="about-us-section">
       <div class="container">
-        <div class="title" style="margin-bottom: 0rem;">
-          <h2>About Us</h2>
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+          <h1 class="display-4">Pricing</h1>
           <div class="underline"></div>
+          <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap
+            example.
+            It's built with default Bootstrap components and utilities with little customization.</p>
         </div>
-        <!-- question -->
-        <div class="about-us pt-4 pb-4">
-          <div class="row">
-            <div class="col-4">
-              <p>Who We Are?
-              <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima eaque consectetur fugiat nisi! Eos,
-                tempore officiis nihil, ratione est perferendis in similique ipsum, expedita ab velit architecto
-                assumenda
-                accusamus labore..</p>
+
+        <div class="container">
+          <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Observer</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <p>As houseowner you can experience our services up to a limited level.It's totally free.</p>
+                  <li>Search and filter services</li>
+                  <li>view avaialability of services</li>
+                  <li>Email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <p>*consumer package will provide abilit to recruit and contact housemaids</p>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary ">Sign up for free</button>
+              </div>
             </div>
-            <div class="col-4">
-              <p>Who We Are?
-              <p> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae aliquam nobis iure perspiciatis quia.
-                Est
-                quis, debitis iusto libero eaque saepe dicta. Aperiam, veniam harum?.</p>
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Consumer</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ per service</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <p>The complete package of house owner services.</p>
+                 <li>Search and filter services</li>
+                  <li>view avaialability of services</li>
+                  <li>view housemaid Portifolios</li>
+                  <li>Interview Housemaids</li>
+                  <li>Priority email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+              </div>
             </div>
-            <div class="col-4">
-              <p>Who We Are? </p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio cum dolore quos aut magni nemo,
-                voluptatum, dolorum culpa, adipisci ex corrupti. Autem nesciunt ipsam excepturi expedita totam
-                consequatur
-                magnam architecto iusto, dolorem quae. Repudiandae, consequuntur?.</p>
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Service provider</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">FREE<small class="text-muted">/ life-time</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <p>If you are intersted in carreer pathway in Housemaid services.please register with us, we are more than happy to provide our free services to you.It's totally free.</p>
+                  <li>learning platform</li>
+                  <li>communication services</li>
+                  <li>Phone and email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
+              </div>
             </div>
           </div>
-
+        </div>
     </section>
     <!-- end of frequently asked Questions -->
 
     <!-- review section -->
-    <section id="review-section pt-5">
-      <div class="container">
+    <section id="review-section  ">
+      <div class="container py-5">
         <!-- question-->
         <div class="title">
           <h2>Our Latest Testimonials</h2>
@@ -130,7 +219,7 @@
         <!-- review -->
         <article class="review">
           <div class="img-container">
-            <img src="./person-1.jpeg" id="person-img" alt="" />
+            <img src="/person-1.jpeg" id="person-img" alt="" />
           </div>
           <h4 id="author"> Cherry Ann </h4>
           <p id="job">BI Analyst</p>
@@ -158,7 +247,7 @@
 
 
         <!-- Optional JavaScript -->
-        <script src="script.js"></script>
+        <!-- <script src="script.js"></script> -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
           integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -169,6 +258,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
           crossorigin="anonymous"></script>
+      
 
 </body>
 

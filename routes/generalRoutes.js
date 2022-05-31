@@ -9,8 +9,7 @@ const generalController = require('../controllers/generalController');
 
 
 
-// router.get('/register', generalController.getRegistration);
-// router.post('/register', generalController.postRegistration);
+
 
 // router.get('/login', generalController.getlogin);
 router.post('/login', generalController.postLogin);

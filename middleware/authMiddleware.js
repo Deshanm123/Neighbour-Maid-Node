@@ -10,14 +10,14 @@ const requireAuth = (req, res, next) => {
       if (err) {
         // token is invalid /expired
         console.log(err.message);
-        res.redirect('/login');
+        res.redirect('/user/loginUser');
       } else {
         next();
       }
     })
   } else {
     // if token is not avaialbe redirect user to login and obtin the token
-    res.redirect('/login');
+    res.redirect('/user/loginUser');
   }
 }
 

@@ -1,11 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\config",
     "\\controllers",
     "\\public",
     "\\views",
     "\\views\\courses"
   ],
-  "SelectedNode": "\\controllers\\generalController.js",
+  "SelectedNode": "\\controllers\\adminController.js",
   "PreviewInSolutionExplorer": false
 }

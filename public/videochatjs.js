@@ -3,13 +3,30 @@ const videoGrid = document.getElementById('video-grid')
 const conStatusMsg = document.getElementById('conn-status-msg');
 
 
+let ROOM_ID = myPeerId + otherPartyId;
+// alert(ROOM_ID);
 
-var peer = new Peer(myPeerId, {
-  host: 'localhost',
-  port: 5066,
+const customGenerationFunction = () => (Math.random().toString(36) + '0000000000000000000').substring(2, 16);
+// function customGenerationFunction() { return 1 + Math.random() * 200000 };
+let generatedId = customGenerationFunction();
+console.log("generated id  " + generatedId);
+
+const peer = new Peer(generatedId, {
+  host: 'peerjs-neighbour-maid.herokuapp.com',
+  port: 433,
   path: '/peerjs',
-  config: {},
-  debug: 3
+  debug: 3,
+  // // pingInterval: 10000,
+  // secure: false,
+  secure: true,
+});
+
+
+peer.on('open', function (conn) {
+  console.log(conn);
+  console.log('My peer ID is: ' + id);
+  // socket.emit('join-room', ROOM_ID, id);
+  console.log(peer);
 });
 
 // display video stream
@@ -26,7 +43,8 @@ function getmyVideoStream(callbacks) {
 
   let constraints = {
     video: true,
-    audio: true,
+    // audio: true,
+    audio: false,
   }
   navigator.getUserMedia(constraints, callbacks.success, callbacks.error)
 }
@@ -51,45 +69,46 @@ function displaymessage(msg) {
 
 
 
-//   // // send video stram to other party
-socket.on('user-connected', (peerId) => {
-  // peer.on('open', (peerId) => {
-
-  let call = peer.call(peerId, window.localStream);
-
-  call.on('stream', (stream) => {
-    window.peer_stream = stream;
-    console.log(stream)
-    displayStream(stream, 'remoteVideo')
-  })
-
-  call.on("error", (err) => {
-    console.log("Error on call:" + err);
-  });
-
-  // socket.on('user-disconnected', () => {
-  //   alert("The user has leave the call");
-
-
-  // })
-  // })
-})
 
 
 
-function handlePeerDisconnect() {
-  // manually close the peer connections
-  for (let conns in peer.connections) {
-    peer.connections[conns].forEach((conn, index, array) => {
-      console.log(`closing ${conn.connectionId} peerConnection (${index + 1}/${array.length})`, conn.peerConnection);
-      conn.peerConnection.close();
+// //   // // send video stram to other party
+// socket.on('user-connected', (peerId) => {
+//   // peer.on('open', (peerId) => {
 
-      // close it using peerjs methods
-      if (conn.close)
-        conn.close();
-    });
-  }
-}
+//   let call = peer.call(peerId, window.localStream);
+
+//   call.on('stream', (stream) => {
+//     window.peer_stream = stream;
+//     console.log(stream)
+//     displayStream(stream, 'remoteVideo')
+//   })
+
+//   call.on("error", (err) => {
+//     console.log("Error on call:" + err);
+//   });
+
+//   // socket.on('user-disconnected', () => {
+//   //   alert("The user has leave the call");
+//   // })
+//   // })
+// })
+
+
+
+// function handlePeerDisconnect() {
+//   // manually close the peer connections
+//   for (let conns in peer.connections) {
+//     peer.connections[conns].forEach((conn, index, array) => {
+//       console.log(`closing ${conn.connectionId} peerConnection (${index + 1}/${array.length})`, conn.peerConnection);
+//       conn.peerConnection.close();
+
+//       // close it using peerjs methods
+//       if (conn.close)
+//         conn.close();
+//     });
+//   }
+// }
 
 
 
@@ -108,70 +127,71 @@ peer.on('error', (error) => {
 
 
 
-document.getElementById('connectBtn').addEventListener('click', () => {
-  // assigning peerId value to peerId input
-  peerId = document.getElementById("connectionId").value;
+// document.getElementById("connectionId").value = otherPartyId
+// document.getElementById('connectBtn').addEventListener('click', () => {
+//   // assigning peerId value to peerId input
+//   peerId = document.getElementById("connectionId").value;
 
-  if (peerId) {
-    conn = peer.connect(peerId) //establishing  the connetion betwwen two 
-    conn.on('open', () => {
-      let ROOM_ID = 'Room-202';
-      socket.emit('join-room', ROOM_ID, peerId);
+//   if (peerId) {
+//     conn = peer.connect(peerId) //establishing  the connetion betwwen two
+//     conn.on('open', (peerId) => {
+//       console.log(peerId);
+//       socket.emit('join-room', ROOM_ID, peerId);
 
-    });
-    conn.on('close', () => {
-      console.log("conn close event");
-      handlePeerDisconnect();
-    });
-    //after connect connection get triggered
-  } else {
-    conStatusMsg.textContent = 'please enter peer Id';
-    // conStatusMsg.textContent = 'connection with other party is currently unavailable';
-    return false;
-  }
-})
+//     });
+//     conn.on('close', () => {
+//       console.log("conn close event");
+//       // handlePeerDisconnect();
+//     });
+//     //after connect connection get triggered
+//   } else {
+//     conStatusMsg.textContent = 'please enter peer Id';
+//     // conStatusMsg.textContent = 'connection with other party is currently unavailable';
+//     return false;
+//   }
+// })
 
 // peer.on('close', function () {
 //   alert("user is cuurently unavailable");
 // });
 
-peer.on('call', (call) => {
-  // let acceptVideoCall = confirm("Do You want to answer this call?")
+// peer.on('call', (call) => {
+//   // let acceptVideoCall = confirm("Do You want to answer this call?")
 
-  //   if (acceptVideoCall) {
-  call.answer(window.localStream);
+//   //   if (acceptVideoCall) {
+//   call.answer(window.localStream);
 
-  call.on('stream', (stream) => {
-    // storing on global variable
-    window.peer_stream = stream;
-    displayStream(stream, 'remoteVideo');
-  })
+//   call.on('stream', (stream) => {
+//     // storing on global variable
+//     window.peer_stream = stream;
+//     displayStream(stream, 'remoteVideo');
+//   })
 
-  call.on('error', (error) => {
-    conStatusMsg.textContent = err.message;
-    console.log(error);
-  })
+//   call.on('error', (error) => {
+//     conStatusMsg.textContent = err.message;
+//     console.log(error);
+//   })
 
-  call.on('close', () => {
-    handlePeerDisconnect();
-    // 
-  })
-  // })
+//   // call.on('close', () => {
+//   //   handlePeerDisconnect();
+//   //   //
+//   // })
+//   // })
 
-  //   } else {
-  //     conStatusMsg.textContent = 'call denied';
-  //     console.log('call denied');
-  //   }
-});
-
-
+//   //   } else {
+//   //     conStatusMsg.textContent = 'call denied';
+//   //     console.log('call denied');
+//   //   }
+// });
 
 
-document.getElementById('endCallBtn').addEventListener('click', () => {
-  // console.log("end btn clicked");
-  handlePeerDisconnect();
-  // socket.emit('user-disconnected');
-});
+
+
+// document.getElementById('endCallBtn').addEventListener('click', () => {
+//   // console.log("end btn clicked");
+//   // handlePeerDisconnect();
+//   // socket.emit('user-disconnected');
+// });
 
 // mute
 const muteAction = () => {
@@ -179,7 +199,7 @@ const muteAction = () => {
   //0 is the users(my) audio track
   if (enabled) {
     window.localStream.getAudioTracks()[0].enabled = false;
-    // enabled = false;  
+    // enabled = false;
     setUnmuteButton();
   } else {
     // enabled = true;

@@ -15,7 +15,7 @@
 
   <!-- page title -->
   <title>NeighbourMaid | Home</title>
-  <script type="text/javascript" src="/city_state.js"></script>
+
 
   <style>
     * {
@@ -44,7 +44,55 @@
 
     <!-- PORTTIFOLIO -->
     <!-- TO DO : DIsable porttifolio if user hasnott entered details PORTTIFOLIO -->
+    <!-- appointment modal -->
+    <div class="modal" id="appointment-modal" role="dialog">
 
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Interview Appointment</h4>
+          </div>
+          <div class="modal-body">
+            <form id="appointmentForm" method="POST" action="/houseowner/makeHousmaidInterviewAppointment/">
+              <!--  Appointment Message -->
+              <div class="form-group">
+                <label class="control-label" for="aDescription">Appointment Description</label>
+                <textarea placeholder="please briefly explain  about your requirement " class="form-control" rows="3"
+                  id="appointmentDescription" name="aDescription" required></textarea>
+              </div>
+
+              <!--Appointment Date -->
+              <div class="form-group">
+                <label class="control-label" for="Appointment Date">
+                  Appointment Date
+                </label>
+                <div class="input-group">
+                  <input id="appointmentDate" name="uDOB" type="date" placeholder="Appointment Date"
+                    class="form-control input-md" required>
+                </div>
+              </div>
+              <!-- Appointment time -->
+              <div class="form-group">
+                <label class="control-label" for="appt">Select Appointment time:</label>
+                <div class="input-group">
+                  <!-- <input type="time" id="appointmentTime" name="appointmentTime" class="form-control" required> -->
+                  <input type="time" id="appointmentTime" name="appointmentTime" class="form-control" required>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-outline-success">Schedule Appointment</button>
+          </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- appointment modal -->
 
 
 
@@ -55,7 +103,9 @@
         <div class="container py-5">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-12 col-xl-4">
-
+              <script>
+                let housemaidId = '<%- pd.userId %>';
+              </script>
               <div class="card" style="border-radius: 15px;">
                 <div class="card-body text-center">
                   <div class="mt-3 mb-4">
@@ -93,28 +143,12 @@
                     <div class=" d-flex justify-content-center">
                       <a href="/chat?hm=<%=pd.userId%>&ho=<%=currenthouseOwnerId%>&sentby=ho"
                         class="btn btn-success btn-rounded btn-lg m-2 btn-sm">Message</a>
-                      <button type="button" class="btn btn-outline-primary btn-rounded btn-lg m-2  btn-sm">Appoint
-                        Now</button>
+                      <button type="button" class="btn btn-outline-primary btn-rounded btn-lg m-2  btn-sm"
+                        data-toggle="modal" data-target="#appointment-modal">
+                        Appoint Now
+                      </button>
                   </div>
-                  <!-- 
-                      <div class="d-flex justify-content-between text-center mt-5 mb-2">
-                        <div>
-                          <p class="mb-2 h5">
-                           
-                          </p>
-                          <p class="text-muted mb-0">Work Nature</p>
-                        </div>
-                        
-                          
-                        <div class="px-3">
-                          <p class="mb-2 h5"></p>
-                          <p class="text-muted mb-0">IWorking City</p>
-                        </div>
-                        <div>
-                          <p class="mb-2 h5"></p>
-                          <p class="text-muted mb-0">Country</p>
-                        </div>
-                      </div> -->
+
                 </div>
               </div>
 
@@ -270,6 +304,7 @@
                    //   $("#bg").css("background-color", '#' + randomColor);
                    // });
             </script>
+            <script src="/maid_appointment_form.js"></script>
 
 </body>
 

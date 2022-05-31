@@ -1,53 +1,59 @@
 
 const Coursemodel = require('../models/Coursemodel');
+
 const moment = require('moment');
 
-exports.getAllCourses = async (req, res,) => {
+exports.getAllCourses = async (req, res) => {
   try {
-    let courses = await Coursemodel.getAvialableCourses();
+    let courses = await Coursemodel.getAvialableCoursesAdmin();
+    console.log(courses)
     // res.status(200).render('admin/admin-courses', { courses: courses ,alert:{} });
-    res.status(200).render('admin/admin-courses', { courses: courses, alert: '' });
+    res.status(200).render('admin/admin-courses', { courses: courses, alert:''});
     // res.status(200).json({ courses: courses });
-  } catch (error) {
-    res.status(404);
-    console.log(error);
+  } catch (err) {
+    res.status(401).send({ msgType: "danger", msg: `${err.message}` });;
   }
 }
 
 exports.deleteCourse = async (req, res) => {
-  id = req.params.id;
   // res.send(`Record with course Id  ${courseId} has been sucessfully removed.`);
   try {
+    let id = req.params.id;
     let result = await Coursemodel.removeCourse(id);
+    let courses = await Coursemodel.getAvialableCoursesAdmin();
     if (result.affectedRows > 0) {
-      let msg = `course with course Id  ${id} has been sucessfully Removed.`;
-      //direct to homepage
-      try {
-        let courses = await Coursemodel.getAvialableCourses();
         // res.status(200).render('admin/admin-courses', { courses: courses ,alert:{msg:msg ,type:success} });
         res.status(200).render('admin/admin-courses',
           {
             courses: courses,
             alert: {
               msgType: 'success',
-              msg: msg
+              msg: `course with course Id  ${id} has been sucessfully Removed.`
             }
           });
         // res.redirect('/admin/courses');
         // res.status(200).json({ courses: courses });
-      } catch (error) {
-        res.status(404);
-        console.log(error);
-      }
-
+      
     } else {
-      console.log('Course is not Removed')
+      res.status(401).render('admin/admin-courses',
+        {
+          courses: courses,
+          alert: {
+            msgType: 'danger',
+            msg: 'Course is not Removed'
+          }
+        });
     }
-  } catch (error) {
-    res.status(404);
-    console.log(error);
+  } catch (err) {
+    res.status(401).render('admin/admin-courses',
+      {
+        courses: courses,
+        alert: {
+          msgType: 'danger',
+          msg: err.message
+        }
+      });
   }
-
 }
 
 exports.getEditCourse = async (req, res,) => {
@@ -116,13 +122,39 @@ exports.putEditCourse = async (req, res,) => {
 
 exports.getSingleCourse = async (req, res) => {
   // please note that add function check numerical input if it;s string return 404
-  id = req.params.id;
+  console.log(" single course view admin")
+  let id = req.params.id;
   try {
     let course = await Coursemodel.selectCourseById(id);
-    if (course == null) res.redirect('/admin/courses');
+    console.log(course)
+    
+    let courseId = course[0].courseId;
+    let courseCategory = course[0].courseCategory;
+    let courseTitle = course[0].courseTitle ;
+    let courseIntro = course[0].courseIntro;
+    let courseChapters= JSON.parse(course[0].courseDescription);
+    let course_Img = course[0].course_Img;
+
+    
+    console.log(courseChapters);
+    let page = req.query.page ? Number(req.query.page) : 1;
+    if (page < 1) {
+      let courseId = course[0].courseId;
+      res.status(200).redirect(`/admin/courses/viewCourse/${courseId}?page=` + encodeURIComponent(1));
+    } else {
+    //   let results = await Houseowner.populateDashboard(page);
+    //   res.status(200).render('houseowner/houseowner-dashboard', { housemaids: results.result, page: results.page, pageCount: results.numOfPages })
+    // }
+
+    console.log("chapters"+courseChapters.length)
+    if (course == null) res.redirect('/admin/courses/');
     else {
-      res.status(200).render('admin/admin-course-view', { courses: course });
-    }
+      // res.status(200).render('admin/admin-course-view', { courses: course });
+      res.status(200).render('admin/admin-course-view', {
+        courseId: courseId, courseTitle: courseTitle, courseIntro: courseIntro, courseCategory: courseCategory, course_Img: course_Img, courseChapters: courseChapters, page:page, pageCount: courseChapters.length
+        });
+      }
+    }  
   } catch (error) {
     res.status(404);
     console.log(error);
@@ -142,56 +174,37 @@ exports.getAddCourse = async (req, res,) => {
 
 // post add course
 exports.postAddCourse = async (req, res) => {
-  // getting data from POST
-
-  // if (req.fileError) {
-  //   console.log(req.fileError)
-  // }
-
-  const { courseCategory, courseTitle, courseIntro, courseDescription } = req.body;
-  // // checking multer returns with errors
-  // console.log(req.files);
-  // console.log(req.body);
-
-
-
-  // // // the below format is essential fo the mysql
-  let courseDate = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-
-  let course = new Coursemodel(courseCategory, courseTitle, courseDate, courseIntro, courseDescription);
   try {
-    let result = await Coursemodel.addCourse(course);
-    if (result.affectedRows > 0) {
-      // notifying added
-      // ?201 is header status for created
-      res.status(201).render('admin/admin-course-add',
-        {
-          course: new Coursemodel(),
-          alert: {
-            msgType: 'success',
-            msg: `${courseTitle} course has been sucessfully added.`
-          }
-        },
-      );
-      console.log(`course with course Id  ${courseTitle} has been sucessfully added.`);
-    } else {
-      // 406 Not Acceptable Not sure
-      res.status(406).render('admin/admin-course-add',
-        {
-          course: course,
-          alert: {
-            msgType: "fail",
-            msg: `Error: ${courseTitle} course is not added .`
-          }
+    // getting data from POST
+  console.log("post add course")
+  if (req.fileError) {throw req.fileError }
 
-        },
-      );
+  let imgFileName;
+  if(req.file){
+    imgFileName= req.file.filename;
+  }else{
+    imgFileName = '';
+  }
+  const { courseTitle,courseIntro, courseCategory,chapters } = req.body;
+
+
+    console.log(chapters)  
+  // the below format is essential fo the mysql
+  // let courseDate = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+  // let course = new Coursemodel(courseCategory, courseTitle, courseIntro, chapters, imgFileName);
+
+    let result = await Coursemodel.addCourse(courseCategory, courseTitle, courseIntro, chapters, imgFileName);
+  //   console.log(result)
+    if (result.affectedRows > 0) {
+      res.status(201).json({ msgType: 'success', msg: `${courseTitle} course has been sucessfully added.`});
+    } else {
+  //  406 Not Acceptable Not sure
+      res.status(405).send({ msgType: "fail",  msg: `Error: ${courseTitle} course is not added .` });
     }
   } catch (e) {
     console.log(e);
   }
 }
-
 
 
 

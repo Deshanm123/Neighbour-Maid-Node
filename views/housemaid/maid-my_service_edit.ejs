@@ -32,6 +32,10 @@
     * {
       font-size: 16px;
     }
+
+    #location {
+      visibility: hidden;
+    }
   </style>
 </head>
 
@@ -156,13 +160,13 @@
               <p class="font-weight-bold">Please Click "Find My Location" to get your coordinates. Please drag the
                 marker
                 to pinpoint the exact location </p>
-              <div class="align-self-center mx-auto">
+              <!-- <div class="align-self-center mx-auto">
                 <button class="btn  btn-dark" type="button" onclick="getLocation()">Find My Location</button>
-              </div>
+              </div> -->
               <p id="x"></p>
 
 
-              <div>
+              <div id="location">
                 lattitude-location<p id="lat"></p>
                 lattitude-location <p id="long"></p>
               </div>
@@ -192,19 +196,19 @@
       <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-          crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-          crossorigin="anonymous"></script>
-        <!-- bootstrap toggle button -->
-        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-        <!-- ajax JavaScript -->
-        <script type="text/javascript" src="/housemaid_map_script.js"></script>
-        <script type="text/javascript" src="/maid_myservice_update_ajax.js"></script>
-        <!-- <script type="text/javascript">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+      <!-- bootstrap toggle button -->
+      <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+      <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+      <!-- ajax JavaScript -->
+      <script type="text/javascript" src="/housemaid_map_script.js"></script>
+      <script type="text/javascript" src="/maid_myservice_update_ajax.js"></script>
+      <!-- <script type="text/javascript">
           // add row
         
         </script> -->

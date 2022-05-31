@@ -12,7 +12,12 @@ router.post('/registerUser', userController.postRegistrationUser);
 router.get('/loginUser', userController.getloginUser);
 router.post('/loginUser', userController.postLoginUser);
 
-router.get('/logout',userController.logOut);
+// verify user
+router.get('/verifyUser/:userId', userController.getverificationCodeInput)
+router.post('/verifyUser/:userId', userController.postverificationCodeInput)
+
+
+router.get('/logout', userController.logOut);
 
 
 

@@ -1,13 +1,13 @@
 const db = require('../config/db');
 
 class Course {
-  constructor(courseCategory, courseTitle, courseDate, courseIntro, courseDescription) {
-    this.courseCategory = courseCategory;
-    this.courseTitle = courseTitle;
-    this.courseDate = courseDate;
-    this.courseIntro = courseIntro;
-    this.courseDescription = courseDescription;
-  }
+  // constructor(courseCategory, courseTitle, courseDate, courseIntro, courseDescription) {
+  //   this.courseCategory = courseCategory;
+  //   this.courseTitle = courseTitle;
+  //   this.courseDate = courseDate;
+  //   this.courseIntro = courseIntro;
+  //   this.courseDescription = courseDescription;
+  // }
   static getAll() {
     let selectSQl = "SELECT * FROM course_tb";
     return db.execute(selectSQl);
@@ -21,27 +21,27 @@ class Course {
     // return course;
   }
 
-  static addCourse(course) {
-    const { courseCategory, courseTitle, courseDate, courseIntro, courseDescription } = course;
+  // static addCourse(courseTitle, courseCategory, courseIntro, chapters, imgFileName) {
+  //   const { courseCategory, courseTitle, courseDate, courseIntro, courseDescription } = course;
 
-    let insertQry =
-      "INSERT INTO course_tb (courseCategory,courseTitle,courseDate,courseIntro,courseDescription) VALUES ('" + courseCategory + "', '" + courseTitle + "','" + courseDate + "', '" + courseIntro + "', '" + courseDescription + "')";
+  //   let insertQry =
+  //     "INSERT INTO course_tb (courseCategory,courseTitle,courseDate,courseIntro,courseDescription) VALUES ('" + courseCategory + "', '" + courseTitle + "','" + courseDate + "', '" + courseIntro + "', '" + courseDescription + "')";
       
-    return db.execute(insertQry);
-  }
+  //   return db.execute(insertQry);
+  // }
 
-  static updateCourse(courseArr) {
-    // array Destrcturing
-    const [courseCategory, courseTitle, courseIntro, courseDescription, courseId ] = courseArr;
+  // static updateCourse(courseArr) {
+  //   // array Destrcturing
+  //   const [courseCategory, courseTitle, courseIntro, courseDescription, courseId ] = courseArr;
     
-    let updateQry =
-      "UPDATE course_tb SET courseCategory = '" + courseCategory + "' , courseTitle = '" + courseTitle + "',  courseIntro='" + courseIntro + "',courseDescription = '" + courseDescription + "' WHERE courseId = '" + courseId +"'  ";
+  //   let updateQry =
+  //     "UPDATE course_tb SET courseCategory = '" + courseCategory + "' , courseTitle = '" + courseTitle + "',  courseIntro='" + courseIntro + "',courseDescription = '" + courseDescription + "' WHERE courseId = '" + courseId +"'  ";
 
-     return db.execute(updateQry);
-    // let [resultFieldArr, _] = db.execute(updateQry);
-    // // return Json object
-    // return resultFieldArr.shift();
-  }
+  //    return db.execute(updateQry);
+  //   // let [resultFieldArr, _] = db.execute(updateQry);
+  //   // // return Json object
+  //   // return resultFieldArr.shift();
+  // }
 
   static removeCourse(courseId){
     let deleteQry = `DELETE FROM course_tb WHERE courseId = ${courseId}`;

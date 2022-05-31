@@ -14,18 +14,18 @@
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
   <!-- page title -->
-  <title>NeighbourMaid | houseowner-videochat</title>
+  <title>NeighbourMaid |housemaid-videochat</title>
   <!-- peer js -->
+  <!-- <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/2.0.0-beta.3/peerjs.min.js"
     integrity="sha512-/b9G70XUEYGTOv2bh4ZKwvysh6pIwvrfXOkuVIvmg5nwfuJZoSH0a4MD1rF92SmQtDz4W+e3MiX9niGw15kaPw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
-
-  <!-- <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script> -->
-  <script defer src="/libraries/peerjs.min.js"></script>
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- peer js-->
+<!-- <script defer src="/libraries/peerjs.min.js"></script> -->
   <script defer src="/socket.io/socket.io.js"></script>
   <script>
     let myPeerId = '<%- currentId %>';
-    let otherPartyId = '<%- otherPartyId %>'
+    let otherPartyId  = '<%- otherPartyId %>'
   </script>
   <script defer src="/videochatjs.js"></script>
 
@@ -48,7 +48,7 @@
 
 <body>
   <!-- navbar -->
-  <%- include('_houseowner-nav')%>
+  <%- include('_housemaid-nav')%>
 
 
 

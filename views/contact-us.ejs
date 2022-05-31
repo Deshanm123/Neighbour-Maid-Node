@@ -20,11 +20,11 @@
   <script src="https://www.google.com/recaptcha/api.js"></script>
   <!-- REcaptcha cdns -->
 
-  <style>
-    * {
-      font-size: 14px;
-    }
-  </style>
+<style>
+  * {
+    font-size: 15px;
+  }
+</style>
 
   <!-- page title -->
   <title>NeighbourMaid | Login</title>
@@ -39,87 +39,73 @@
     <!-- frequently asked Questions -->
     <section id="questions-section pt-3 pb-5">
       <div class="container">
-        <div class="title">
-          <h2>Frequently Asked Questions</h2>
-          <div class="underline"></div>
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+          <h1 class="display-4">Have Questions?</h1>
+          <div class="underline mb-3"></div>
+          <p class="lead">Doesn't matter Where around the world you live by.Simply follow these simple steps to find your near
+            by housemaid that tailor for your necessities.
+            It's really easy.</p>
         </div>
-        <!-- question area-->
-        <!-- question:1 -->
-        <div class="statement  text-center">
-          <!-- question -->
-          <div class="question">
-            <div class="row">
-              <div class="col">
-                <p>Who We Are? </p>
-              </div>
-              <div class="col">
-                <span class="plus-icon">
-                  <i class="fas fa-caret-square-down fa-3x"></i>
-                </span>
-                <span class="minus-icon">
-                  <i class="fas fa-caret-square-up fa-3x"></i>
-                </span>
-              </div>
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+              aria-controls="collapseOne">
+            <p>Who We Are? </p>
+            </button>
+          </h5>
+          </div>
+          
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <p><strong>“Neighbour Maid ”</strong>  is  the alternative solution for a housemaid service agency at your local residence, which can be
+              anywhere in the world.We are a platform that connecting householders and potential housemaids. we aims to provide a standard trustworthy housemaid service to a householder.</p>
             </div>
           </div>
-          <div class="explanation-text">
-            <p> We are platform that connecting householders and potential housemaids.</p>
-          </div>
         </div>
-        <!-- question:2 -->
-        <div class="statement  text-center">
-          <!-- question -->
-          <div class="question">
-            <div class="row">
-              <div class="col">
-                <p>Who We Are? </p>
-              </div>
-              <div class="col">
-                <span class="plus-icon">
-                  <i class="fas fa-caret-square-down fa-3x"></i>
-                </span>
-                <span class="minus-icon">
-                  <i class="fas fa-caret-square-up fa-3x"></i>
-                </span>
-              </div>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                aria-controls="collapseTwo">
+                Why select NeighbourMaid as a service?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+              Let’s Imagine a house resident who resides anywhere in the world wants to find a nearby trustworthy domestic worker with
+              a certain type of expertise and experience as soon as possible. When considering existing solutions and their
+              incompetencies, it would take at least one month. Let’s assume after a few weeks, even if you were able to find a
+              housemaid, will you be comfortable with inviting a stranger to your home whose trust is yet to be determined?
             </div>
           </div>
-          <div class="explanation-text">
-            <p> We are platform that connecting householders and potential housemaids.</p>
-          </div>
         </div>
-        <!-- question:3 -->
-        <div class="statement  text-center">
-          <!-- question -->
-          <div class="question">
-            <div class="row">
-              <div class="col">
-                <p>Who We Are? </p>
-              </div>
-              <div class="col">
-                <span class="plus-icon">
-                  <i class="fas fa-caret-square-down fa-3x"></i>
-                </span>
-                <span class="minus-icon">
-                  <i class="fas fa-caret-square-up fa-3x"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="explanation-text">
-            <p> We are platform that connecting householders and potential housemaids.</p>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+              aria-controls="collapseThree">
+              How Neighbourmaid provide service ?
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+          The houseowner can log in to the NeighbourMaid platform and select the potential housemaids.  The houseowner can filter the housemaids according to requirements,part-time and full-time and etc.Then housemaids can interview the housemaids and employ the most suitable housemaid.
           </div>
         </div>
       </div>
+      </div>
 
+    </div>
     </section>
     <!-- end of frequently asked Questions -->
 
-    <!-- ss -->
-
+    
+    <!-- contact -->
     <div class="container my-5 py-5 z-depth-1">
-
-
       <!--Section: Content-->
       <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
 
@@ -144,6 +130,9 @@
             style="border:0" allowfullscreen></iframe>
         </div>
         <!--Google Maps-->
+          <!-- alert message :sucessfull-->
+          <div class=container" id="message-alert"> </div>
+          <!-- alert message -->
 
         <!--Grid row-->
         <div class="row">
@@ -172,41 +161,46 @@
                 <div class="col-md-6">
                   <!-- name -->
                   <div class="md-form md-outline mb-0">
-                    <input type="text" id="form-name" class="form-control">
                     <label for="form-first-name">Name</label>
+                    <input type="text" id="form-name" class="form-control">
+                    <div class="invalid-feedback"></div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <!--phone -->
                   <div class="md-form md-outline mb-0">
-                    <input type="text" id="form-phone" class="form-control">
                     <label for="form-form-phone"> Phone Number</label>
+                    <input type="text" id="form-phone" class="form-control">
+                    <div class="invalid-feedback"></div>
                   </div>
                 </div>
               </div>
-
+              
               <!-- Material outline input -->
               <div class="md-form md-outline mt-3">
-                <input type="email" id="form-email" class="form-control">
                 <label for="form-email">E-mail</label>
+                <input type="email" id="form-email" class="form-control">
+                <div class="invalid-feedback"></div>
               </div>
-
+              
               <!-- Material outline input -->
               <div class="md-form md-outline">
-                <input type="text" id="form-subject" class="form-control">
                 <label for="form-subject">Subject</label>
+                <input type="text" id="form-subject" class="form-control">
+                <div class="invalid-feedback"></div>
               </div>
-
+              
               <!--Material textarea-->
               <div class="md-form md-outline mb-3">
-                <textarea id="form-message" class="md-textarea form-control" rows="3"></textarea>
                 <label for="form-message">How we can help?</label>
+                <textarea id="form-message" class="md-textarea form-control" rows="3"></textarea>
+                <div class="invalid-feedback"></div>
               </div>
                   <!-- captcha -->
                   <div class="g-recaptcha" data-sitekey="6LcZo-keAAAAAKxf5bhX_3tu0doV6Lwn_GmhnCcO"></div>
                 
                   <!--phone -->
-                  < <div class="md-form md-outline mt-3 mb-0"> 
+                  <div class="md-form md-outline mt-3 mb-0"> 
                     <button type="submit" class="btn btn-info btn-block ">Submit<i class="far fa-paper-plane ml-2"></i></button>
                   <!-- </div> -->
                 </div>
@@ -243,7 +237,8 @@
 
 
       <!-- Optional JavaScript -->
-      <script src="/login_script.js"></script>
+      <!-- <script src="/login_script.js"></script> -->
+      <script src="/assets/js/contact-us-ajax.js"></script>
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -258,7 +253,7 @@
 
 
       <!-- script -->
-      <script>
+      <!-- <script>
         const contactForm = document.getElementById('contact-form');
 
         $(document).ready(() => {
@@ -318,7 +313,7 @@
 
         });
 
-      </script>
+      </script> -->
 
 </body>
 

@@ -14,7 +14,11 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
-
+<style>
+  * {
+    font-size: 15px;
+  }
+</style>
 
   <!-- page title -->
   <title>NeighbourMaid | Login</title>
@@ -40,6 +44,9 @@
                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
                   <div class="card-body p-4 p-lg-5 text-black">
 
+                    <div class=container" id="message-alert">
+                    </div>
+
 
 
                     <!-- login form -->
@@ -61,10 +68,9 @@
                         <label class="form-label" for="repeat-password">Enter your password</label>
                         <input type="password" class="form-control form-control-lg" name="password" id="password" />
                         <div class="invalid-feedback">
-                          <!-- Password Do not match please try a different password -->
                         </div>
-                        <!-- <small>Error message</small> -->
                       </div>
+
                       <div class="pt-1 mb-4">
                         <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                       </div>
@@ -112,7 +118,8 @@
 
 
       <!-- Optional JavaScript -->
-      <script src="/loginscript_user.js"></script>
+      <script src="/assets/js/login-user-ajax.js"></script>
+      <!-- <script src="/loginscript_user.js"></script> -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>

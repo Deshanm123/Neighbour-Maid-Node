@@ -18,10 +18,4 @@ let mailTransporter = nodemailer.createTransport({
 
 
 
-
-
-
-
-
-
 module.exports = { mailTransporter };

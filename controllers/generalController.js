@@ -8,105 +8,55 @@ const request = require('request');
 
 
 
-const maxAge = 3 * 24 * 60 * 60 ;
-const createJWToken = (id) => {
-  return jwt.sign({ id }, 'net ninja secret', {
-    expiresIn: maxAge
-  });
-};
+// const maxAge = 3 * 24 * 60 * 60 ;
+// const createJWToken = (id) => {
+//   return jwt.sign({ id }, 'net ninja secret', {
+//     expiresIn: maxAge
+//   });
+// };
 
-//encrypt password
-const encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt();
-  const hashedpass = await bcrypt.hash(password, salt);
-  return hashedpass;
-}
-
-//get registration page
-exports.getRegistrationUser = async (req, res) => {
-  res.render('register-user');
-}
-
-exports.postRegistrationUser = async (req, res) => {
-
-  const { email, userName, password, cPassword } = req.body;
-  try {
-    if (!(await User.isEmailRegistered(email))) {
-      // register
-      // encrypting password
-      let hashedPassword = await encryptPassword(password);
-
-      let result = await User.addUser(email, userName, hashedPassword);
-      // sucessful registration 
-
-      if (result.affectedRows > 0) {
-        const result = await Housemaid.selectUserIdByEmail(email);
-        const maidId = result[0].userId;
-        console.log(maidId);
-        // creating JWT
-        const jwToken = createJWToken(maidId);
-        // storing JWT inside a cookie
-        res.cookie('jwt', jwToken, { maxAge: maxAge * 1000, httpOnly: true });
-        //sucessfully created
-        res.status(201).json({ userId: maidId });
-
-      } else {
-        // registration failed
-        console.log(`hosemaid with email ${email} registration failed`)
-      }
-    } else {
-      console.log(`  ${email} has already registered. registration failed`)
-    }
-  } catch (e) {
-    console.log(e);
-  }
-  // res.render('register-houseowner');
-}
-
-//get registration page
-exports.getRegistration = async (req, res) => {
-  res.render('register');
-}
-//get login page
-exports.getlogin = async (req, res) => {
-  res.render('login');
-}
+// //encrypt password
+// const encryptPassword = async (password) => {
+//   const salt = await bcrypt.genSalt();
+//   const hashedpass = await bcrypt.hash(password, salt);
+//   return hashedpass;
+// }
 
 
-// doing registration
-exports.postRegistration = async (req, res) => {
-  // TODO : serverside validation
-  const { email, userName, password, cPassword } = req.body;
-  try {
-    if (!(await Housemaid.isEmailRegistered(email))) {
-      // register
-      // encrypting password
-      let hashedPassword = await encryptPassword(password)
+// // doing registration
+// exports.postRegistration = async (req, res) => {
+//   // TODO : serverside validation
+//   const { email, userName, password, cPassword } = req.body;
+//   try {
+//     if (!(await Housemaid.isEmailRegistered(email))) {
+//       // register
+//       // encrypting password
+//       let hashedPassword = await encryptPassword(password)
 
-      let result = await Housemaid.addHouseMaid(email, userName, hashedPassword);
-      // sucessful registration 
-      if (result.affectedRows > 0) {
-        const result = await Housemaid.selectUserIdByEmail(email);
-        const maidId = result[0].userId;
-        console.log(maidId);
-        // creating JWT
-        const jwToken = createJWToken(maidId);
-        // storing JWT inside a cookie
-        res.cookie('jwt', jwToken, { maxAge: maxAge * 1000, httpOnly: true });
-        //sucessfully created
-        res.status(201).json({ userId: maidId });
+//       let result = await Housemaid.addHouseMaid(email, userName, hashedPassword);
+//       // sucessful registration 
+//       if (result.affectedRows > 0) {
+//         const result = await Housemaid.selectUserIdByEmail(email);
+//         const maidId = result[0].userId;
+//         console.log(maidId);
+//         // creating JWT
+//         const jwToken = createJWToken(maidId);
+//         // storing JWT inside a cookie
+//         res.cookie('jwt', jwToken, { maxAge: maxAge * 1000, httpOnly: true });
+//         //sucessfully created
+//         res.status(201).json({ userId: maidId });
 
-      } else {
-        // registration failed
-        console.log(`hosemaid with email ${email} registration failed`)
-      }
-    } else {
-      console.log(`  ${email} has already registered. registration failed`)
-    }
-  } catch (e) {
-    console.log(e);
-  }
-}
+//       } else {
+//         // registration failed
+//         console.log(`hosemaid with email ${email} registration failed`)
+//       }
+//     } else {
+//       console.log(`  ${email} has already registered. registration failed`)
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
 
 // DOING LOGIN
 exports.postLogin = async (req, res) => {
@@ -152,39 +102,31 @@ const recaptchaSecretKey = '6LcZo-keAAAAAA1fZIXS955CRYxmRZaeF_-pG7wx';
 //  recaptcha:secret key
 exports.postContact = async (req, res) => {
 
+  try {
+  if(req.body.captcha === "undefined" || req.body.captcha == '' || req.captcha === null) {
+    // throw "please select captcha";
+    res.status(500).send({ sucess: false, msg: "please Select Captcha" });
+  }else{
 
-  if (req.body.captcha === "undefined" || req.body.captcha == '' || req.captcha === null) {
-    console.log("please select captcha")
-    return res.json({ sucess: false, "msg": "please Select Captcha" });
-  }
-  // verify url
-  const verifyUrl =
+    const verifyUrl =
     `https://google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey}&response=${req.body.captcha}&remoteip=${req.ip}`;
-
-  //make request to verify url
-  request(verifyUrl, async (err, response, body) => {
-    body = JSON.parse(body);
-    // console.log(body);
-    //  if not successful
-    if (body.success !== undefined && !body.success) {
-      return res.json({ "success": false, "msg": "Failed Captcha verification" });
+    
+    //make request to verify url
+    request(verifyUrl, async (err, response, body) => {
+      body = JSON.parse(body);
+      //  if not successful
+      if (body.success !== undefined && !body.success) {
+      // return res.json({ "success": false, "msg": "Failed Captcha verification" });
+      res.status(500).send({ msgType: 'danger', msg: `Failed Captcha verification` });
     }
-    // sucess 
-    // return res.json({ "success": true, "msg": "passed Captcha verification" });
-    console.log('sending the mail')
-
     //  mail structure
     const output = `
-                <p>You have a contact request from ${req.body.name} </p>
-                <h2>${req.body.subject}<h2><br>
-                <p>${req.body.message}</p><br><br>
-                <h3>Contact Details</h3>
-                <ul>
-                <li>email:${req.body.email}</li>
-                <li>phone:${req.body.phone}</li>
-                </ul> `;
-
-    try {
+    <p>You have a contact request from ${req.body.name} </p>
+    <h2>${req.body.subject}<h2><br><p>${req.body.message}</p><br><br>
+    <h3>Contact Details</h3>
+      <ul><li>email:${req.body.email}</li><li>phone:${req.body.phone}</li></ul> 
+      `;
+      
       // sending mail
       let info = await mailTransporter.sendMail({
         from: `NeighbourMaidConsumer" <${req.body.email}>`, // sender address
@@ -195,12 +137,18 @@ exports.postContact = async (req, res) => {
       });
       // mail sent id and stattus
       console.log("Message sent: %s", info.messageId);
-      //     //   // res.render('index', { msg: `email has been sent` });
-    } catch (err) {
-      console.log(err);
-      res.status(500).send("Something went wrong With the Mail service.");
-    }
-  })
+      if (err){
+        res.status(400).send({msgType: 'danger', msg: `Your message is unable to sent. Please Try again Later`});
+      }else{
+        res.status(200).send({ msgType: 'success',msg: `Your message is sucessfully sent.Neighbour Maid Team will contact you soon as possible..` });
+      }
+      // }
+    })
+  }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ msgType: 'danger', msg: `Something went wrong With the Mail service.${err}`});
+  }
 }
 
 

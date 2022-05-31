@@ -73,6 +73,9 @@ function getSkills() {
 
 $(document).ready(() => {
   $('#message').hide();
+  // map
+  getLocation();
+
 
   $("#maid-service").submit((e) => {
 

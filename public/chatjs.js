@@ -134,7 +134,7 @@ const socket = io.connect();
 
   // Handle input
   textarea.addEventListener('keydown', function (e) {
-
+   
 
     if (e.key == 'Enter') {
       // if (textarea.value ==! ''){

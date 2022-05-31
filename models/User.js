@@ -8,7 +8,7 @@ class User {
     return new Promise((resolve, reject) => {
       pool.getConnection((err, connection) => {
         if (err) throw err;
-        connection.query("SELECT userEmail,userEmailVerificationCode,userEmailVeifiedStatus FROM user_tb WHERE userEmail = ?", [userEmail], (err, rows) => {
+        connection.query("SELECT userId,userEmail,userEmailVerificationCode,userEmailVeifiedStatus FROM user_tb WHERE userEmail = ?", [userEmail], (err, rows) => {
           // return connection to the pool
           connection.release();
           if (!err) {
@@ -82,6 +82,25 @@ class User {
     });
   }
 
+  // verify 
+  static verifyUserbyId(userId){
+     return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query("UPDATE user_tb SET userEmailVeifiedStatus = '1' WHERE userId = ?", [userId], (err, rows) => {
+          // return connection to the pool
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
+
+  }
 
 
 

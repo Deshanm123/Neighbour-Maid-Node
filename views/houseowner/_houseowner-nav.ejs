@@ -1,35 +1,76 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
-<nav class="navbar navbar-expand-lg">
-  <!-- brand logo -->
-  <a class="navbar-brand mr-auto pl-4" href="#">
-    <img src="/brand-logo-NeighbourMaid.png" alt="logo-maidfinder" height="75px" width="75px">
-  </a>
-  <!-- nav content -->
-  <div class="nav-content ">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <!--  -->
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ">
-        <li class="nav-item active mx-4">
-          <a class="nav-link" href="/houseowner/"> My Dashboard <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active mx-4">
-          <a class="nav-link" href="/houseowner/videoChat/"> Interview <span class="sr-only">(current)</span></a>
-        </li>
+<style>
+  #bg {
+    min-height: 60vh;
+    background: #009FFF;
+    background: linear-gradient(to right, #fff, #009FFF);
+    clip-path: ellipse(100vw 60vh at 50% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-        <li class="nav-item dropdown mx-5 pr-5">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-            aria-expanded="false">
-            <img src="/profile.png" alt="" id="housemaid-navbar-profile" width="20px">
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/user/logOut">Log out</a>
-          </div>
-        </li>
-      </ul>
-    </div>
+  .nav-item a {
+    /* color: white;*/
+    color: black;
+  }
+
+  .nav-item :hover {
+    text-decoration: underline;
+  }
+
+  @media only screen and (min-width: 762px) {
+    #navbarCollapse {
+      justify-content: end !important;
+    }
+  }
+</style>
+<!-- Important to make the navbar responsive  -->
+
+
+<!-- navbar -->
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+
+  <a class="navbar-brand mr-auto pl-4" href="#">
+    <img src="/brand-logo-NeighbourMaid.png" alt="logo-maidfinder" height="75px" width="100px">
+  </a>
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler Collapsed " type="button" data-toggle="collapse" data-target="#navbarCollapse"
+    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" id="toggle-btn">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- nav content -->
+  <!-- <div class="nav-content"> -->
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav ">
+      <li class="nav-item active mx-4">
+        <a class="nav-link" href="/houseowner/"> My Dashboard <span class="sr-only">(current)</span></a>
+      </li>
+
+      <!-- hddmadurangaId -a94dd8e6-831e-43ef-addd-403ff21bcb5a -->
+      <li class="nav-item active mx-4">
+        <a class="nav-link" href="/houseowner/videoChat/a94dd8e6-831e-43ef-addd-403ff21bcb5a"> Interview <span
+            class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item dropdown mx-5 pr-5">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false">
+          <img src="/profile.png" alt="" id="housemaid-navbar-profile" width="20px">
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/user/logOut">Log out</a>
+        </div>
+      </li>
+    </ul>
+  </div>
   </div>
 </nav>
+
+<script>
+  const navContent = document.querySelector('.nav-content');
+  document.querySelector('#toggle-btn').addEventListener('click', () => {
+    console.log('clicked');
+    navContent.style.display = 'block';
+  })
+</script>

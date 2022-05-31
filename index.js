@@ -14,15 +14,21 @@ const userRouter = require('./routes/userRoutes');
 const methodOverride = require('method-override');
 const socketio = require('socket.io');
 const http = require('http');
-
+const cors = require('cors')
 
 var app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+// const { PeerServer } = require('peer');
+// const peerServer = PeerServer({ port: 9000, path: '/myapp' });
+
 const { ExpressPeerServer } = require('peer');
 const Peer = ExpressPeerServer(server, { debug: true });
 
+app.use(cors({
+  origin: '*'
+}));
 app.use('/peerjs', Peer);
 
 // default option layout for  express-upload

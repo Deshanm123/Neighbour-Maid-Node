@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Housemaid = require('../models/Housemaid');
 const { mailTransporter } = require('../services/mailService')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -37,6 +38,7 @@ exports.getRegistrationUser = async (req, res) => {
 }
 
 exports.postRegistrationUser = async (req, res) => {
+  console.log("POST REGISTRATION USER")
   console.log(req.body);
   const { email, userName, password, cPassword, userType } = req.body;
 
@@ -85,18 +87,17 @@ exports.postRegistrationUser = async (req, res) => {
           } else {
             // registration failed
             console.log(`user  with email ${email} registration failed`)
+            res.status(401).json({ msgType: "danger", msg: `user  with email ${email} registration failed ` });
           }
         }
       });
-
-
     } else {
       // console.log('user already in the dblist ');
       // if (userRegisteredResults[0].userEmailVeifiedStatus == 0) {
       //   console.log('user have to verify  the verification code')
       // } else {
       console.log('User is already registered member.direct to login')
-      res.status(200).send({ msgType: "danger", msg: `${email} is already registered. Please Login ` });
+      res.status(401).json({ msgType: "danger", msg: `${email} is already registered. Please Login ` });
       // }
 
     }
@@ -120,6 +121,7 @@ exports.getloginUser = async (req, res) => {
 
 
 exports.postLoginUser = async (req, res) => {
+  console.log("POST LOGIN USER")
 
   // TODO : serverside validation
   const { email, password } = req.body;
@@ -129,7 +131,8 @@ exports.postLoginUser = async (req, res) => {
     console.log(userRegisteredResults);
     if (userRegisteredResults.length === 0) {
       console.log('user is not registered to login')
-      res.status(200).send({ msgType: "danger", msg: `${email} is not registered. Please Register` });
+
+      res.status(401).json({ msgType: "danger", msg: `UNAUTHORIZED:${email} is not registered. Please Register` });
     } else {
       if (userRegisteredResults[0].userEmailVeifiedStatus == 1) {
         // verified user -get userType
@@ -144,31 +147,61 @@ exports.postLoginUser = async (req, res) => {
           res.cookie('jwt', jwToken, { maxAge: maxAge, httpOnly: true });
           console.log(" sucess login " + jwToken);
 
-          // console.log(userRecord[0].userRole);
-          //sucessfully created
-          // this was earlier used-must use stringify
-          // res.status(200).send(JSON.stringify({ userType: userRecord[0].userRole, userId: userRecord[0].userId }));
           res.status(200).json({ userType: userRecord[0].userRole, userId: userRecord[0].userId });
 
-          // res.status(200).send({ userType: userRecord[0].userRole, userId: userRecord[0].userId });
-
-
         } else {
-          console.log('Please enter the correct password');
+          res.status(401).send({ msgType: "danger", msg: 'Please enter the correct password' });
         }
 
       } else {
-        console.log('user have to verify  the verification code')
-
-        // res.status(200).send({ msgType: "danger", msg: `${email} is already registered. Please Login ` });
+        res.status(403).send({
+          msgType: "danger", msg: `user have to verify  the verification code.click <a href='/user/verifyUser/${userRegisteredResults[0].userId}'> here</a> to verify`
+        })
       }
     }
 
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
+    res.status(406).send({ msgType: "danger", msg: `LOGIN ERROR: ${err.message}.` });
   }
 
 }
+///////////////////////getverificationCodeInput
+exports.getverificationCodeInput = (req, res) => {
+  res.render('verification-input');
+
+};
+exports.postverificationCodeInput = async (req, res) => {
+  console.log("called POST VERIFICATION")
+  const { verificationCodeInput } = req.body;
+  const { userId } = req.params;
+
+  try {
+  
+    let userRegisteredResults = await Housemaid.getUserInfo(userId);
+    console.log(userRegisteredResults);
+    // if user is not verified
+    if (userRegisteredResults[0].userEmailVeifiedStatus == 0) {
+      if (userRegisteredResults[0].userEmailVerificationCode == verificationCodeInput){
+        console.log("user code is verified")
+        let verifyResults = await  User.verifyUserbyId(userId);
+       if(verifyResults.length < 0){
+         res.status(200).send({ msgType: "success", msg: `Congratulations! your account has been successfully verified. Please Login ` });
+      }else{
+        res.status(401).send({ msgType: "danger", msg: 'user verification code is incorrect.Try Again' });
+      }
+    } else {
+      // user already verfied
+      console.log("user already verified")
+      res.status(401).send({ msgType: "danger", msg: 'user is already verified' });
+    }
+  }
+  } catch (err) {
+    console.log(err);
+    res.status(406).send({ msgType: "danger", msg: `verification  ERROR: ${err.message}.` });
+  }
+
+};
 
 
 // ////////////////////logout

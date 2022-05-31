@@ -4,7 +4,7 @@ const houseownerController = require('../controllers/houseownerController');
 const { requireAuth, tokenUserInfoAccess } = require('./../middleware/authMiddleware');
 
 
-router.get('*', tokenUserInfoAccess,requireAuth)
+router.get('*', tokenUserInfoAccess, requireAuth)
 
 // router.get('/', (req, res) => { res.render('/houseowner/houseowner-dashboard') });
 router.get('/', houseownerController.getsimpleDashboardView);
@@ -15,11 +15,13 @@ router.post('/searchByRequirements', houseownerController.postRequirementSearchR
 // router.get('/getRequirementTable', houseownerController.getRequirementTable);
 
 // chat
-router.get('/chat',  houseownerController.getChat);
+router.get('/chat', houseownerController.getChat);
 
 //video chat
-router.get('/videoChat', houseownerController.getVideoChat);
+router.get('/videoChat/:housemaidId', houseownerController.getVideoChat);
 
+//make appointment
+router.post('/makeHousmaidInterviewAppointment', tokenUserInfoAccess, houseownerController.postInterviewAppointment)
 
 router.get('/:maidId', houseownerController.getMaidPortiolioView);
 

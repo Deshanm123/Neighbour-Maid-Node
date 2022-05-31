@@ -1,7 +1,12 @@
 const Houseowner = require('../models/Houseowner');
 const Housemaid = require('../models/Housemaid');
+const moment = require('moment');
 
-
+// mongoose
+// const mongoose = require('mongoose');
+// const uri = 'mongodb+srv://deshanm123:YdG5JMjZ9AE2Hvr6@cluster0.ufsym.mongodb.net/neighbourMaidChat?retryWrites=true&w=majority';
+const Appointment = require('../models/Appointment');
+// mongoose
 
 
 
@@ -188,5 +193,43 @@ exports.getChat = (req, res) => {
 // vide chat
 exports.getVideoChat = (req, res) => {
   let currentId = res.locals.user.userId;
-  res.status(200).render('houseowner/houseowner-video-chat', { currentId: currentId });
+  let housemaidId = req.params.housemaidId;
+  res.status(200).render('houseowner/houseowner-video-chat', {
+    currentId: currentId, otherPartyId: housemaidId
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// make housemaid interview appointment
+exports.postInterviewAppointment = (req, res) => {
+
+
+  let utcDatetime = req.body.appointmentDate + " " + req.body.appointmentTime
+  let localDatetime = moment(utcDatetime + '+00:00').utc().format('YYYY-MM-DD HH:mm:ss');
+
+  const appointment = new Appointment({
+    housemaidId: req.body.housemaidId,
+    houseownerId: res.locals.user.userId,
+    appointmentDescription: req.body.appointmentDescription,
+    appointmentDateandTime: localDatetime
+    // appointmentDateandTime: date
+  });
+
+  appointment.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("Document inserted succussfully");
+    // utc stores get current time 
+    // console.log(doc.appointmentDateandTime.toLocaleString());
+  });
+
 }

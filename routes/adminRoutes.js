@@ -1,6 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
+const {upload} = require('../services/imageUploadService');
 const adminController = require('../controllers/adminController');
 
 
@@ -16,11 +17,10 @@ router.get('/courses/viewCourse/:id', adminController.getSingleCourse);
 
 // delete course
 router.delete('/courses/:id', adminController.deleteCourse);
-
 // add course
 router.get('/courses/addCourse', adminController.getAddCourse);
 
-router.post('/courses/addCourse', adminController.postAddCourse);
+router.post('/courses/addCourse', upload.single('courseCoverPhoto'), adminController.postAddCourse);
 // // router.post('/addCourse', upload.single('avatar'));
 
 // // router.post('/addCourse',imgController.upload.single('avatar'),function (req, res) {
