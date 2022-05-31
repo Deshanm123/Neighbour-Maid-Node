@@ -94,16 +94,12 @@ class Coursemodel {
     });
   }
 
-  static updateCourse(courseArr) {
-    // array Destrcturing
-    const [courseCategory, courseTitle, courseIntro, courseDescription, courseId] = courseArr;
+  static updateCourse(courseId,courseTitle, courseIntro, courseCategory, courseDescription,courseImg) {
+    console.log(courseId, courseTitle, courseIntro, courseCategory, courseDescription, courseImg)
     return new Promise((resolve, reject) => {
-      let updateQry =
-        "UPDATE course_tb SET courseCategory = ? , courseTitle = ?,  courseIntro= ? ,courseDescription = ?  WHERE courseId = ?";
-
       pool.getConnection((err, connection) => {
         if (err) throw err;
-        connection.query("UPDATE course_tb SET courseCategory = ? , courseTitle = ?, courseIntro = ? , courseDescription = ? WHERE courseId = ?", [courseCategory, courseTitle, courseIntro, courseDescription, courseId], (err, res) => {
+        connection.query("UPDATE course_tb SET courseCategory = ? , courseTitle = ?, courseIntro = ? , courseDescription = ?,course_Img =? WHERE courseId = ?", [ courseCategory, courseTitle, courseIntro, courseDescription, courseImg, courseId], (err, res) => {
           // return connection to tthe pool
           connection.release();
           if (!err) {

@@ -29,8 +29,22 @@
       <!-- <1% let publishedDate=new Date(course.courseDate).toDateString(); %> -->
         <!-- section course  -->
         <section id="course-section">
-          <div class="container">
+          <!-- back button  -->
+          <div class="container px-3">
+              <div class="row">
+                <div class="col-6 pb-3">
+                  
+                </div>
+                <div class="col-6 ">
+                  <div class="text-center d-flex justify-content-end">
+                    <a href="/admin/courses/" type="button" class="btn btn-small btn-danger ">
+                      Back to Courses
+                    </a>
+                  </div>
+                </div>
+              </div>
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              
               <div class="col p-4 d-flex flex-column position-static">
                 <span class="badge badge-danger py-1 mb-2">
                   <%= courseCategory %>
@@ -65,47 +79,43 @@
           </div>
           <div class="container">
             <div class="embed-responsive embed-responsive-16by9 mt-5">
-              <iframe width="884" height="497" src="https://www.youtube.com/embed/f0jVf_wRbJM"
+              <!-- <iframe width="884" height="497" src="https://www.youtube.com/embed/f0jVf_wRbJM"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe> -->
+              <iframe width="884" height="497" src="<%= chapterContent[1]%>"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
             </div>
             <p class="pt-3">
             <h3>Course Description</h3>
-            
-          
-            
-      
-             
-              
-                </p>
+            <%= chapterContent[0]%>
+             </p>
           </div>
+          <!-- pagination -->
+          
+          <div class="container">
+            <div class="btn-group float-md-right ml-3">
+              <% if(page>1){ %>
+                <a href="/admin/courses/viewCourse/<%=courseId%>?page=<%=page-1%>" class="btn btn-lg btn-light"><span
+                    class="fa fa-arrow-left"></span></a>
+                <%}%>
+                  <div class="btn btn-lg btn-light ">
+                    <%=page%>
+                  </div>
+                  <% if(page<pageCount){ %>
+                    <a href="/admin/courses/viewCourse/<%=courseId%>?page=<%=page+1%>" class="btn btn-lg btn-light"><span
+                        class="fa fa-arrow-right"></span></a>
+                    <%}%>
+            </div>
+          </div>
+          
+          <!-- pagination -->
+          <!-- section course  -->
           </div>
         </section>
-        <!-- pagination -->
-                    <div class="row sorting mb-5 mt-5">
-                      <div class="col-12">
-                        <!-- <a class="btn btn-light"> -->
-                        <!-- <i class="fas fa-arrow-up mr-2"></i> Back to top</a> -->
-                        
-                              <div class="btn-group float-md-right ml-3">
-                                <% if(page>1){ %>
-                                  <a href="/admin/courses/viewCourse/<%=courseId%>?page=<%=page-1%>" class="btn btn-lg btn-light"><span
-                                      class="fa fa-arrow-left"></span></a>
-                                  <%}%>
-                                    <div class="btn btn-lg btn-light ">
-                                      <%=page%>
-                                    </div>
-                                    <% if(page<pageCount){ %>
-                                      <a href="/admin/courses/viewCourse/<%=courseId%>?page=<%=page+1%>" class="btn btn-lg btn-light"><span
-                                          class="fa fa-arrow-right"></span></a>
-                                      <%}%>
-                              </div>
-                    
-                      </div>
-                    </div>
-        <!-- pagination -->
-        <!-- section course  -->
+       
       
           <!-- course rating
           <section id="course-rating-section pb-3">
@@ -222,12 +232,7 @@
             src='https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.0/circle-progress.min.js'></script>
           <!-- Icons -->
           <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-          <script>
-            const nav = document.getElementById('admin-nav');
-            nav.style.display = "none";
-            feather.replace()
-          </script>
-
+         
 
 
 </html>

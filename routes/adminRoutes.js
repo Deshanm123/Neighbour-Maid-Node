@@ -1,7 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
-const {upload} = require('../services/imageUploadService');
+const { upload } = require('../services/imageUploadService');
 const adminController = require('../controllers/adminController');
 
 
@@ -10,17 +10,24 @@ const adminController = require('../controllers/adminController');
 router.get('/', (req, res) => {
   res.render('admin/admin-dashboard');
 });
+
 // get all courses
 router.get('/courses', adminController.getAllCourses);
 // get single course
 router.get('/courses/viewCourse/:id', adminController.getSingleCourse);
 
-// delete course
-router.delete('/courses/:id', adminController.deleteCourse);
 // add course
 router.get('/courses/addCourse', adminController.getAddCourse);
-
 router.post('/courses/addCourse', upload.single('courseCoverPhoto'), adminController.postAddCourse);
+
+// delete course
+router.delete('/courses/:id', adminController.deleteCourse);
+
+// update/edit course
+router.get('/courses/editCourse/:id', adminController.getEditCourse);
+// router.put('/courses/editCourse/:id', adminController.putEditCourse);
+router.put('/courses/editCourse/:id', upload.single('courseCoverPhoto'), adminController.putEditCourse);
+
 // // router.post('/addCourse', upload.single('avatar'));
 
 // // router.post('/addCourse',imgController.upload.single('avatar'),function (req, res) {
@@ -29,11 +36,6 @@ router.post('/courses/addCourse', upload.single('courseCoverPhoto'), adminContro
 // //   console.log(req.files);
 // // });
 
-// // update/edit course
-router.get('/courses/editCourse/:id', adminController.getEditCourse);
-router.put('/courses/editCourse/:id', adminController.putEditCourse);
-
-// router.delete('/remove/:id', courseControllers.deleteCourse);
 
 
 

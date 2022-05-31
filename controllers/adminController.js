@@ -56,70 +56,10 @@ exports.deleteCourse = async (req, res) => {
   }
 }
 
-exports.getEditCourse = async (req, res,) => {
-  try {
-    let courseId = req.params.id;
-    let courses = await Coursemodel.selectCourseById(courseId);
-    res.status(200).render('admin/admin-course-edit', { courses: courses, alert: '' });
-  } catch (error) {
-    res.status(404);
-    console.log(error);
-  }
-}
 
 
-exports.putEditCourse = async (req, res,) => {
-  try {
-    // obtaining course id through url
-    let courseId = req.params.id;
-    // getting data as object from req.body
-    const { courseCategory, courseTitle, courseIntro, courseDescription } = req.body;
-    // get the exisitn post data and compare with new data if changes are there proceed unless diplay error 
-    let courseFromDb = await Coursemodel.selectCourseById(courseId);
-    // trim inputs
-    let arr = [courseCategory, courseTitle.trim(), courseIntro.trim(), courseDescription.trim(), courseId];
 
-    if (isChangesExists(courseFromDb[0], arr)) {
-      let result = await Coursemodel.updateCourse(arr);
-      // sucess
-      if (result.affectedRows > 0) {
-        // notifying update
-        let msg = `course with course Id  ${courseId} has been sucessfully update.`;
-        let course = await Coursemodel.selectCourseById(courseId);
-        // let course = await Course.selectCourseById(id);
-        if (course != null) {
-          res.status(200).render('admin/admin-course-edit', {
-            courses: course,
-            alert: {
-              msgType: 'success',
-              msg: msg
-            }
-          });
-        } else {
-          console.log("updated but failed to load updated course")
-          res.redirect('/');
-        }
-      } else {
-        let msg = `The course with course Id  ${courseId} is unable update.`;
-        res.status(200).render('admin/admin-course-edit', {
-          courses: courseFromDb,
-          alert: {
-            msgType: 'danger',
-            msg: msg
-          }
-        });
-      }
-
-    } else {
-      console.log(" There are no changes to update");
-    }
-  } catch (error) {
-    res.status(404);
-    console.log(error);
-  }
-}
-
-
+// view single course
 exports.getSingleCourse = async (req, res) => {
   // please note that add function check numerical input if it;s string return 404
   console.log(" single course view admin")
@@ -132,29 +72,37 @@ exports.getSingleCourse = async (req, res) => {
     let courseCategory = course[0].courseCategory;
     let courseTitle = course[0].courseTitle ;
     let courseIntro = course[0].courseIntro;
-    let courseChapters= JSON.parse(course[0].courseDescription);
+  //  correct way of geeting json
+    let courseParsedChapters= JSON.parse(course[0].courseDescription);
     let course_Img = course[0].course_Img;
 
-    
-    console.log(courseChapters);
+
+    let numberOfChapters = Object.keys(courseParsedChapters).length;
+    console.log("number of chapters " + numberOfChapters);
+
+    console.log("req.query" + req.query);
+
     let page = req.query.page ? Number(req.query.page) : 1;
-    if (page < 1) {
-      let courseId = course[0].courseId;
-      res.status(200).redirect(`/admin/courses/viewCourse/${courseId}?page=` + encodeURIComponent(1));
-    } else {
+    console.log("page" +page)
+    
+
+    let chapterContent = courseParsedChapters[page-1];
+    console.log(chapterContent);
+    // if (page < 1) {
+     
+      // res.status(200).redirect(`/admin/courses/viewCourse/${courseId}?page=` + encodeURIComponent(1));
+      // res.status(200).redirect(`/admin/courses/viewCourse/${courseId}?page=`+1);
+      // res.status(200).redirect(`https://www.google.com/`);
+    // } else {
     //   let results = await Houseowner.populateDashboard(page);
     //   res.status(200).render('houseowner/houseowner-dashboard', { housemaids: results.result, page: results.page, pageCount: results.numOfPages })
     // }
-
-    console.log("chapters"+courseChapters.length)
     if (course == null) res.redirect('/admin/courses/');
     else {
-      // res.status(200).render('admin/admin-course-view', { courses: course });
       res.status(200).render('admin/admin-course-view', {
-        courseId: courseId, courseTitle: courseTitle, courseIntro: courseIntro, courseCategory: courseCategory, course_Img: course_Img, courseChapters: courseChapters, page:page, pageCount: courseChapters.length
+        courseId: courseId, courseTitle: courseTitle, courseIntro: courseIntro, courseCategory: courseCategory, course_Img: course_Img, chapterContent: chapterContent, page: page, pageCount: numberOfChapters
         });
-      }
-    }  
+    } 
   } catch (error) {
     res.status(404);
     console.log(error);
@@ -207,7 +155,68 @@ exports.postAddCourse = async (req, res) => {
 }
 
 
+// get update course
+exports.getEditCourse = async (req, res,) => {
+  try {
+    let courseIdVal = req.params.id;
+    let course= await Coursemodel.selectCourseById(courseIdVal);
+     console.log(course)
+     
+      let courseId = course[0].courseId;
+      let courseCategory = course[0].courseCategory;
+      let courseTitle = course[0].courseTitle;
+      let courseIntro = course[0].courseIntro;
+      //  correct way of geeting json
+      let courseParsedChapters = JSON.parse(course[0].courseDescription);
+      let numberOfChapters = Object.keys(courseParsedChapters).length;
+      let course_Img = course[0].course_Img;
+    console.log(courseParsedChapters)
 
+    res.status(200).render('admin/admin-course-edit', {
+      courseId: courseId, courseTitle: courseTitle, courseIntro: courseIntro, courseCategory: courseCategory, course_Img: course_Img, chapters: courseParsedChapters, pageCount: numberOfChapters
+      });
+
+  } catch (error) {
+    res.status(404);
+    console.log(error);
+  }
+}
+
+
+
+// update single course
+exports.putEditCourse = async (req, res) => {
+  try {
+    console.log("admin edit course by Id")
+    if (req.fileError) { throw req.fileError }
+    let imgFileName;
+    if (req.file) {
+      imgFileName = req.file.filename;
+    } else {
+      imgFileName = '';
+    }
+    // obtaining course id through url
+    let courseId = req.params.id;
+    console.log(courseId);
+    console.log(req.body);
+    
+    // let courseFromDb = await Coursemodel.selectCourseById(courseId);
+    // // getting data as object from req.body
+    const { courseTitle, courseIntro, courseCategory, chapters } = req.body;
+   
+    let result = await Coursemodel.updateCourse(courseId, courseTitle, courseIntro, courseCategory, chapters, imgFileName);
+    // //   // sucess
+    if (result.affectedRows > 0) {
+      res.status(200).json({ msgType: 'success', msg: `${courseTitle} course has been sucessfully update.` });
+    } else {
+      //  406 Not Acceptable Not sure
+      res.status(405).send({ msgType: "danger", msg: `Error: ${courseTitle} course update dangered .` });
+    }
+   
+  } catch (error) {
+    res.status(404).send({ msgType: "danger", msg: `Error: ${error.message} course update failed .` });;
+  }
+}
 
 
 
