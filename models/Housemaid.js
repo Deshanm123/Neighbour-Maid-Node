@@ -275,10 +275,60 @@ class Housemaid {
     });
 
   }
-  
-  
-  
-  
+
+  // MAID SERVICECATEGORY -ON THE ADMIN SIDE BAR
+  // ADD Service Category- by admin
+  static addServiceCategory(serviceId, serviceCategoryName, serviceCategoryColor) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('INSERT  INTO maid_category_service_list_tb(serviceCategoryId,serviceCategoryName,serviceCategoryColor) VALUES (?,?,?)', [serviceId, serviceCategoryName, serviceCategoryColor], (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+  static viewServiceCategories() {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT * FROM maid_category_service_list_tb', (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+
+  // delete service Category
+  static deleteServiceCategory(serviceCategoryId) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('DELETE FROM maid_category_service_list_tb WHERE serviceCategoryId = ?', serviceCategoryId, (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+
 }
 
 

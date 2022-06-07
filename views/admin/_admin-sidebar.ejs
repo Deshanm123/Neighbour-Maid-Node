@@ -1,46 +1,88 @@
-<nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+<nav class="col-md-2 d-none d-md-block  sidebar">
   <div class=" sidebar-sticky" id="admin-nav" style="min-height:100vh">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link active" href="/admin">
-          <span data-feather="home"></span>
-          Dashboard <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/courses">
-          <span data-feather="file"></span>
-          Courses
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="shopping-cart"></span>
-          Orders
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="users"></span>
-          Customers
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="bar-chart-2"></span>
-          Reports
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="layers"></span>
-          Integrations
-        </a>
-      </li>
-    </ul>
 
-    <!-- reports -->
-    <!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+    <ul class="nav flex-column ">
+
+
+      <!-- housemaid Category -->
+      <li class="nav-item  mt-4">
+        <h2>
+          Services
+        </h2>
+        <hr>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/courses">
+              <i class="bi bi-play-btn"></i>
+              Maid Skills Management
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/services/serviceCategory">
+              <i class="bi bi-grid"></i>
+              Maid Service Management
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- users Category -->
+      <li class="nav-item  mt-4">
+        <h2>
+          Users
+        </h2>
+        <hr>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/courses">
+              <i class="bi bi-play-btn"></i>
+              House Maids
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/services">
+              <i class="bi bi-grid"></i>
+              House Owners
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item  mt-4">
+        <h2>
+          Reports
+        </h2>
+        <hr>
+        <ul class="nav flex-column">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">
+              <i class="fas fa-chart-area pr-3"></i>
+              Site Traffic
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">
+              <i class="fas fa-chart-area pr-3"></i>
+              users
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+
+
+
+      </li>
+
+    </ul>
+  </div>
+  <a class="ripple d-flex justify-content-center py-4" href="#!" data-ripple-color="primary">
+    <img id="NeighbourMaid-logo" src="/brand-logo-NeighbourMaid.png" alt="NeighbourMaid-logo" height="75px"
+      width="100px" draggable="false" />
+  </a>
+</nav>
+<!-- reports -->
+<!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
 
       <span>Saved reports</span>
       <a class="d-flex align-items-center text-muted" href="#">
@@ -75,4 +117,79 @@
     </ul>
   </div> -->
 
-</nav>
+<!-- dashboard -->
+<!-- <h2><i class="bi bi-house-door"></i> -->
+<!-- </nav> 
+
+
+<!-- 
+
+<div id="sidenav-1" class="sidenav sidebar-sticky" role="navigation" data-hidden="false" data-accordion="true">
+  <a class="ripple d-flex justify-content-center py-4" href="#!" data-ripple-color="primary">
+    <img id="NeighbourMaid-logo" src="/brand-logo-NeighbourMaid.png" alt="NeighbourMaid-logo"
+       height="75px" width="100px" draggable="false" />
+  </a>
+
+  <ul class="sidenav-menu">
+    <li class="sidenav-item">
+      <a class="sidenav-link" href="">
+       <span>Webiste traffic</span></a>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link"><i class="fas fa-cogs pr-3"></i><span>Settings</span></a>
+      <ul class="sidenav-collapse">
+        <li class="sidenav-item">
+          <a class="sidenav-link">Profile</a>
+        </li>
+        <li class="sidenav-item">
+          <a class="sidenav-link">Account</a>
+        </li>
+      </ul>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link"><i class="fas fa-lock pr-3"></i><span>Password</span></a>
+      <ul class="sidenav-collapse">
+        <li class="sidenav-item">
+          <a class="sidenav-link">Request password</a>
+        </li>
+        <li class="sidenav-item">
+          <a class="sidenav-link">Reset password</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div> -->
+
+
+
+
+
+<!-- <script type="text/javascript">
+    const sidenav = document.getElementById('full-screen-example');
+    const instance = mdb.Sidenav.getInstance(sidenav);
+
+    let innerWidth = null;
+
+    const setMode = (e) => {
+      // Check necessary for Android devices
+      if (window.innerWidth === innerWidth) {
+        return;
+      }
+
+      innerWidth = window.innerWidth;
+
+      if (window.innerWidth < 660) {
+        instance.changeMode('over');
+        instance.hide();
+      } else {
+        instance.changeMode('side');
+        instance.show();
+      }
+    };
+
+    setMode(); -->
+
+<!-- // Event listeners
+
+    window.addEventListener('resize', setMode);
+  </script> -->

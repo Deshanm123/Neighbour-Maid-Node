@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>Admin| Services Add </title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <!-- booostrap icons cdn  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="../../public/style/admin-dashboard.css">
+  <!-- circular dot -->
+  <style>
+    .dot {
+      height: 25px;
+      width: 25px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- navbar -->
+  <%-include('_admin-nav') %>
+    <!-- navbar -->
+    <div class="container-fluid">
+      <div class="row">
+        <!-- sidebar -->
+        <%-include('_admin-sidebar') %>
+          <!-- sidebar -->
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="container p-5">
+
+              <!-- alert message-->
+              <div class=container" id="message-alert">
+
+              </div>
+
+              <!-- admin -->
+              <table class="table">
+
+                <thead class="thead">
+                  <tr>
+
+                    <th scope="col"> Service Category Name</th>
+                    <th scope="col">Matching Color Scheme</th>
+
+                    <th scope="col" class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="service-table-body">
+                  <%if(serviceCategory){%>
+                    <% serviceCategory.forEach(service=>{ %>
+                      <tr>
+                        <!-- name -->
+                        <td>
+                          <%= service.serviceCategoryName %>
+                        </td>
+                        <!-- color -->
+                        <td>
+
+                          <span class="dot" data-color="<%= service.serviceCategoryColor %>"
+                            id="<%=service.serviceCategoryId%>"></span>
+
+
+
+                        </td>
+                        <td class="text-end">
+
+
+
+
+
+
+                          <a href="/admin/services/serviceCategory/editCourse/<%=service.serviceCategoryId%>" type="btn"
+                            class="btn btn-light btn-small"><i class="bi bi-pencil">edit</i></a>
+
+
+                          <!-- delete action -->
+                          <form id="service-category-remove-form" method="DELETE"
+                            action="/admin/services/serviceCategory/<%=service.serviceCategoryId%>">
+                            <button type="submit" class="btn btn-light btn-small">
+                              <i class="bi bi-person-x"></i>
+                              delete
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                      <% }); %>
+                        <% }%>
+                </tbody>
+              </table>
+              <!-- end of view  of courses-->
+
+
+              <!-- Addd service -->
+              <div class="row">
+                <div class="col-6 pb-3">
+                  <h1 class="pb-3">Add Service</h1>
+                </div>
+                <div class="col-6 ">
+                  <div class="text-center d-flex justify-content-end">
+                  </div>
+                </div>
+              </div>
+              <!-- form -->
+              <form id="service-category-add-form" action="/admin/services/addService" method="POST">
+                <!-- course information -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="email">Add service Category</label>
+                  <input type="text" class="form-control form-control-lg border border-secondary "
+                    name="serviceCategoryName" id="serviceCategoryName" required />
+                  <!-- <div class="valid-feedback">valid email address</div> -->
+                  <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="email">Select Service color to indicate Service Course:</label>
+                  <p class="pt-2">
+                    <input type="color" name="color" id="color" required />
+
+                  </p>
+                  <!-- <div class="valid-feedback">valid email address</div> -->
+                  <div class="invalid-feedback"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Service</button>
+
+              </form>
+            </div>
+          </main>
+      </div>
+    </div>
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <!-- circular progress bar -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.0/circle-progress.min.js'></script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script src="/assets/js/admin-services-category-ajax.js"></script>
+    <script>
+      feather.replace()
+    </script>
+    <script>
+      const spanElements = document.querySelectorAll('.dot');
+      spanElements.forEach(ele => {
+        let color = ele.getAttribute('data-color');
+        ele.style.backgroundColor = color;
+      })
+    </script>
+
+</html>

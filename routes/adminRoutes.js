@@ -5,7 +5,7 @@ const { upload } = require('../services/imageUploadService');
 const adminController = require('../controllers/adminController');
 
 
-
+// COURSES//
 // course home
 router.get('/', (req, res) => {
   res.render('admin/admin-dashboard');
@@ -36,6 +36,15 @@ router.put('/courses/editCourse/:id', upload.single('courseCoverPhoto'), adminCo
 // //   console.log(req.files);
 // // });
 
+// /// Housemaid-Services 
+router.get('/services/serviceCategory', adminController.getServices);
+router.post('/services/serviceCategory', adminController.postService);
+router.put('/services/serviceCategory', adminController.putService);
+router.delete('/services/serviceCategory/:serviceCategoryId', adminController.deleteService);
+
+
+// housemaids
+router.get('/housemaids', adminController.getAllHousemaids);
 
 
 

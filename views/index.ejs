@@ -30,6 +30,40 @@
       align-items: center;
       justify-content: center;
     }
+
+
+
+    .bubbles {
+      display: inline-block;
+      font-family: arial;
+      position: relative;
+    }
+
+    .bubbles h1 {
+      position: relative;
+      margin: 1em 0 0;
+      font-family: 'Luckiest Guy', cursive;
+      color: #fff;
+      z-index: 2;
+    }
+
+    .individual-bubble {
+      position: absolute;
+      border-radius: 100%;
+      bottom: 10px;
+      background-color: #fff;
+      z-index: 1;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .individual-bubble {
+        position: absolute;
+        border-radius: 100%;
+        bottom: 1px;
+        background-color: #fff;
+        z-index: 1;
+      }
+    }
   </style>
   <!-- page title -->
   <title>NeighbourMaid | Home</title>
@@ -53,7 +87,9 @@
               <div class=" align-self-center ">
                 <h1 id="poster-title" style="color:#fff;font-size:5vw">Tired of doing Daily Chores?</h1>
                 <h2>Are You too Busy?</h2>
-                <h2>Get a <span style="color:#fff;font-size:4vw">PROFESSIONAL</span> .</h2>
+                <div class="bubbles">
+                  <h2>Get a <span style="color:#fff;font-size:4vw">PROFESSIONAL</span> .</h2>
+                </div>
 
               </div>
             </div>
@@ -117,9 +153,10 @@
 
           <div class="row featurette">
             <div class="col-md-7">
-              <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">What more to expect!!</span></h2>
+              <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">What more to expect!!</span>
+              </h2>
               <p class="lead">
-               Householders demand skilled domestic workers, rather than workers with little or no
+                Householders demand skilled domestic workers, rather than workers with little or no
                 experience.We have provided opportunity to housemaids to train their skills by themselves.
                 The NeighbourMaid platform has a diverse categories of courses for housemaids to improve their
                 skills.</p>
@@ -177,7 +214,7 @@
                 <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ per service</small></h1>
                 <ul class="list-unstyled mt-3 mb-4">
                   <p>The complete package of house owner services.</p>
-                 <li>Search and filter services</li>
+                  <li>Search and filter services</li>
                   <li>view avaialability of services</li>
                   <li>view housemaid Portifolios</li>
                   <li>Interview Housemaids</li>
@@ -194,7 +231,8 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">FREE<small class="text-muted">/ life-time</small></h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                  <p>If you are intersted in carreer pathway in Housemaid services.please register with us, we are more than happy to provide our free services to you.It's totally free.</p>
+                  <p>If you are intersted in carreer pathway in Housemaid services.please register with us, we are more
+                    than happy to provide our free services to you.It's totally free.</p>
                   <li>learning platform</li>
                   <li>communication services</li>
                   <li>Phone and email support</li>
@@ -242,24 +280,71 @@
       <!-- end of review section -->
 
       <!-- footer -->
+      <div id="google_translate_element"></div>
       <%- include('_footer')%>
         <!-- footer -->
-
+        <!-- translate -->
 
         <!-- Optional JavaScript -->
         <!-- <script src="script.js"></script> -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-          crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
           integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
           crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
           crossorigin="anonymous"></script>
-      
+        <!-- bubleeffect -->
+        <script>
+          jQuery(document).ready(($) => {
 
+            // Define a blank array for the effect positions. This will be populated based on width of the title.
+            var bArray = [];
+            // Define a size array, this will be used to vary bubble sizes
+            var sArray = [4, 6, 8, 10];
+
+            for (var i = 0; i < $('.bubbles').width(); i++) {
+              bArray.push(i);
+            }
+
+
+            function randomValue(arr) {
+              return arr[Math.floor(Math.random() * arr.length)];
+            }
+
+            setInterval(function () {
+              var size = randomValue(sArray);
+              $('.bubbles').append('<div class="individual-bubble" style="left: ' + randomValue(bArray) + 'px; width: ' + size + 'px; height:' + size + 'px;"></div>');
+              $('.individual-bubble').animate({
+                'bottom': '100%',
+                'opacity': '-=0.7'
+              }, 3000, function () {
+                $(this).remove()
+              }
+              );
+
+
+            }, 350);
+
+
+          });
+
+
+        </script>
+
+
+        <!-- translate -->
+        <!-- translate -->
+        <script type="text/javascript">
+          function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+          }
+        </script>
+
+        <script type="text/javascript"
+          src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 
 </html>

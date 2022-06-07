@@ -36,13 +36,18 @@
 </head>
 
 <body>
+
+
+
   <!-- navbar -->
   <%- include('_navbar')%>
     <!-- navbar -->
+    
 
 
     <section class="vh-100" style="background-color:#393f81;">
       <div class="container-fluid py-5 h-100">
+
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col col-xl-10">
             <div class="card" style="border-radius: 1rem;">
@@ -56,7 +61,7 @@
 
                     <!-- alert message :sucessfull-->
                     <div class=container" id="message-alert">
-                     
+
                     </div>
                     <!-- alert message -->
 
@@ -187,13 +192,16 @@
     </section>
 
 
-   
 
 
-
+    <div></div>
     <!-- footer -->
+    <div id="google_translate_element"></div>
     <%- include('_footer')%>
       <!-- footer -->
+
+
+
       <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
 
       <!-- Optional JavaScript -->
@@ -210,6 +218,16 @@
         crossorigin="anonymous"></script>
       <!-- clientside validation -->
       <script src="/regscript_user.js"></script>
+
+      <!-- tranlate -->
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        }
+      </script>
+
+      <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 
