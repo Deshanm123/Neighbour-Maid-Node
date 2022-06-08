@@ -13,8 +13,8 @@ function showError(input, message) {
 }
 
 // Show success outline
-function showSuccess(input) {
-  input.classList.add('is-valid')
+function removeError(input) {
+  input.classList.remove('is-invalid')
 }
 
 
@@ -57,13 +57,13 @@ form.addEventListener('submit', function (e) {
         verificationCodeInput: verificationCodeInput,
       }),
       success: (data) => {
-
+        removeError(verificationInput)
         $('#message-alert').html('');
 
         const alertElement =
           ` <div class=" alert alert-${data.msgType} alert-dismissible fade show py-3 text-center" role="alert"
            id="alert-role" >
-           <strong id="message-area">${xhr.status}:${data.msg}</strong>
+           <strong id="message-area">${data.msg}.Please <a href="/user/loginUser">Login</a></strong>
            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
              <span aria-hidden="true">&times;</span>
            </button>
@@ -74,14 +74,14 @@ form.addEventListener('submit', function (e) {
         $('#message-alert').show();
 
       },
-      error: (xhr) => {
-        let data = xhr.responseJSON;
+      error: (data) => {
+
         $('#message-alert').html('');
 
         const alertElement =
           ` <div class=" alert alert-${data.msgType} alert-dismissible fade show py-3 text-center" role="alert"
            id="alert-role" >
-           <strong id="message-area">${xhr.status}:${data.msg}</strong>
+           <strong id="message-area">.Try Again</strong>
            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
              <span aria-hidden="true">&times;</span>
            </button>
@@ -94,7 +94,7 @@ form.addEventListener('submit', function (e) {
     })
 
   } else {
-    showError(verificationInput, `please enter 7 digits code to verify  that`);
+    showError(verificationInput, `please enter 7 digits code to verify`);
   }
 });
 

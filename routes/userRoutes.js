@@ -17,6 +17,12 @@ router.get('/verifyUser/:userId', userController.getverificationCodeInput)
 router.post('/verifyUser/:userId', userController.postverificationCodeInput)
 
 
+router.get('/contact', userController.getContact);
+// router.post('/contact',reCaptcha, generalController.postContact);
+router.post('/contact', userController.postContact);
+
+
+
 router.get('/logout', userController.logOut);
 
 

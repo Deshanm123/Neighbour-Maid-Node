@@ -154,6 +154,31 @@ class Houseowner {
 
   }
 
+  // Admin users:House Owners
+  static getAllHouseownersByAdmin() {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT userId,userEmail,userName,userEmailVeifiedStatus FROM user_tb WHERE userRole = ? ', 'Houseowner', (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err);
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+
+
+
+
+
+
+
 
 }
 

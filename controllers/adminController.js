@@ -4,15 +4,41 @@ const uuid = require('uuid');
 const moment = require('moment');
 const { Admin } = require('mongodb');
 const Housemaid = require('../models/Housemaid');
-const { clearCache } = require('ejs');
+const Houseowner = require('../models/Houseowner');
+const Image = require('../models/Image');
+
+
+async function getCourseswithCategoryNames(courses) {
+  let modifiedCoursesArr = [];
+  for (let i = 0; i < courses.length; i++) {
+
+    let courseCategory = await Housemaid.getServiceCategoryById(courses[i].courseCategory)
+    console.log("courseCategory")
+    console.log(courseCategory)
+    let course = {
+      courseId: courses[i].courseId,
+      courseTitle: courses[i].courseTitle,
+      courseCategory: courseCategory[0].serviceCategoryName,
+      courseIntro: courses[i].courseIntro,
+      courseDescription: courses[i].courseDescription,
+      course_Img: courses[i].course_Img
+    }
+    console.log(course)
+    modifiedCoursesArr.push(course)
+  }
+  console.log(modifiedCoursesArr);
+  return modifiedCoursesArr;
+}
 
 
 exports.getAllCourses = async (req, res) => {
   try {
     let courses = await Coursemodel.getAvialableCoursesAdmin();
-    console.log(courses)
+    // console.log(courses)
+    let coursesWithCategory = await getCourseswithCategoryNames(courses);
+    console.log(coursesWithCategory)
     // res.status(200).render('admin/admin-courses', { courses: courses ,alert:{} });
-    res.status(200).render('admin/admin-courses', { courses: courses, alert: '' });
+    res.status(200).render('admin/admin-courses', { courses: coursesWithCategory, alert: '' });
     // res.status(200).json({ courses: courses });
   } catch (err) {
     res.status(401).send({ msgType: "danger", msg: `${err.message}` });;
@@ -71,9 +97,10 @@ exports.getSingleCourse = async (req, res) => {
   try {
     let course = await Coursemodel.selectCourseById(id);
     console.log(course)
-
+    let courseCategoryObj = await Housemaid.getServiceCategoryById(course[0].courseCategory);
     let courseId = course[0].courseId;
-    let courseCategory = course[0].courseCategory;
+    let courseCategory = courseCategoryObj[0].serviceCategoryName;
+    let courseCategoryColor = courseCategoryObj[0].serviceCategoryColor;
     let courseTitle = course[0].courseTitle;
     let courseIntro = course[0].courseIntro;
     //  correct way of geeting json
@@ -104,7 +131,7 @@ exports.getSingleCourse = async (req, res) => {
     if (course == null) res.redirect('/admin/courses/');
     else {
       res.status(200).render('admin/admin-course-view', {
-        courseId: courseId, courseTitle: courseTitle, courseIntro: courseIntro, courseCategory: courseCategory, course_Img: course_Img, chapterContent: chapterContent, page: page, pageCount: numberOfChapters
+        courseId: courseId, courseTitle: courseTitle, courseIntro: courseIntro, courseCategory: courseCategory, courseCategoryColor: courseCategoryColor, course_Img: course_Img, chapterContent: chapterContent, page: page, pageCount: numberOfChapters
       });
     }
   } catch (error) {
@@ -117,7 +144,15 @@ exports.getSingleCourse = async (req, res) => {
 // adding a course
 exports.getAddCourse = async (req, res,) => {
   try {
-    res.status(200).render('admin/admin-course-add', { course: new Coursemodel(), alert: '' });
+    // getting service categories
+    let serviceResults = await Housemaid.viewServiceCategories();
+    console.log(serviceResults);
+    // res.render('admin/admin-services', { serviceCategory: serviceResults });
+
+
+
+
+    res.status(200).render('admin/admin-course-add', { course: new Coursemodel(), servicesList: serviceResults, alert: '' });
   } catch (error) {
     res.status(404);
     console.log(error);
@@ -165,6 +200,8 @@ exports.getEditCourse = async (req, res,) => {
     let courseIdVal = req.params.id;
     let course = await Coursemodel.selectCourseById(courseIdVal);
     console.log(course)
+    let serviceResults = await Housemaid.viewServiceCategories();
+    console.log(serviceResults);
 
     let courseId = course[0].courseId;
     let courseCategory = course[0].courseCategory;
@@ -177,7 +214,7 @@ exports.getEditCourse = async (req, res,) => {
     console.log(courseParsedChapters)
 
     res.status(200).render('admin/admin-course-edit', {
-      courseId: courseId, courseTitle: courseTitle, courseIntro: courseIntro, courseCategory: courseCategory, course_Img: course_Img, chapters: courseParsedChapters, pageCount: numberOfChapters
+      courseId: courseId, courseTitle: courseTitle, courseIntro: courseIntro, courseCategory: courseCategory, course_Img: course_Img, chapters: courseParsedChapters, pageCount: numberOfChapters, categoryList: serviceResults
     });
 
   } catch (error) {
@@ -222,21 +259,55 @@ exports.putEditCourse = async (req, res) => {
   }
 }
 
-
+// USERS-ADMIN
 // housemaids
 exports.getAllHousemaids = async (req, res) => {
   try {
-    let courses = await Coursemodel.getAvialableCoursesAdmin();
-    console.log(courses)
-    // res.status(200).render('admin/admin-courses', { courses: courses ,alert:{} });
-    res.status(200).render('admin/admin-courses', { courses: courses, alert: '' });
+    let housemaids = await Housemaid.getAllHousemaidsByAdmin();
+    console.log(housemaids)
+
+    res.status(200).render('admin/admin-housemaids-views', { housemaids: housemaids });
+    // res.status(200).render('admin/admin-housemaids-views', { courses: courses, alert: '' });
+    // res.status(200).json({ courses: courses });
+  } catch (err) {
+    res.status(401).send({ msgType: "danger", msg: `${err.message}` });;
+  }
+}
+exports.getHousemaidPortifolio = async (req, res) => {
+  try {
+    console.log("get house maid portifolio by ADMIN")
+    const { housemaidId } = req.params;
+    let imgUrl = await Image.getProfilePhotorById(housemaidId);
+    let userImg = "https://mdbootstrap.com/img/new/avatars/6.jpg";
+    if (imgUrl.length > 0) {
+      userImg = imgUrl[0].profileImg;
+    }
+
+    let personalDetails = await Housemaid.getPersonalDetails(housemaidId);
+    let serviceDetails = await Housemaid.getServiceDetails(housemaidId);
+
+    res.status(200).render('admin/maid-Portifolio', { profileImg: userImg, personalDetails: personalDetails, serviceDetails: serviceDetails })
+
+  } catch (err) {
+    res.status(401).send({ msgType: "danger", msg: `${err.message}` });;
+  }
+}
+
+// houseowners
+exports.getAllHouseowners = async (req, res) => {
+  try {
+    // get all housemaids and get all house oqners are two different ones
+    let houseowners = await Houseowner.getAllHouseownersByAdmin();
+    console.log(houseowners)
+
+    res.status(200).render('admin/admin-houseowners-views', { houseowners: houseowners });
+    // res.status(200).render('admin/admin-housemaids-views', { courses: courses, alert: '' });
     // res.status(200).json({ courses: courses });
   } catch (err) {
     res.status(401).send({ msgType: "danger", msg: `${err.message}` });;
   }
 }
 
-// END OF COURSE
 
 
 // SERVICES
@@ -244,7 +315,17 @@ exports.getServices = async (req, res) => {
   try {
     let serviceResults = await Housemaid.viewServiceCategories();
     console.log(serviceResults);
-    res.render('admin/admin-services',{serviceCategory: serviceResults});
+    res.render('admin/admin-services', { serviceCategory: serviceResults });
+
+  } catch (err) {
+    res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
+  }
+
+}
+exports.getPostServices = async (req, res) => {
+  try {
+
+    res.render('admin/admin-services-add');
 
   } catch (err) {
     res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
@@ -258,13 +339,14 @@ exports.postService = async (req, res) => {
     let serviceId = uuid.v4()
     const { serviceCategoryName, color } = req.body;
 
-    let result = await Housemaid.addServiceCategory(serviceId,serviceCategoryName, color);
+    let result = await Housemaid.addServiceCategory(serviceId, serviceCategoryName, color);
     //   console.log(result)
     if (result.affectedRows > 0) {
       res.status(201).json({
         msgType: 'success', msg: `${serviceCategoryName} course has been sucessfully added.`, service: {
           serviceId, serviceCategoryName, color
-} });
+        }
+      });
     } else {
       //  406 Not Acceptable Not sure
       res.status(405).send({ msgType: "fail", msg: `Error: ${serviceCategoryName} course is not added .` });
@@ -275,39 +357,17 @@ exports.postService = async (req, res) => {
 }
 
 
-exports.putService = async (req, res) => {
+
+
+exports.deleteService = async (req, res) => {
   try {
     console.log("Delete Service Category")
-    let serviceId = uuid.v4()
-    const { serviceCategoryName, color } = req.body;
 
-//     let result = await Housemaid.putServiceCategory(serviceId,serviceCategoryName,color);
-//     //   console.log(result)r
-//     if (result.affectedRows > 0) {
-//       res.status(201).json({
-//         msgType: 'success', msg: `${serviceCategoryName} course has been sucessfully added.`, service: {
-//           serviceId, serviceCategoryName, color
-// } });
-//     } else {
-//       //  406 Not Acceptable Not sure
-//       res.status(405).send({ msgType: "fail", msg: `Error: ${serviceCategoryName} course is not added .` });
-//     }
-  } catch (err) {
-    res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
-  }
-}
-
-
-
-exports.deleteService =  async(req, res) => {
-  try{
-    console.log("Delete Service Category")
-    let {serviceCategoryId} = req.body;
+    console.log(req.params)
+    let { serviceCategoryId } = req.params;
     let result = await Housemaid.deleteServiceCategory(serviceCategoryId);
     if (result.affectedRows > 0) {
-      res.status(200).json({
-        msgType: 'success', msg: `selected service Category is successfully removed.please refresh`
-      });
+      res.redirect('/admin/services/serviceCategory');
     } else {
       //  406 Not Acceptable Not sure
       res.status(405).send({ msgType: "fail", msg: `Error: selected service category  is not removed .` });
@@ -319,21 +379,58 @@ exports.deleteService =  async(req, res) => {
   }
 }
 
-exports.editService =  async(req, res) => {
-  try{
+// exports.editService = async (req, res) => {
+//   try {
+//     console.log("Update Service Category")
+//     let { serviceCategoryId } = req.body;
+//     let result = await Housemaid.deleteServiceCategory(serviceCategoryId);
+//     if (result.affectedRows > 0) {
+//       res.status(201).json({
+//         msgType: 'success', msg: `service Category ${serviceCategoryName} is no longer avaialable.`, service: {
+//           serviceId, serviceCategoryName, color
+//         }
+//       });
+//     } else {
+//       //  406 Not Acceptable Not sure
+//       res.status(405).send({ msgType: "fail", msg: `Error: ${serviceCategoryName}  is not removed successfully  .` });
+//     }
+
+
+//   } catch (err) {
+//     res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
+//   }
+// }
+
+
+exports.getUpdateService = async (req, res) => {
+  try {
     console.log("Update Service Category")
-    let {serviceCategoryId} = req.body;
-    let result = await Housemaid.deleteServiceCategory(serviceCategoryId);
+
+    let { serviceCategoryId } = req.params;
+    let result = await Housemaid.getServiceCategoryById(serviceCategoryId);
+
     if (result.affectedRows > 0) {
-      res.status(201).json({
-        msgType: 'success', msg: `service Category ${serviceCategoryName} is no longer avaialable.`, service: {
-          serviceId, serviceCategoryName, color
-        }
+      res.status(200).json({
+        msgType: 'success', msg: `selected service Category is successfully update.please refresh`
       });
     } else {
       //  406 Not Acceptable Not sure
-      res.status(405).send({ msgType: "fail", msg: `Error: ${serviceCategoryName}  is not removed successfully  .` });
+      res.status(405).send({ msgType: "fail", msg: `Error: selected service category  is not update .` });
     }
+  } catch (err) {
+    res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
+  }
+}
+
+
+exports.putUpdateService = async (req, res) => {
+  try {
+    console.log("Update Service Category")
+
+    let { serviceCategoryId } = req.params;
+    let result = await Housemaid.getServiceCategoryById(serviceCategoryId);
+    console.log(result)
+    res.render('admin/admin-services-update', { serviceCategory: result[0] })
 
 
   } catch (err) {

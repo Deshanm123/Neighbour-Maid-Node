@@ -38,15 +38,22 @@ router.put('/courses/editCourse/:id', upload.single('courseCoverPhoto'), adminCo
 
 // /// Housemaid-Services 
 router.get('/services/serviceCategory', adminController.getServices);
-router.post('/services/serviceCategory', adminController.postService);
-router.put('/services/serviceCategory', adminController.putService);
+router.get('/services/serviceCategory/getAddServices',adminController.getPostServices);
+router.post('/services/serviceCategory/addServices', adminController.postService);
+// NO NEED OF AJAX
 router.delete('/services/serviceCategory/:serviceCategoryId', adminController.deleteService);
+
+router.get('/services/serviceCategory/update/:serviceCategoryId', adminController.getUpdateService);
+router.get('/services/serviceCategory/update/:serviceCategoryId', adminController.putUpdateService);
 
 
 // housemaids
-router.get('/housemaids', adminController.getAllHousemaids);
+router.get('/users/housemaids', adminController.getAllHousemaids);
+router.get('/users/housemaids/:housemaidId', adminController.getHousemaidPortifolio);
 
 
+// houseowners
+router.get('/users/houseowners', adminController.getAllHouseowners);
 
 
 module.exports = router;

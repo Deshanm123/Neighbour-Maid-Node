@@ -276,7 +276,7 @@ class Housemaid {
 
   }
 
-  // MAID SERVICECATEGORY -ON THE ADMIN SIDE BAR
+  /////////////////////////////////////////////// MAID SERVICECATEGORY -ON THE ADMIN SIDE BAR
   // ADD Service Category- by admin
   static addServiceCategory(serviceId, serviceCategoryName, serviceCategoryColor) {
     return new Promise((resolve, reject) => {
@@ -328,6 +328,71 @@ class Housemaid {
       });
     });
   }
+
+
+  static getServiceCategoryById(serviceCategoryId) {
+    console.log(serviceCategoryId)
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT * FROM neighbour_maid_db.maid_category_service_list_tb WHERE serviceCategoryId =?', serviceCategoryId, (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+  
+  // ADmin- users-housemaids 
+  // get housemaids
+ 
+  static getAllHousemaidsByAdmin() {
+   
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT * FROM housemaid_dashboard_view', (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+  
+  static getHousemaidPortifolioByAdmin(housemaidId) {
+   
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT * FROM housemaid_dashboard_view', housemaidId, (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+  
+
+
+
 
 }
 

@@ -1,24 +1,24 @@
 
-const cookieParser = require('cookie-parser');
-const express = require('express');
-const router = express.Router();
+// const cookieParser = require('cookie-parser');
+// const express = require('express');
+// const router = express.Router();
 
 
 // const {reCaptcha} = require('../middleware/recaptchaMiddleware');
-const generalController = require('../controllers/generalController');
+// const generalController = require('../controllers/generalController');
 
 
 
 
 
 // router.get('/login', generalController.getlogin);
-router.post('/login', generalController.postLogin);
+// router.post('/login', generalController.postLogin);
 
 
 
-router.get('/contact', generalController.getContact);
+// router.get('/contact', generalController.getContact);
 // router.post('/contact',reCaptcha, generalController.postContact);
-router.post('/contact', generalController.postContact);
+// router.post('/contact', generalController.postContact);
 
 
 // router.get('/setcookie', function (req, res) {
@@ -28,4 +28,4 @@ router.post('/contact', generalController.postContact);
 // });
 
 
-module.exports = router;
+// module.exports = router;

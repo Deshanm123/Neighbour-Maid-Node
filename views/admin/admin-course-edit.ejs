@@ -75,12 +75,15 @@
                                         <select id="courseCategory" name="courseCategory"
                                             class="form-control border border-secondary" required>
                                             <!-- <option selected>Choose...</option> -->
-                                            <option value="Cleaning" <%=courseCategory=='Cleaning' ? 'selected' : '' %>
-                                                >Cleaning</option>
-                                            <option value="Gardening" <%=courseCategory=='Gardening' ? 'selected' : ''
-                                                %> >Gardening</option>
-                                            <option value="Laundring" <%=courseCategory=='Laundring' ? 'selected' : ''
-                                                %> >Laundring</option>
+                                            <!-- <option value="Cleaning" <1%=courseCategory=='Cleaning' ? 'selected' : '' %>
+                                                >Cleaning</option> -->
+
+                                            <%categoryList.forEach((item)=>{%>
+                                                <option value="<%=item.serviceCategoryId%>"
+                                                    <%=courseCategory==item.serviceCategoryId ? 'selected' : '' %> >
+                                                    <%=item.serviceCategoryName%>
+                                                </option>
+                                                <%})%>
                                         </select>
                                     </div>
                                 </div>
@@ -103,15 +106,16 @@
                                         <%if(course_Img){%>
                                             <a href="/<%=course_Img%>" target="_blank"> view cover course cover</a>
                                             <%}%>
-                                        <div class="input-group">
+                                                <div class="input-group">
 
-                                           
-                                           
-                                            <div class="input-group-prepend">
-                                                <input type="file" id="course-cover-photo" name="course-cover-photo">
-                                            </div>
-                                            
-                                        </div>
+
+
+                                                    <div class="input-group-prepend">
+                                                        <input type="file" id="course-cover-photo"
+                                                            name="course-cover-photo">
+                                                    </div>
+
+                                                </div>
                                     </div>
                                 </div>
                                 <!-- end of course information -->

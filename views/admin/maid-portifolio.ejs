@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+  <!-- page title -->
+  <title>NeighbourMaid | Home</title>
+  <script type="text/javascript" src="/city_state.js"></script>
+
+  <style>
+    * {
+      font-size: 16px;
+    }
+
+    .list-group li {
+      border: none;
+    }
+
+    #bg {
+      min-height: 60vh;
+      background: #009FFF;
+      background: linear-gradient(to right, #ec2F4B, #65c604);
+      clip-path: ellipse(100vw 60vh at 50% 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- navbar -->
+  <div class="container">
+    <div class="row">
+      <a href="/admin/users/housemaids" type="button" class="btn btn-dark btn-lg btn-block mt-3" id="sticky-btn">
+        Back to Courses
+      </a>
+    </div>
+  </div>
+
+  <!-- PORTTIFOLIO -->
+  <!-- TO DO : DIsable porttifolio if user hasnott entered details PORTTIFOLIO -->
+  <% let userEmpService,userSkills ,userContient ,userCountry ,userCity;%>
+    <%serviceDetails.forEach(sd=>{%>
+      <%userEmpService=sd.userEmpService.replace("_"," ");%>
+      <%userSkills = sd.userSkills;%>
+      <%userContient =sd.userLocContinent;%>
+     <% userCountry =sd.userLocCountry;%>
+     <% userCity =sd.userLocCity;%>
+     <% });%>
+
+      <% personalDetails.forEach(pd=>{ %>
+
+        <!-- Card Section -->
+        <section  id=" bg">
+        <div class="container py-5">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-12 col-xl-4">
+
+              <div class="card" style="border-radius: 15px;">
+                <div class="card-body text-center">
+                  <div class="mt-3 mb-4">
+                    <% if(profileImg !==null ){%>
+                      <img src="/<%=profileImg%>" class="rounded-circle img-fluid" style="width: 100px;" />
+                      <% }else{%>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                          class="rounded-circle img-fluid" style="width: 100px;" />
+                        <% }%>
+                  </div>
+
+                  <h4 class="mb-2">
+                    <%= pd.uFName%>
+                      <%=pd.uLName %>
+                  </h4>
+                  <% if(pd.uDOB){%>
+                    <% let bday=pd.uDOB; %>
+                      <% }%>
+
+
+                        <p class="text-muted mb-4">
+                          <%= pd.uGender%>
+                            <%= pd.uMaritalStatus%><span class="mx-2">|</span>
+                              <span id="age"></span> years old
+                        </p>
+                        <div class="mb-4 pb-2">
+                          👋 I work as <%=userEmpService%>r .
+                            I can offer services in
+                            <%= userCity%>,
+                              <%= userCountry%>,
+                                <%=userContient%>.
+                        </div>
+                        <!-- <div class="mb-4 pb-2">
+                        <button type="button" class="btn btn-outline-primary btn-floating ">
+                          <i class="fab fa-facebook-f fa-lg"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-primary btn-floating">
+                          <i class="fab fa-twitter fa-lg"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-primary btn-floating">
+                          <i class="fab fa-skype fa-lg"></i>
+                        </button>
+                      </div> -->
+
+                        <div class="d-flex justify-content-center ">
+                          <button type="button" class="btn btn-primary btn-rounded btn-lg m-2  btn-sm">Message
+                            Now</button>
+                          <button type="button" class="btn btn-outline-primary btn-rounded btn-lg m-2  btn-sm">Appoint
+                            Now</button>
+
+                        </div>
+                        <!-- 
+                      <div class="d-flex justify-content-between text-center mt-5 mb-2">
+                        <div>
+                          <p class="mb-2 h5">
+                           
+                          </p>
+                          <p class="text-muted mb-0">Work Nature</p>
+                        </div>
+                        
+                          
+                        <div class="px-3">
+                          <p class="mb-2 h5"></p>
+                          <p class="text-muted mb-0">IWorking City</p>
+                        </div>
+                        <div>
+                          <p class="mb-2 h5"></p>
+                          <p class="text-muted mb-0">Country</p>
+                        </div>
+                      </div> -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        </section>
+
+
+
+        <!-- latest -->
+        <div class="container py-5">
+          <div class="row">
+
+            <div class="col-sm-4 text-center">
+              <h5 class="text-center">My Skills</h5>
+              <br>
+              <ul class="list-group">
+                <% if( Object.keys(userSkills).length> 0 ){%>
+                  <% for(let i=0 ; i< Object.keys(userSkills).length;i++){ %>
+                    <% let userSkill=userSkills[i].toLowerCase(); %>
+                      <% if(userSkill=='cooking' ){%>
+                        <li class="list-group-item">
+                          🥘<%= userSkills[i] %>
+                        </li>
+                        <% }else if(userSkill=='cleaning' ){%>
+                          <li class="list-group-item">
+                            🧹<%= userSkills[i] %>
+                          </li>
+
+                          <% }else if(userSkill=='gardening' ){%>
+                            <li class="list-group-item">
+                              👩🏻‍🌾<%= userSkills[i] %>
+                            </li>
+                            <% }else if(userSkill=='baby sitting' ){%>
+                              <li class="list-group-item">
+                                🤱🏼<%= userSkills[i] %>
+                              </li>
+                              <% }else if(userSkill=='elderly care' ){%>
+                                <li class="list-group-item">
+                                  👩‍🦽<%= userSkills[i] %>
+                                </li>
+                                <% }else if( userSkill="laundering" ){%>
+                                  <li class="list-group-item">
+                                    🧺<%= userSkills[i] %>
+                                  </li>
+                                  <% }else{%>
+                                    <li class="list-group-item">
+                                      👍🏾<%= userSkills[i] %>
+                                    </li>
+                                    <% }%>
+
+
+                                      <!-- end of for loop -->
+
+
+
+
+
+                                      <% }%>
+                                        <% }%>
+              </ul>
+            </div>
+            <div class="col-sm-4 text-center">
+              <div>
+                <h2 class="text-center p-4">About Me</h2>
+                <p id="overview" class="text-center">
+                  <%= pd.uOverview%>
+                </p>
+
+              </div>
+            </div>
+
+            <div class="col-sm-4 text-center">
+              <h5 class="text-center">My Fluent Languages</h5>
+              <br>
+              <% let languages=pd.uLanguage; %>
+                <ul class="list-group">
+                  <% if( Object.keys(languages).length> 0 ){%>
+                    <% for(let i=0 ; i< Object.keys(languages).length;i++){ %>
+                      <li class="list-group-item">
+                        <%=languages[i] %>
+                      </li>
+                      <% }%>
+                        <!-- end of for loop -->
+                        <% }%>
+                </ul>
+            </div>
+
+          </div>
+        </div>
+        <%}); %>
+
+
+
+
+
+
+
+
+
+
+
+          <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+          <!-- new jQuery -->
+          <<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+              integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+              crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+              integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+              crossorigin="anonymous"></script>
+            <!-- bootstrap toggle button -->
+            <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+            <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+            <!-- ajax JavaScript -->
+            <!-- <script type="text/javascript" src="/maid_myaccount_ajax.js"></script> -->
+            <script>
+              //console.log();
+              // var birthday = new Date(1998, 04, 01)
+              if (bday) {
+
+                let birthday = '<%= personalDetails[0].uDOB %>';
+
+                function _calculateAge(inputBirthday) {
+                  // birthday is a date
+                  let birthday = new Date(inputBirthday);
+                  var ageDifMs = Date.now() - birthday.getTime();
+                  var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                  return Math.abs(ageDate.getUTCFullYear() - 1970);
+                }
+                let age = _calculateAge('<%= personalDetails[0].uDOB %>');
+                // console.log(age);
+                document.getElementById('age').innerHTML = age;
+              }
+
+
+
+
+                  //color change background 
+                 // $(document).ready(function () {
+                   //   var randomColor = Math.floor(Math.random() * 16777215).toString(16);
+                   //   $("#bg").css("background-color", '#' + randomColor);
+                   // });
+            </script>
+
+</body>
+
+</html>

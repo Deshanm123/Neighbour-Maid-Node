@@ -36,7 +36,7 @@ const createJWToken = (id) => {
 exports.getRegistrationUser = async (req, res) => {
   res.render('register-user');
 }
-
+// without mail registration
 exports.postRegistrationUser = async (req, res) => {
   console.log("POST REGISTRATION USER")
   console.log(req.body);
@@ -52,60 +52,130 @@ exports.postRegistrationUser = async (req, res) => {
       let emailVerificationCode = await generateEmailVerificationCode();
       console.log('Email-erification-code:' + emailVerificationCode);
 
-      // Mail
-      let mailOption = {
-        from: 'paypaldeshanm123@gmail.com', // sender address
-        to: `${email}`, // list of receivers
-        subject: "Account Validation", // Subject line
-        text: "Hello world?", // plain text body
-        html:
-          `
-        <h1>Please  verify the account by clicking entering the verficationh code </h1><br>
-        <h1>emailVerificationCode = ${emailVerificationCode}</h1>
-        `, // html body
+      // // Mail
+      // let mailOption = {
+      //   from: 'paypaldeshanm123@gmail.com', // sender address
+      //   to: `${email}`, // list of receivers
+      //   subject: "Account Validation", // Subject line
+      //   text: "Hello world?", // plain text body
+      //   html:
+      //     `
+      //   <h1>Please  verify the account by clicking entering the verficationh code </h1><br>
+      //   <h1>emailVerificationCode = ${emailVerificationCode}</h1>
+      //   `, // html body
+      // }
+
+      // // perform Mail
+      // mailTransporter.sendMail(mailOption, async (err, mailResult) => {
+      //   if (err) { throw err }
+      //   else {
+      //     console.log("Verification Message sent: %s", mailResult);
+      //     //if verification code sent sucessful then register the account as not verfied
+      let result = await User.addUser(email, userName, hashedPassword, userType, emailVerificationCode);
+      //sucessful registration 
+      if (result.affectedRows > 0) {
+        const result = await User.selectUserIdByEmail(email);
+        const userId = result[0].userId;
+        // creating JWT
+        const jwToken = createJWToken(userId);
+        // storing JWT inside a cookie
+        res.cookie('jwt', jwToken, { maxAge: maxAge * 1000, httpOnly: true });
+        //sucessfully created
+        // res.status(201).json({ userId: userId });
+        res.status(201).send({ msgType: "success", msg: `Congratulations! your account has been successfully created. Please Login ` });
+
+      } else {
+        // registration failed
+        console.log(`user  with email ${email} registration failed`)
+        res.status(401).json({ msgType: "danger", msg: `user  with email ${email} registration failed ` });
       }
-
-      // perform Mail
-      mailTransporter.sendMail(mailOption, async (err, mailResult) => {
-        if (err) { throw err }
-        else {
-          console.log("Verification Message sent: %s", mailResult);
-          //if verification code sent sucessful then register the account as not verfied
-          let result = await User.addUser(email, userName, hashedPassword, userType, emailVerificationCode);
-          //sucessful registration 
-          if (result.affectedRows > 0) {
-            const result = await User.selectUserIdByEmail(email);
-            const userId = result[0].userId;
-            // creating JWT
-            const jwToken = createJWToken(userId);
-            // storing JWT inside a cookie
-            res.cookie('jwt', jwToken, { maxAge: maxAge * 1000, httpOnly: true });
-            //sucessfully created
-            // res.status(201).json({ userId: userId });
-            res.status(201).send({ msgType: "success", msg: `Congratulations! your account has been successfully created. Please Login ` });
-
-          } else {
-            // registration failed
-            console.log(`user  with email ${email} registration failed`)
-            res.status(401).json({ msgType: "danger", msg: `user  with email ${email} registration failed ` });
-          }
-        }
-      });
+      //   }
+      // });
     } else {
       // console.log('user already in the dblist ');
       // if (userRegisteredResults[0].userEmailVeifiedStatus == 0) {
       //   console.log('user have to verify  the verification code')
       // } else {
       console.log('User is already registered member.direct to login')
-      res.status(401).json({ msgType: "danger", msg: `${email} is already registered. Please Login ` });
+      res.status(401).json({ msgType: "danger", msg: `${email} is already registered. Please <a href="/user/userLogin">Login</a> ` });
       // }
 
     }
   } catch (e) {
-    console.log(e);
+    res.status(401).json({ msgType: "danger", msg: `${e.message} ` });
   }
   // res.render('register-houseowner');
 }
+
+// exports.postRegistrationUser = async (req, res) => {
+//   console.log("POST REGISTRATION USER")
+//   console.log(req.body);
+//   const { email, userName, password, cPassword, userType } = req.body;
+
+//   try {
+//     let userRegisteredResults = await User.isEmailRegistered(email);
+//     console.log(userRegisteredResults);
+//     if (userRegisteredResults.length === 0) {
+//       console.log('user can register');
+//       // encrypting password
+//       let hashedPassword = await encryptPassword(password);
+//       let emailVerificationCode = await generateEmailVerificationCode();
+//       console.log('Email-erification-code:' + emailVerificationCode);
+
+//       // Mail
+//       let mailOption = {
+//         from: 'paypaldeshanm123@gmail.com', // sender address
+//         to: `${email}`, // list of receivers
+//         subject: "Account Validation", // Subject line
+//         text: "Hello world?", // plain text body
+//         html:
+//           `
+//         <h1>Please  verify the account by clicking entering the verficationh code </h1><br>
+//         <h1>emailVerificationCode = ${emailVerificationCode}</h1>
+//         `, // html body
+//       }
+
+//       // perform Mail
+//       mailTransporter.sendMail(mailOption, async (err, mailResult) => {
+//         if (err) { throw err }
+//         else {
+//           console.log("Verification Message sent: %s", mailResult);
+//           //if verification code sent sucessful then register the account as not verfied
+//           let result = await User.addUser(email, userName, hashedPassword, userType, emailVerificationCode);
+//           //sucessful registration 
+//           if (result.affectedRows > 0) {
+//             const result = await User.selectUserIdByEmail(email);
+//             const userId = result[0].userId;
+//             // creating JWT
+//             const jwToken = createJWToken(userId);
+//             // storing JWT inside a cookie
+//             res.cookie('jwt', jwToken, { maxAge: maxAge * 1000, httpOnly: true });
+//             //sucessfully created
+//             // res.status(201).json({ userId: userId });
+//             res.status(201).send({ msgType: "success", msg: `Congratulations! your account has been successfully created. Please Login ` });
+
+//           } else {
+//             // registration failed
+//             console.log(`user  with email ${email} registration failed`)
+//             res.status(401).json({ msgType: "danger", msg: `user  with email ${email} registration failed ` });
+//           }
+//         }
+//       });
+//     } else {
+//       // console.log('user already in the dblist ');
+//       // if (userRegisteredResults[0].userEmailVeifiedStatus == 0) {
+//       //   console.log('user have to verify  the verification code')
+//       // } else {
+//       console.log('User is already registered member.direct to login')
+//       res.status(401).json({ msgType: "danger", msg: `${email} is already registered. Please Login ` });
+//       // }
+
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+//   // res.render('register-houseowner');
+// }
 
 
 
@@ -177,31 +247,113 @@ exports.postverificationCodeInput = async (req, res) => {
   const { userId } = req.params;
 
   try {
-  
+
     let userRegisteredResults = await Housemaid.getUserInfo(userId);
     console.log(userRegisteredResults);
     // if user is not verified
     if (userRegisteredResults[0].userEmailVeifiedStatus == 0) {
-      if (userRegisteredResults[0].userEmailVerificationCode == verificationCodeInput){
+      // check matching
+      if (userRegisteredResults[0].userEmailVerificationCode == verificationCodeInput.trim()) {
         console.log("user code is verified")
-        let verifyResults = await  User.verifyUserbyId(userId);
-       if(verifyResults.length < 0){
-         res.status(200).send({ msgType: "success", msg: `Congratulations! your account has been successfully verified. Please Login ` });
-      }else{
-        res.status(401).send({ msgType: "danger", msg: 'user verification code is incorrect.Try Again' });
+        let verifyResults = await User.verifyUserbyId(userId);
+        console.log('verify results');
+        console.log(verifyResults);
+        if (verifyResults.changedRows > 0) {
+          res.status(200).send({ msgType: "success", msg: "Congratulations! your account has been successfully verified." });
+        }
+      } else {  
+        // not matching
+        res.status(401).send({ msgType: "danger", msg: "user verification code is incorrect." });
       }
     } else {
       // user already verfied
       console.log("user already verified")
       res.status(401).send({ msgType: "danger", msg: 'user is already verified' });
     }
-  }
+
   } catch (err) {
     console.log(err);
     res.status(406).send({ msgType: "danger", msg: `verification  ERROR: ${err.message}.` });
   }
 
 };
+
+// contact us page
+
+
+exports.getContact = (req, res) => {
+  res.render('contact-us');
+}
+
+
+
+//  recaptcha:secret key
+exports.postContact = async (req, res) => {
+  console.log("contact us ")
+  const recaptchaSecretKey = '6LcZo-keAAAAAA1fZIXS955CRYxmRZaeF_-pG7wx';
+
+  try {
+    if (req.body.captcha === "undefined" || req.body.captcha == '' || req.captcha === null) {
+      // throw "please select captcha";
+      res.status(500).send({ sucess: false, msg: "please Select Captcha" });
+    } else {
+
+      const verifyUrl =
+        `https://google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey}&response=${req.body.captcha}&remoteip=${req.ip}`;
+
+      //make request to verify url
+      request(verifyUrl, async (err, response, body) => {
+        body = JSON.parse(body);
+        //  if not successful
+        if (body.success !== undefined && !body.success) {
+          // return res.json({ "success": false, "msg": "Failed Captcha verification" });
+          res.status(500).send({ msgType: 'danger', msg: `Failed Captcha verification` });
+        }
+        //  mail structure
+        const output = `
+    <p>You have a contact request from ${req.body.name} </p>
+    <h2>${req.body.subject}<h2><br><p>${req.body.message}</p><br><br>
+    <h3>Contact Details</h3>
+      <ul><li>email:${req.body.email}</li><li>phone:${req.body.phone}</li></ul> 
+      `;
+
+        // sending mail
+        let info = await mailTransporter.sendMail({
+          from: `NeighbourMaidConsumer" <${req.body.email}>`, // sender address
+          to: "deshanm123@gmail.com", // list of receivers rocess.env.EMAIL,
+          subject: `Contact Form -${req.body.subject}`, // Subject line
+          text: "Hello world?", // plain text body
+          html: output, // html body
+        });
+        // mail sent id and stattus
+        console.log("Message sent: %s", info.messageId);
+        if (err) {
+          res.status(400).send({ msgType: 'danger', msg: `Your message is unable to sent. Please Try again Later` });
+        } else {
+          res.status(200).send({ msgType: 'success', msg: `Your message is sucessfully sent.Neighbour Maid Team will contact you soon as possible..` });
+        }
+        // }
+      })
+    }
+  } catch (err) {
+
+    res.status(500).send({ msgType: 'danger', msg: `Something went wrong With the Mail service.${err}` });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ////////////////////logout

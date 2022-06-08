@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 const courseRouter = require('./routes/courses');
 const adminRouter = require('./routes/adminRoutes');
-const generalRouter = require('./routes/generalRoutes');
+// const generalRouter = require('./routes/generalRoutes');
 const housemaidRouter = require('./routes/housemaidRoutes');
 const houseownerRouter = require('./routes/houseownerRoutes');
 const chatRouter = require('./routes/chatRoutes');
@@ -67,7 +67,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // configuring routes
-app.use('/', generalRouter);
+// app.use('/', generalRouter);
 app.use('/courses', courseRouter);
 app.use('/housemaid', housemaidRouter);
 app.use('/houseowner', houseownerRouter);

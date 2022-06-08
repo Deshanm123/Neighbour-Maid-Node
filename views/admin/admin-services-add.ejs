@@ -8,7 +8,7 @@
   <meta name="author" content="">
   <link rel="icon" href="../../../../favicon.ico">
 
-  <title>Admin| Services </title>
+  <title>Admin| Services Add </title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
@@ -42,87 +42,57 @@
         <%-include('_admin-sidebar') %>
 
 
-          <!-- boostrap 4 modal -->
-
-
-
-
-
-
 
           <!-- sidebar -->
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="container p-5">
-              <div class="row">
-                <div class="col-6 pb-3">
-                  <h1 class="pb-3">Services</h1>
-                </div>
-                <div class="col-6 ">
-                  <div class="text-center d-flex justify-content-end">
-                    <a href="/admin/services/serviceCategory/getAddServices" type="button"
-                      class="btn btn-small btn-primary ">
-                      Add Service
-                    </a>
-                  </div>
-                </div>
-              </div>
 
               <!-- alert message-->
               <div class=container" id="message-alert">
 
               </div>
 
-              <!-- admin -->
-              <table class="table">
 
-                <thead class="thead thead-dark">
-                  <tr>
+              <!-- Addd service -->
+              <div class="row">
+                <div class="col-6 pb-3">
+                  <h1 class="pb-3">Add Service</h1>
+                </div>
+                <div class="col-6 ">
+                  <div class="text-center d-flex justify-content-end">
 
-                    <th scope="col"> Service Category Name</th>
-                    <th scope="col">Matching Color Scheme</th>
+                    <a href="/admin/services/serviceCategory" type="button" class="btn btn-small btn-secondary">
+                      Back to Services Category
+                    </a>
 
-                    <th scope="col" class="text-end">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="service-table-body">
-                  <%if(serviceCategory){%>
-                    <% serviceCategory.forEach(service=>{ %>
-                      <tr>
-                        <!-- name -->
-                        <td>
-                          <%= service.serviceCategoryName %>
-                        </td>
-                        <!-- color -->
-                        <td>
+                  </div>
+                </div>
+              </div>
+              <!-- form -->
+              <form id="service-category-add-form" action="/admin/services/serviceCategory/getAddServices"
+                method="POST">
+                <!-- course information -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="email">Add service Category</label>
+                  <input type="text" class="form-control form-control-lg border border-secondary "
+                    name="serviceCategoryName" id="serviceCategoryName" required />
+                  <!-- <div class="valid-feedback">valid email address</div> -->
+                  <div class="invalid-feedback"></div>
+                </div>
 
-                          <span class="dot" data-color="<%= service.serviceCategoryColor %>"
-                            id="<%=service.serviceCategoryId%>"></span>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="email">Select Service color to indicate Service Course:</label>
+                  <p class="pt-2">
+                    <input type="color" name="color" id="color" required />
 
-                        </td>
-                        <td class="text-end">
-                          <!-- edit action -->
-                          <a href="/admin/services/serviceCategory/update/<%=service.serviceCategoryId%>" type="btn"
-                            class="btn btn-light btn-small"><i class="bi bi-pencil">edit</i></a>
+                  </p>
+                  <!-- <div class="valid-feedback">valid email address</div> -->
+                  <div class="invalid-feedback"></div>
+                </div>
 
+                <button type="submit" class="btn btn-success">Add Service</button>
 
-                          <!-- delete action -->
-                          <form id="service-category-remove-form" method="POST"
-                            action="/admin/services/serviceCategory/<%=service.serviceCategoryId%>?_method=DELETE">
-                            <button type="submit" class="btn btn-light btn-small">
-                              <i class="bi bi-person-x"></i>
-                              delete
-                            </button>
-                          </form>
-                        </td>
-                      </tr>
-                      <% }); %>
-                        <% }%>
-                </tbody>
-              </table>
-              <!-- end of view  of courses-->
-
-
-
+              </form>
             </div>
           </main>
       </div>
@@ -156,6 +126,6 @@
         ele.style.backgroundColor = color;
       })
     </script>
-    <!-- <script src="/assets/js/admin-services-delete-category-ajax.js"></script> -->
+    <script src="/assets/js/admin-services-add-category-ajax.js"></script>
 
 </html>

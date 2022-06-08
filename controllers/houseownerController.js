@@ -74,6 +74,7 @@ exports.getMaidPortiolioView = async (req, res) => {
   try {
     let searchResults = await Housemaid.getMaidPortfolioDetails(maidId);
     console.log(searchResults);
+    
     //   // res.status(200).send({ searchResults: searchResults });
 
     res.status(200).render('houseowner/maid-my_Portifolio', { portifolioDetails: searchResults, currenthouseOwnerId: currenthouseOwnerId })

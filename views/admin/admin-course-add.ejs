@@ -32,106 +32,118 @@
                     <!-- sidebar -->
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                         <div class="container p-5">
-                           
+
                             <!-- alert message-->
                             <div class=container" id="message-alert">
-                            
+
                             </div>
 
                             <!-- back to courses  -->
-                                <div class="row">
-                                        <div class="col-6 pb-3">
-                                            <h1 class="pb-3">Add Course</h1>
-                                        </div>
-                                        <div class="col-6 ">
-                                            <div class="text-center d-flex justify-content-end">
-                                                <a href="/admin/courses/" type="button"
-                                                    class="btn btn-small btn-danger ">
-                                                    Back to Courses
-                                                </a>
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col-6 pb-3">
+                                    <h1 class="pb-3">Add Course</h1>
+                                </div>
+                                <div class="col-6 ">
+                                    <div class="text-center d-flex justify-content-end">
+                                        <a href="/admin/courses/" type="button" class="btn btn-small btn-danger ">
+                                            Back to Courses
+                                        </a>
                                     </div>
+                                </div>
+                            </div>
 
 
-                                    <!-- form -->
-                                <form id="course-add-form" action="/admin/courses/addCourse" method="POST">
-                                    <!-- course information -->
-                                    <h2 class="p-3">Course Information</h2>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="courseTitle">Course Title</label>
-                                            <input type="text" class="form-control border border-secondary" name="courseTitle"
-                                             id="courseTitle" placeholder="How to ...." value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="courseCategory">Course Category</label>
-                                            <select id="courseCategory" name="courseCategory" class="form-control border border-secondary"
+                            <!-- form -->
+                            <form id="course-add-form" action="/admin/courses/addCourse" method="POST">
+                                <!-- course information -->
+                                <h2 class="p-3">Course Information</h2>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="courseTitle">Course Title</label>
+                                        <input type="text" class="form-control border border-secondary"
+                                            name="courseTitle" id="courseTitle" placeholder="How to ...." value=""
                                             required>
-                                                    <!-- <option selected>Choose...</option> -->
-                                                    <option value="" default >Choose...</option>
-                                                    <option value="Cleaning">Cleaning</option>
-                                                    <option value="Gardening">Gardening</option>
-                                                    <option value="Laundring">Laundring</option>
-                                                </select>
-                                        </div>
                                     </div>
-                                        <!-- course introduction -->
-                                    <div class="form-group">
-                                        <label for="courseIntro">Course Intro:</label>
-                                        <textarea class="form-control border border-secondary" rows="2" name="courseIntro" id="courseIntro"></textarea>
+                                    <div class="form-group col-md-6">
+
+                                        <label for="courseCategory">Course Category</label>
+                                        <select id="courseCategory" name="courseCategory"
+                                            class="form-control border border-secondary" required>
+                                            <!-- <option selected>Choose...</option> -->
+                                            <option value="" default>Choose...</option>
+                                            <%servicesList.forEach((item)=>{%>
+                                                <option value="<%=item.serviceCategoryId%>">
+                                                    <%=item.serviceCategoryName%>
+                                                </option>
+                                                <%})%>
+                                                    <!-- <option value="Gardening">Gardening</option>
+                                                    <option value="Laundring">Laundring</option> -->
+                                        </select>
                                     </div>
-                                    <!-- course cover image -->
-                                        <div class="form-row">
-                                            <!-- image upload -->
-                                            <div class="form-group col-md-6">
-                                                <label for="courseCategory">Cover image for course</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <input type="file" id="course-cover-photo" name="course-cover-photo">
-                                                    </div>
-                                                </div>
+                                </div>
+                                <!-- course introduction -->
+                                <div class="form-group">
+                                    <label for="courseIntro">Course Intro:</label>
+                                    <textarea class="form-control border border-secondary" rows="2" name="courseIntro"
+                                        id="courseIntro"></textarea>
+                                </div>
+                                <!-- course cover image -->
+                                <div class="form-row">
+                                    <!-- image upload -->
+                                    <div class="form-group col-md-6">
+                                        <label for="courseCategory">Cover image for course</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <input type="file" id="course-cover-photo" name="course-cover-photo">
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
                                 <!-- end of course information -->
                                 <!-- Chapter -->
-                                    <h2 class="p-3">Chapter</h2>
-                                    <div class="form-group">
-                                        <label for="courseDescription">Chapter Description:</label>
-                                        <textarea class="form-control border border-secondary" rows="8" name="course-description" id="course-description" required></textarea>
-                                    </div>
+                                <h2 class="p-3">Chapter</h2>
+                                <div class="form-group">
+                                    <label for="courseDescription">Chapter Description:</label>
+                                    <textarea class="form-control border border-secondary" rows="8"
+                                        name="course-description" id="course-description" required></textarea>
+                                </div>
 
-                                
-                                        
-                                    <div class="form-row">
-                                        <label for="basic-url">Your vanity URL</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text border border-secondary" id="basic-addon3">chater video url</span>
-                                            </div>
-                                            <input type="text" class="form-control border border-secondary"  name="course-video-description" id="course-video-description"  placeholder ="https://www.youtube.com/embed/{videoId}"aria-describedby="basic-addon3">
+
+
+                                <div class="form-row">
+                                    <label for="basic-url">Your vanity URL</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border border-secondary"
+                                                id="basic-addon3">chater video url</span>
                                         </div>
+                                        <input type="text" class="form-control border border-secondary"
+                                            name="course-video-description" id="course-video-description"
+                                            placeholder="https://www.youtube.com/embed/{videoId}"
+                                            aria-describedby="basic-addon3">
                                     </div>
-                                   
+                                </div>
+
                                 <!-- end of  first chapter -->
                                 <!-- dynamiccaly add chapter -->
-                                    <div id="newRow"></div>
-                                    <div class="d-flex justify-content-end">
-                                        <button id="addRow" type="button" class="btn btn-info mx-3">Add Another Chapter</button>
-                                            <!-- <button id="removeRow" type="button" class="btn btn-info">Delete
+                                <div id="newRow"></div>
+                                <div class="d-flex justify-content-end">
+                                    <button id="addRow" type="button" class="btn btn-info mx-3">Add Another
+                                        Chapter</button>
+                                    <!-- <button id="removeRow" type="button" class="btn btn-info">Delete
                                                 Chapter
                                             </button> -->
 
-                                     </div>
-                                       
+                                </div>
+
                                 <!-- dynamiccaly add chapter -->
 
-                                        <!-- course submission -->
-                                  <div class="p-5">
+                                <!-- course submission -->
+                                <div class="p-5">
                                     <button type="submit" class="btn btn-primary">Submit Course</button>
-                                     <a href="/admin/courses" class="btn btn-secondary">Cancel</a>
+                                    <a href="/admin/courses" class="btn btn-secondary">Cancel</a>
                                 </div>
-                                    
+
                             </form>
                         </div>
                     </main>

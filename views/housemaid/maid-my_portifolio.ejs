@@ -56,7 +56,7 @@
       <% personalDetails.forEach(pd=>{ %>
 
         <!-- Card Section -->
-        <section  id="bg">
+        <section  id=" bg">
           <div class="container py-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
               <div class="col-md-12 col-xl-4">
@@ -76,21 +76,24 @@
                       <%= pd.uFName%>
                         <%=pd.uLName %>
                     </h4>
-                    <% let bday=pd.uDOB; %>
+                    <% if(pd.uDOB){%>
+                      <% let bday=pd.uDOB; %>
+                        <% }%>
 
-                      <p class="text-muted mb-4">
-                        <%= pd.uGender%>
-                          <%= pd.uMaritalStatus%><span class="mx-2">|</span>
-                            <span id="age"></span> years old
-                      </p>
-                      <div class="mb-4 pb-2">
-                        👋  I work as <%=userEmpService%>r .
-                        I can offer services in 
-                        <%= userCity%>, 
-                        <%= userCountry%>,
-                        <%=userContient%>.
-                      </div>
-                      <!-- <div class="mb-4 pb-2">
+
+                          <p class="text-muted mb-4">
+                            <%= pd.uGender%>
+                              <%= pd.uMaritalStatus%><span class="mx-2">|</span>
+                                <span id="age"></span> years old
+                          </p>
+                          <div class="mb-4 pb-2">
+                            👋 I work as <%=userEmpService%>r .
+                              I can offer services in
+                              <%= userCity%>,
+                                <%= userCountry%>,
+                                  <%=userContient%>.
+                          </div>
+                          <!-- <div class="mb-4 pb-2">
                         <button type="button" class="btn btn-outline-primary btn-floating ">
                           <i class="fab fa-facebook-f fa-lg"></i>
                         </button>
@@ -102,14 +105,14 @@
                         </button>
                       </div> -->
 
-                      <div class="d-flex justify-content-center ">
-                        <button type="button" class="btn btn-primary btn-rounded btn-lg m-2  btn-sm">Message
-                          Now</button>
-                        <button type="button" class="btn btn-outline-primary btn-rounded btn-lg m-2  btn-sm">Appoint
-                          Now</button>
+                          <div class="d-flex justify-content-center ">
+                            <button type="button" class="btn btn-primary btn-rounded btn-lg m-2  btn-sm">Message
+                              Now</button>
+                            <button type="button" class="btn btn-outline-primary btn-rounded btn-lg m-2  btn-sm">Appoint
+                              Now</button>
 
-                      </div>
-                      <!-- 
+                          </div>
+                          <!-- 
                       <div class="d-flex justify-content-between text-center mt-5 mb-2">
                         <div>
                           <p class="mb-2 h5">
@@ -197,7 +200,7 @@
                   <p id="overview" class="text-center">
                     <%= pd.uOverview%>
                   </p>
-                 
+
                 </div>
               </div>
 
@@ -253,18 +256,21 @@
                 <script>
                   //console.log();
                   // var birthday = new Date(1998, 04, 01)
-                  let birthday = '<%= personalDetails[0].uDOB %>';
+                  if (bday) {
 
-                  function _calculateAge(inputBirthday) {
-                    // birthday is a date
-                    let birthday = new Date(inputBirthday);
-                    var ageDifMs = Date.now() - birthday.getTime();
-                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-                    return Math.abs(ageDate.getUTCFullYear() - 1970);
+                    let birthday = '<%= personalDetails[0].uDOB %>';
+
+                    function _calculateAge(inputBirthday) {
+                      // birthday is a date
+                      let birthday = new Date(inputBirthday);
+                      var ageDifMs = Date.now() - birthday.getTime();
+                      var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                      return Math.abs(ageDate.getUTCFullYear() - 1970);
+                    }
+                    let age = _calculateAge('<%= personalDetails[0].uDOB %>');
+                    // console.log(age);
+                    document.getElementById('age').innerHTML = age;
                   }
-                  let age = _calculateAge('<%= personalDetails[0].uDOB %>');
-                  // console.log(age);
-                  document.getElementById('age').innerHTML = age;
 
 
 

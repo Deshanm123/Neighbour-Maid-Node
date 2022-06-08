@@ -94,6 +94,7 @@ class User {
             resolve(rows);
           }
           else {
+            console.log(err)
             reject(err);
           }
         });

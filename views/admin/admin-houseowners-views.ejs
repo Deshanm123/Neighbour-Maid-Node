@@ -8,7 +8,7 @@
   <meta name="author" content="">
   <link rel="icon" href="../../../../favicon.ico">
 
-  <title>Admin| Services </title>
+  <title>Admin||Courses Section</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
@@ -19,17 +19,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="../../public/style/admin-dashboard.css">
-  <!-- circular dot -->
-  <style>
-    .dot {
-      height: 25px;
-      width: 25px;
-      background-color: #bbb;
-      border-radius: 50%;
-      display: inline-block;
-    }
-  </style>
-
 </head>
 
 <body>
@@ -40,74 +29,66 @@
       <div class="row">
         <!-- sidebar -->
         <%-include('_admin-sidebar') %>
-
-
-          <!-- boostrap 4 modal -->
-
-
-
-
-
-
-
           <!-- sidebar -->
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="container p-5">
+            <!-- notification -->
+            <!-- create -->
+            <!-- alert  notification  -->
+
+
+            <!-- notification  -->
+            <!-- notification -->
+
+            <div class="container pt-5 pb-5">
               <div class="row">
                 <div class="col-6 pb-3">
-                  <h1 class="pb-3">Services</h1>
+                  <h1>Houseowners</h1>
                 </div>
                 <div class="col-6 ">
                   <div class="text-center d-flex justify-content-end">
-                    <a href="/admin/services/serviceCategory/getAddServices" type="button"
-                      class="btn btn-small btn-primary ">
-                      Add Service
+                    <a href="" type="button" class="btn btn-small btn-primary ">
+                      Add Houseowner
                     </a>
                   </div>
                 </div>
               </div>
 
-              <!-- alert message-->
-              <div class=container" id="message-alert">
-
-              </div>
-
-              <!-- admin -->
               <table class="table">
-
-                <thead class="thead thead-dark">
+                <thead class="thead-dark">
                   <tr>
-
-                    <th scope="col"> Service Category Name</th>
-                    <th scope="col">Matching Color Scheme</th>
-
+                    <th scope="col">Name</th>
+                    <th scope="col"> Email</th>
+                    <th scope="col">Account Status</th>
+                    <th scope="col">package</th>
                     <th scope="col" class="text-end">Action</th>
                   </tr>
                 </thead>
-                <tbody id="service-table-body">
-                  <%if(serviceCategory){%>
-                    <% serviceCategory.forEach(service=>{ %>
+                <%if(houseowners){%>
+                  <tbody>
+                    <% houseowners.forEach(houseowner=>{ %>
                       <tr>
-                        <!-- name -->
                         <td>
-                          <%= service.serviceCategoryName %>
+                          <%= houseowner.userName %>
                         </td>
-                        <!-- color -->
                         <td>
+                          <%= houseowner.userEmail %>
+                        </td>
+                        <td>
+                          <% if(houseowner.userEmailVeifiedStatus==1){%>
+                            <span class="badge badge-success rounded-pill d-inline">verified</span>
 
-                          <span class="dot" data-color="<%= service.serviceCategoryColor %>"
-                            id="<%=service.serviceCategoryId%>"></span>
+                            <%}else{%>
+                              <span class="badge badge-warning rounded-pill d-inline">pending activation</span>
+                              <%}%>
 
                         </td>
                         <td class="text-end">
-                          <!-- edit action -->
-                          <a href="/admin/services/serviceCategory/update/<%=service.serviceCategoryId%>" type="btn"
-                            class="btn btn-light btn-small"><i class="bi bi-pencil">edit</i></a>
-
-
+                          <a href="/admin/users/houseowner/<%=houseowner.userId%>" type="btn"
+                            class="btn btn-light btn-small"><i class="bi bi-eye"></i>view</a>
+                          <a href="" type="btn" class="btn btn-light btn-small"><i class="bi bi-pencil">edit</i></a>
+                          <!-- courses/editCourse/<1%=course.courseId%>" -->
                           <!-- delete action -->
-                          <form id="service-category-remove-form" method="POST"
-                            action="/admin/services/serviceCategory/<%=service.serviceCategoryId%>?_method=DELETE">
+                          <form id="remove-course-form" method="DELETE" action="" class="d-inline">
                             <button type="submit" class="btn btn-light btn-small">
                               <i class="bi bi-person-x"></i>
                               delete
@@ -116,18 +97,13 @@
                         </td>
                       </tr>
                       <% }); %>
-                        <% }%>
-                </tbody>
+                  </tbody>
+                  <% }%>
               </table>
-              <!-- end of view  of courses-->
-
-
-
             </div>
           </main>
       </div>
     </div>
-
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -145,17 +121,11 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.0/circle-progress.min.js'></script>
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <!-- <script src="/assets/js/admin-services-delete-category-ajax.js"></script> -->
+    <!-- <script src="/assets/js/admin-courses-ajax.js"></script> -->
     <script>
       feather.replace()
     </script>
-    <script>
-      const spanElements = document.querySelectorAll('.dot');
-      spanElements.forEach(ele => {
-        let color = ele.getAttribute('data-color');
-        ele.style.backgroundColor = color;
-      })
-    </script>
-    <!-- <script src="/assets/js/admin-services-delete-category-ajax.js"></script> -->
+
+
 
 </html>
