@@ -66,19 +66,28 @@ exports.getSearchResults = async (req, res) => {
 
 }
 exports.getMaidPortiolioView = async (req, res) => {
-  console.log("RES LOCLS")
-  let currenthouseOwnerId = res.locals.user.userId;
-  console.log(currenthouseOwnerId);
-  const { maidId } = req.params;
-  console.log(maidId);
   try {
-    let searchResults = await Housemaid.getMaidPortfolioDetails(maidId);
-    console.log(searchResults);
-    
-    //   // res.status(200).send({ searchResults: searchResults });
+    console.log("RES LOCLS")
+    console.log(res.locals)
+    let currenthouseOwnerId = res.locals.user.userId;
+    let currenthouseOwnerPackage = res.locals.housemaidPackage;
+    console.log('houseowner package' + currenthouseOwnerPackage);
+    if (currenthouseOwnerPackage == 'consumer-package') {
 
-    res.status(200).render('houseowner/maid-my_Portifolio', { portifolioDetails: searchResults, currenthouseOwnerId: currenthouseOwnerId })
-    //   // res.status(200).send({ searchResults: searchResults });
+      // console.log(currenthouseOwnerId);
+      const { maidId } = req.params;
+      console.log(maidId);
+      let searchResults = await Housemaid.getMaidPortfolioDetails(maidId);
+      console.log(searchResults);
+
+      //   // res.status(200).send({ searchResults: searchResults });
+
+      res.status(200).render('houseowner/maid-my_Portifolio', { portifolioDetails: searchResults, currenthouseOwnerId: currenthouseOwnerId })
+      //   // res.status(200).send({ searchResults: searchResults });
+    } else {
+      console.log("direct to upgrade")
+      res.status(200).redirect('/houseowner/upgradePackage');
+    }
 
   } catch (e) {
     console.log(e);
@@ -188,16 +197,61 @@ exports.postRequirementSearchResults = async (req, res) => {
 
 
 // chat
-exports.getChat = (req, res) => {
-  res.status(200).render('houseowner/chat-interface');
+exports.getChat = async (req, res) => {
+  try {
+    console.log("RES LOCLS")
+    console.log(res.locals)
+    let currenthouseOwnerId = res.locals.user.userId;
+    let currenthouseOwnerPackage = res.locals.housemaidPackage;
+    console.log('houseowner package' + currenthouseOwnerPackage);
+    if (currenthouseOwnerPackage == 'consumer-package') {
+
+      // console.log(currenthouseOwnerId);
+
+
+
+      //   // res.status(200).send({ searchResults: searchResults });
+
+      res.status(200).render('houseowner/chat-interface');
+      //   // res.status(200).send({ searchResults: searchResults });
+    } else {
+      console.log(" observer package direct to upgrade")
+      res.status(200).redirect('/houseowner/upgradePackage');
+    }
+
+  } catch (e) {
+    console.log(e);
+  }
+
 }
 // vide chat
 exports.getVideoChat = (req, res) => {
-  let currentId = res.locals.user.userId;
-  let housemaidId = req.params.housemaidId;
-  res.status(200).render('houseowner/houseowner-video-chat', {
-    currentId: currentId, otherPartyId: housemaidId
-  });
+  try {
+    console.log("RES LOCLS")
+    console.log(res.locals)
+    let currenthouseOwnerId = res.locals.user.userId;
+    let currenthouseOwnerPackage = res.locals.housemaidPackage;
+    console.log('houseowner package' + currenthouseOwnerPackage);
+    if (currenthouseOwnerPackage == 'consumer-package') {
+
+      let currentId = res.locals.user.userId;
+      let housemaidId = req.params.housemaidId;
+
+
+      res.status(200).render('houseowner/chat-interface');
+      //   // res.status(200).send({ searchResults: searchResults });
+    } else {
+      console.log(" observer package direct to upgrade")
+      res.status(200).redirect('/houseowner/upgradePackage');
+    }
+
+  } catch (e) {
+    console.log(e);
+  }
+
+
+
+
 }
 
 
@@ -234,3 +288,61 @@ exports.postInterviewAppointment = (req, res) => {
   });
 
 }
+
+exports.getUpgradePackage = async (req, res) => {
+  try {
+    let user = res.locals.user;
+    let results = await Houseowner.getProofOfPayment(user.userId)
+    console.log(results)
+    if (results.length > 0) {
+      res.render('houseowner/houseowner-upgrade-package', { payment: results[0] })
+    } else {
+      res.render('houseowner/houseowner-upgrade-package', { payment: '' })
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+exports.postUpgradePackage = async (req, res) => {
+  try {
+    console.log("upload proof of paymnt")
+    let user = res.locals.user;
+    console.log(user)
+    console.log(req.file);
+    let fileName = req.file.filename;
+
+    let result = await Houseowner.uploadProofOfPayment(user.userId, fileName, 'pending')
+    console.log(result)
+    if (result.affectedRows > 0) {
+      console.log("submiited");
+      res.status(201).send({ msgType: "success", msg: `Congratulations! your  PAYMENT  has successfully uploaded `, file: fileName });
+    } else {
+      console.log(" not submiited");
+      // not acceptable 
+      res.status(406).send({ msgType: "danger", msg: `PAYMENT UPLOAD FAIL : your PAYMENT is not uploaded.` });
+    }
+  } catch (err) {
+    console.log(err);
+    if (err.code === 'ER_DUP_ENTRY') {
+      // duplicate entry handled by 304 :not modified status code
+      res.status(406).send({ msgType: "danger", msg: `PAYMENT UPLOAD FAIL : ERROR PAYMENT is already uploaded` });
+
+    } else {
+      // conflict -not sure
+      res.status(409).send({ msgType: "danger", msg: `PAYMENT UPLOAD FAIL :ERROR ${err.message}` });
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

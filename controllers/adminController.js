@@ -439,3 +439,80 @@ exports.putUpdateService = async (req, res) => {
 }
 
 
+// PAYMENTS -admin
+
+async function getProofRecords(results) {
+  let proofObjArr = [];
+  for (let i = 0; i < results.length; i++) {
+    let nameResults = await Houseowner.getHouseOwnerNamebyId(results[i].userId)
+    let userhouseownerName = nameResults[0].userName;
+
+    const record ={
+      paymentId: results[i].paymentId,
+      userId: results[i].userId,
+      houseownerName: userhouseownerName,
+      paymentFile: results[i].paymentFile,
+      paymentStatus: results[i].paymentStatus,
+    }
+    proofObjArr.push(record);
+  }
+  return proofObjArr;
+}
+
+
+
+
+
+
+
+exports.getConsumerPackagePayments= async (req, res) => {
+  try {
+    console.log("consumer package  payment")
+
+   
+    
+    let proofResults= await Houseowner.getProofOfPayments();
+    let resultswithMaidName = await getProofRecords(proofResults);
+    
+    res.render('admin/admin-consumer-package-view', { payments: resultswithMaidName})
+   
+  } catch (err) {
+    res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
+  }
+}
+
+exports.putConsumerPackagePayments= async (req, res) => {
+  try {
+    console.log("activate conumer package via payment")
+    const {paymentId}= req.params;
+    // update statement
+    let resultswithMaidName = await Houseowner.activateProofOfPayment(paymentId);
+    console.log(resultswithMaidName)
+    if (resultswithMaidName.affectedRows >0){
+      res.status(200).redirect("/admin/payments/consumerPackage")
+    }
+   
+  } catch (err) {
+    res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
+  }
+}
+// exports.getConsumerPackagePayments= async (req, res) => {
+//   try {
+//     console.log("consumer package  payment")
+
+   
+//     let result = await Houseowner.getProofOfPayments();
+//     console.log(results)
+
+//     if (result.affectedRows > 0) {
+//       res.status(200).json({
+//         msgType: 'success', msg: `selected service Category is successfully update.please refresh`
+//       });
+//     } else {
+//       //  406 Not Acceptable Not sure
+//       res.status(405).send({ msgType: "fail", msg: `Error: selected service category  is not update .` });
+//     }
+//   } catch (err) {
+//     res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
+//   }
+// }

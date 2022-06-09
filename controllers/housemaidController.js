@@ -31,7 +31,7 @@ exports.userIdFromToken = async (token) => {
 
 
 ///////////////////////////////////// dashboard////////////////
-
+// MONGODB Function
 async function getAppointmentsByHousemaid(currentmaidId) {
   return new Promise((resolve, reject) => {
     mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -48,19 +48,25 @@ async function getAppointmentsByHousemaid(currentmaidId) {
 
 
 async function getAppointmentsOfMaids(results) {
+
   let appointmentArr = [];
 
   for (let i = 0; i < results.length; i++) {
+    let houseownerName;
+    let record = await Houseowner.getHouseOwnerRecordbyId(results[i].houseownerId)
+    if (record.length > 0) {
+      houseownerName = record[0].userName;
+    } else {
+      houseownerName = 'personUnknown'
+    }
 
-    // houseowner
-    let houseownerId = results[i].houseownerId;
-    let houseownerName = await Houseowner.getHouseOwnerNamebyId(results[i].houseownerId);
-    // message
-    let message = results[i].appointmentDescription
-    let extractedDate = results[i].appointmentDateandTime.toLocaleString()
-    // let venueDate = moment(extractedDate).format('MMM DD hh:mm:ss');
 
-    const appointment = { houseownerId, houseownerName, message, extractedDate }
+    const appointment = {
+      houseownerName: houseownerName,
+      houseownerId: results[i].houseownerId,
+      message: results[i].appointmentDescription,
+      extractedDate: results[i].appointmentDateandTime.toLocaleString()
+    }
     // console.log(houseOwnerName + " " + extractedDate)
     appointmentArr.push(appointment)
   }
@@ -73,9 +79,11 @@ async function getAppointmentsOfMaids(results) {
 exports.getDashboard = async (req, res) => {
   const housemaidId = res.locals.user.userId;
   let results = await getAppointmentsByHousemaid(housemaidId);
+  // console.log('getAppointmentsByHousemaid')
+  // console.log(results)
   let appointments = await getAppointmentsOfMaids(results);
 
-  console.log(appointments)
+  // console.log(appointments)
   res.render('housemaid/maid-dashboard', { appointments: appointments });
 }
 
@@ -383,9 +391,11 @@ async function getHouseOwners(houseownerIds) {
   let houseOwnersObjArr = [];
   for (let i = 0; i < houseownerIds.length; i++) {
     let houseownerId = houseownerIds[i];
+    let results = await Houseowner.getHouseOwnerNamebyId(houseownerId)
+    let userName = results[0].userName;
     const hoObj = Object.assign({}, {
       'id': houseownerId,
-      'name': await Houseowner.getHouseOwnerNamebyId(houseownerId)
+      'name': userName
     });
     houseOwnersObjArr.push(hoObj);
   }
@@ -401,17 +411,21 @@ async function getHouseOwners(houseownerIds) {
 
 
 exports.getChat = async (req, res) => {
-  const currentmaidId = res.locals.user.userId;
-  const houseownerIds = await getchatSpaces(currentmaidId);
-  console.log(houseownerIds)
-  let houseOwnerArr = [];
+  try {
+    const currentmaidId = res.locals.user.userId;
+    const houseownerIds = await getchatSpaces(currentmaidId);
 
-  houseOwnerArr = await getHouseOwners(houseownerIds)
-
-
-  console.log(houseOwnerArr)
-
-  res.render('housemaid/maid-chat', { houseOwnerArr: houseOwnerArr, currentmaidId: currentmaidId })
+    let houseOwnerArr = [];
+    houseOwnerArr = await getHouseOwners(houseownerIds)
+    console.log(houseOwnerArr)
+    if (houseOwnerArr.length > 0) {
+      res.render('housemaid/maid-chat', { houseOwnerArr: houseOwnerArr, currentmaidId: currentmaidId })
+    } else {
+      res.render('housemaid/maid-chat', { houseOwnerArr: '', currentmaidId: currentmaidId })
+    }
+  } catch (err) {
+    console.log(err)
+  }
 }
 //////////////////////////////////End of CHaT///////////////////////////////////////////////////////////////
 

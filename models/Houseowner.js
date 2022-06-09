@@ -1,4 +1,5 @@
 const pool = require('../config/db');
+const uuid = require('uuid');
 
 class Houseowner {
 
@@ -135,6 +136,40 @@ class Houseowner {
 
 
   // CHAT SERVICE
+
+  static getHouseOwnerRecordbyId(houseOwnerId) {
+
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT * FROM user_tb WHERE userId = ? ', houseOwnerId, (err, rows) => {
+          connection.release();
+          if (!err) {
+
+            resolve(rows);
+
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
   static getHouseOwnerNamebyId(houseOwnerId) {
 
     return new Promise((resolve, reject) => {
@@ -143,9 +178,12 @@ class Houseowner {
         connection.query('SELECT userName FROM user_tb WHERE userId = ? ', houseOwnerId, (err, rows) => {
           connection.release();
           if (!err) {
-            resolve(rows[0].userName);
+
+            resolve(rows);
+
           }
           else {
+            console.log(err)
             reject(err);
           }
         });
@@ -153,6 +191,101 @@ class Houseowner {
     });
 
   }
+
+  // file upload proof of payment
+  static uploadProofOfPayment(userId, paymentFile, paymentStatus) {
+    return new Promise((resolve, reject) => {
+      let paymentId = uuid.v4();
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('INSERT INTO houseowner_upgrade_package_tb (paymentId,userId, paymentFile,paymentStatus) VALUES (?,?,?,?)', [paymentId, userId, paymentFile, paymentStatus], (err, rows) => {
+          // return connection to tthe pool
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+
+  static getProofOfPayments() {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT * FROM houseowner_upgrade_package_tb', (err, rows) => {
+          // return connection to tthe pool
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+
+  static getProofOfPayment(userId) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT * FROM houseowner_upgrade_package_tb  WHERE userId = ?', userId, (err, rows) => {
+          // return connection to tthe pool
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+  static activateProofOfPayment(paymentId) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(' UPDATE houseowner_upgrade_package_tb SET  paymentStatus = ?  WHERE paymentId = ?', ["verified", paymentId], (err, rows) => {
+          // return connection to tthe pool
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Admin users:House Owners
   static getAllHouseownersByAdmin() {

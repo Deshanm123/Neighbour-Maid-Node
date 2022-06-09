@@ -55,5 +55,8 @@ router.get('/users/housemaids/:housemaidId', adminController.getHousemaidPortifo
 // houseowners
 router.get('/users/houseowners', adminController.getAllHouseowners);
 
+// payments
+router.get('/payments/consumerPackage', adminController.getConsumerPackagePayments);
+router.put('/payments/consumerPackage/:paymentId', adminController.putConsumerPackagePayments);
 
 module.exports = router;

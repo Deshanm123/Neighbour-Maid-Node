@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+  <!-- animating icons -->
+  <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
+  <!-- style sheet -->
+  <link rel="stylesheet" href="/style/style.css">
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+  </style>
+  <!-- page title -->
+  <title>NeighbourMaid |Houseowner upgrade package </title>
+</head>
+
+<body>
+  <!-- navbar -->
+  <%- include('_houseowner-nav')%>
+    <!-- navbar -->
+  <!-- my package -->
+  <div class="alert alert-warning text-center" role="alert">
+    <%if( payment.paymentStatus == "verified"){%>
+      <h4 class="alert-heading ">My Current Package: Consumer</h4>
+      <%}else{%>
+        <h4 class="alert-heading ">My Current Package: Observer</h4>
+        <%}%>
+    <!-- <p> you  can upgrade in to consumer package to experience full .</p>
+   </p> -->
+  </div>
+
+
+    <section id="about-us-section">
+      <div class="container">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+          <h1 class="display-4">Pricing</h1>
+          <div class="underline"></div>
+          <p class="lead">We have provided you the best affordable pricing plan for you.
+          </p>
+        </div>
+
+        <div class="container">
+          <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Observer</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <p>As houseowner you can experience our services up to a limited level.It's totally free.</p>
+                  <li>Search and filter services</li>
+                  <li>view avaialability of services</li>
+                  <li>Email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <p>*consumer package will provide abilit to recruit and contact housemaids</p>
+                <del> <a href="#payment-section" class="btn btn-lg btn-block btn-outline-primary" disabled>Sign up for
+                    FREE</a>
+                </del>
+              </div>
+            </div>
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Consumer</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ per service</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <p>The complete package of house owner services.</p>
+                  <li>Search and filter services</li>
+                  <li>view avaialability of services</li>
+                  <li>view housemaid Portifolios</li>
+                  <li>Interview Housemaids</li>
+                  <li>Priority email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+              </div>
+            </div>
+            <!-- <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Service provider</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">FREE<small class="text-muted">/ life-time</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <p>If you are intersted in carreer pathway in Housemaid services.please register with us, we are more
+                    than happy to provide our free services to you.It's totally free.</p>
+                  <li>learning platform</li>
+                  <li>communication services</li>
+                  <li>Phone and email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
+              </div>
+            </div> -->
+          </div>
+        </div>
+    </section>
+
+
+    <!-- ======= Services Section ======= -->
+    <section id="payment-section" class="services section-bg">
+      <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Payment</h1>
+        <div class="underline"></div>
+        </p>
+      </div>
+      <div class="container p-5" data-aos="fade-up">
+        <div class=container" id="message-alert">
+
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-12 col-lg-6 d-flex align-items-stretch p-3" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <h4 class="title">Upload the proof of payment </a></h4>
+              <p class="description">
+                Please attach the proof of payment.The proof can be in form of document or image format.
+
+              </p>
+              <!-- display cv -->
+
+              <!-- cv upload -->
+
+              <div class="container">
+                <form action="/houseowner/upgradePackage" enctype="multipart/form-data" method="POST"
+                  id="houseowner-proof-of-payment-upload-form">
+                  <div class="form-group">
+                    <input type="file" class="form-control-file" accept="image/*,.pdf,.doc,.docx,application/msword"
+                      name="payment" id="payment-input">
+                    <input type="submit" value="Submit" class="btn btn-primary m-3">
+                  </div>
+                </form>
+              </div>
+
+              <div class="container">
+                <div class="row">
+                  <div class="col-10 ">
+
+                    <% if(payment){ %>
+                      Payment File:
+                      <span id="payment-id">
+                        <%= payment.paymentId %>
+                      </span>
+                      Payment File:
+                      <span id="payment-name">
+                        <a href="/payment/<%= payment.paymentFile %>">view</a>
+                      </span>
+                      <br> Payment  Status :
+                      <span id="payment-status">
+                        <%= payment.paymentStatus %>
+                      </span>
+                      
+                    </div>
+                    <div class="col-2">
+                      <!-- remove cv -->
+                        <form id="remove-cv-form" method="POST" action="/citizen/nid/cv?_method=DELETE">
+                          <button type="submit" class="btn btn-danger ">
+                            <i class="bi bi-trash3" aria-hidden="true" style="color:#fff"></i>
+                          </button>
+                        </form>
+                    </div>
+
+                    <%} %>
+                 
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 d-flex align-items-stretch p-3" data-aos="zoom-in" data-aos-delay="200">
+            <img src="https://www.mvn.edu.in/wp-content/uploads/2021/08/bank-account-details.jpg" class="img">
+          </div>
+        </div>
+
+        <!-- check -->
+      </div>
+    </section>
+
+    <!-- end of frequently asked Questions -->
+
+
+    <!-- <script src="script.js"></script> -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+    <!-- bubleeffect -->
+    <script src="/assets/js/houseowner-upload-proof-of-payment.js"></script>
+
+</body>
+
+</html>

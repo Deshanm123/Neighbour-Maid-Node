@@ -35,6 +35,7 @@ const tokenUserInfoAccess = (req, res, next) => {
         next();
       } else {
         // console.log("decoded Token " + decodedToken.id);
+        // user table obtained  via userTb
         let user = await Housemaid.getUserInfo(decodedToken.id);
         res.locals.user = user[0];
         next();

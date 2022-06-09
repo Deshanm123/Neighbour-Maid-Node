@@ -43,13 +43,13 @@
             <div class="container pt-5 pb-5">
               <div class="row">
                 <div class="col-6 pb-3">
-                  <h1>Houseowners</h1>
+                  <h1>Consumer Package</h1>
                 </div>
                 <div class="col-6 ">
                   <div class="text-center d-flex justify-content-end">
-                    <a href="" type="button" class="btn btn-small btn-primary ">
-                      Add Houseowner
-                    </a>
+                    <!-- <a href="" type="button" class="btn btn-small btn-primary "> -->
+                      <!-- Add Houseowner -->
+                    <!-- </a> -->
                   </div>
                 </div>
               </div>
@@ -57,25 +57,30 @@
               <table class="table">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col"> Email</th>
+                    <th scope="col">Payment Id</th>
+                    <th scope="col"> Houseowner Name</th>
                     <th scope="col">Account Status</th>
                     <th scope="col">package</th>
                     <th scope="col" class="text-end">Action</th>
                   </tr>
                 </thead>
-                <%if(houseowners){%>
+                <%if(payments){%>
                   <tbody>
-                    <% houseowners.forEach(houseowner=>{ %>
+                    <% payments.forEach(payment=>{ %>
                       <tr>
                         <td>
-                          <%= houseowner.userName %>
+                          <%= payment.paymentId %>
                         </td>
                         <td>
-                          <%= houseowner.userEmail %>
+                          <%= payment.houseownerName %>
                         </td>
                         <td>
-                          <% if(houseowner.userEmailVeifiedStatus==1){%>
+                          <a href="/payment/<%= payment.paymentFile %>" type="btn" class="btn btn-light btn-small"><i class="bi bi-eye"></i>view
+                            Payment</a>
+                        </td>
+                       
+                        <td>
+                          <% if(payment.paymentStatus=="verified"){%>
                             <span class="badge badge-success rounded-pill d-inline">verified</span>
 
                             <%}else{%>
@@ -84,15 +89,16 @@
 
                         </td>
                         <td class="text-end">
-                          <a href="/admin/users/houseowner/<%=houseowner.userId%>" type="btn"
-                            class="btn btn-light btn-small"><i class="bi bi-eye"></i>view</a>
-                          <a href="" type="btn" class="btn btn-light btn-small"><i class="bi bi-pencil">edit</i></a>
+                          <!-- activate  -->
+                           <Form action="/admin/payments/consumerPackage/<%=payment.paymentId%>?_method=PUT" method="POST" >
+                             <button type="submit" class="btn btn-success btn-small"><i class="bi bi-pencil">Activate</i></button>
+                           </Form> 
                           <!-- courses/editCourse/<1%=course.courseId%>" -->
                           <!-- delete action -->
                           <form id="remove-course-form" method="DELETE" action="" class="d-inline">
-                            <button type="submit" class="btn btn-light btn-small">
+                            <button type="submit" class="btn btn-danger btn-small">
                               <i class="bi bi-person-x"></i>
-                              delete
+                              Deactivate
                             </button>
                           </form>
                         </td>

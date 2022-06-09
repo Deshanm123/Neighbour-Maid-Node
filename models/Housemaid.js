@@ -1,6 +1,6 @@
 const pool = require('../config/db');
 const uuid = require('uuid');
-let userId = uuid.v4();
+// let userId = uuid.v4();
 
 class Housemaid {
   // constructor(courseCategory, courseTitle, courseDate, courseIntro, courseDescription) {

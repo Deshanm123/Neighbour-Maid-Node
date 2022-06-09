@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('../services/multer');
 const houseownerController = require('../controllers/houseownerController');
 const { requireAuth, tokenUserInfoAccess } = require('./../middleware/authMiddleware');
+const { houseownerPackageInfoAccess } = require('./../middleware/houseownerMiddleware');
 
 
 router.get('*', tokenUserInfoAccess, requireAuth)
@@ -15,15 +17,28 @@ router.post('/searchByRequirements', houseownerController.postRequirementSearchR
 // router.get('/getRequirementTable', houseownerController.getRequirementTable);
 
 // chat
-router.get('/chat', houseownerController.getChat);
+router.get('/chat', houseownerPackageInfoAccess, houseownerController.getChat);
 
 //video chat
-router.get('/videoChat/:housemaidId', houseownerController.getVideoChat);
+router.get('/videoChat/:housemaidId', houseownerPackageInfoAccess, houseownerController.getVideoChat);
 
 //make appointment
 router.post('/makeHousmaidInterviewAppointment', tokenUserInfoAccess, houseownerController.postInterviewAppointment)
 
-router.get('/:maidId', houseownerController.getMaidPortiolioView);
+
+// upgrade package
+router.get('/upgradePackage', houseownerController.getUpgradePackage);
+router.post('/upgradePackage', multer.upload.single('payment'), tokenUserInfoAccess, houseownerController.postUpgradePackage);
+
+
+
+
+
+
+
+
+router.get('/:maidId', houseownerPackageInfoAccess, houseownerController.getMaidPortiolioView);
+
 
 
 
