@@ -59,4 +59,7 @@ router.get('/users/houseowners', adminController.getAllHouseowners);
 router.get('/payments/consumerPackage', adminController.getConsumerPackagePayments);
 router.put('/payments/consumerPackage/:paymentId', adminController.putConsumerPackagePayments);
 
+// reports
+router.get('/userReports', adminController.getUsersReport);
+
 module.exports = router;

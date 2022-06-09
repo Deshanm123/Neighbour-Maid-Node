@@ -35,105 +35,105 @@
             <!-- notification -->
             <!-- create -->
             <!-- alert  notification  -->
-            
-
-                <!-- notification  -->
-                <!-- notification -->
-
-                <div class="container pt-5 pb-5">
-                  <div class="row">
-                    <div class="col-6 pb-3">
-                      <h1>Housemaids</h1>
-                    </div>
-                    <div class="col-6 ">
-                      <div class="text-center d-flex justify-content-end">
-                        <a href="" type="button" class="btn btn-small btn-primary ">
-                          Add HouseMaid
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <table class="table">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col"> Course Title</th>
-                        <th scope="col">Category</th>
-                        <th scope="col"> selocation</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <%if(housemaids){%>
-                      <!--caclate age  -->
-                      <% function _calculateAge(inputBirthday) {%>
-                        <% let birthday=new Date(inputBirthday);%>
-                          <% var ageDifMs=Date.now() - birthday.getTime();%>
-                            <% var ageDate=new Date(ageDifMs);%>
-                              <% return Math.abs(ageDate.getUTCFullYear() - 1970);%>
-                                <% }%>
-                                  <!--caclate age  -->
 
 
-                                  <tbody>
-                                    <% housemaids.forEach(housemaid=>{ %>
+            <!-- notification  -->
+            <!-- notification -->
 
-
-
-                                      <tr>
-                                        <td>
-                                          <div class="d-flex align-items-center">
-                                            <%if(housemaid.profileImg){%>
-                                              <img src="/uploads/<%=housemaid.profileImg%>" alt=""
-                                                style="width: 45px; height: 45px" class="rounded-circle" />
-                                              <%}else{%>
-                                                < <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" alt=""
-                                                  style="width: 45px; height: 45px" class="rounded-circle" />
-                                                <%}%>
-                                                  <div class="ms-3">
-                                                    <p class="fw-bold mb-1">
-                                                      <%= housemaid.uFName %>
-                                                        <%= housemaid.uLName %>
-                                                    </p>
-                                                    <p class="text-muted mb-0">
-                                                      <%if(housemaid.uDOB){%>
-                                                        <%=_calculateAge(housemaid.uDOB);%>
-                                                          <%}%> years old
-                                                    </p>
-                                                  </div>
-                                          </div>
-                                        </td>
-
-                                        <td>
-                                          <%= housemaid.uGender %>
-                                        </td>
-                                        <td>
-                                          <%= housemaid.uMaritalStatus %>
-                                        </td>
-                                        <td>
-                                          <%= housemaid.userLocCity %>,
-                                            <%= housemaid.userLocCountry %>
-                                        </td>
-                                        <td class="text-end">
-                                          <a href="/admin/users/housemaids/<%=housemaid.userId%>" type="btn"
-                                            class="btn btn-light btn-small"><i class="bi bi-eye"></i>view</a>
-                                          <a href="" type="btn" class="btn btn-light btn-small"><i
-                                              class="bi bi-pencil">edit</i></a>
-                                          <!-- courses/editCourse/<1%=course.courseId%>" -->
-                                          <!-- delete action -->
-                                          <form id="remove-course-form" method="DELETE" action="" class="d-inline">
-                                            <button type="submit" class="btn btn-light btn-small">
-                                              <i class="bi bi-person-x"></i>
-                                              delete
-                                            </button>
-                                          </form>
-                                        </td>
-                                      </tr>
-                                      <% }); %>
-                                  </tbody>
-                                  <% }%>
-                  </table>
+            <div class="container pt-5 pb-5">
+              <div class="row">
+                <div class="col-6 pb-3">
+                  <h1>Housemaids</h1>
                 </div>
+                <div class="col-6 ">
+                  <div class="text-center d-flex justify-content-end">
+                    <a href="" type="button" class="btn btn-small btn-primary ">
+                      Add HouseMaid
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col"> Course Title</th>
+                    <th scope="col">Category</th>
+                    <th scope="col"> Location</th>
+                    <th scope="col" class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <%if(housemaids){%>
+                  <!--caclate age  -->
+                  <% function _calculateAge(inputBirthday) {%>
+                    <% let birthday=new Date(inputBirthday);%>
+                      <% var ageDifMs=Date.now() - birthday.getTime();%>
+                        <% var ageDate=new Date(ageDifMs);%>
+                          <% return Math.abs(ageDate.getUTCFullYear() - 1970);%>
+                            <% }%>
+                              <!--caclate age  -->
+
+
+                              <tbody>
+                                <% housemaids.forEach(housemaid=>{ %>
+
+
+
+                                  <tr>
+                                    <td>
+                                      <div class="d-flex align-items-center">
+                                        <%if(housemaid.profileImg){%>
+                                          <img src="/uploads/<%=housemaid.profileImg%>" alt=""
+                                            style="width: 45px; height: 45px" class="rounded-circle" />
+                                          <%}else{%>
+                                            < <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" alt=""
+                                              style="width: 45px; height: 45px" class="rounded-circle" />
+                                            <%}%>
+                                              <div class="ms-3">
+                                                <p class="fw-bold mb-1">
+                                                  <%= housemaid.uFName %>
+                                                    <%= housemaid.uLName %>
+                                                </p>
+                                                <p class="text-muted mb-0">
+                                                  <%if(housemaid.uDOB){%>
+                                                    <%=_calculateAge(housemaid.uDOB);%>
+                                                      <%}%> years old
+                                                </p>
+                                              </div>
+                                      </div>
+                                    </td>
+
+                                    <td>
+                                      <%= housemaid.uGender %>
+                                    </td>
+                                    <td>
+                                      <%= housemaid.uMaritalStatus %>
+                                    </td>
+                                    <td>
+                                      <%= housemaid.userLocCity %>,
+                                        <%= housemaid.userLocCountry %>
+                                    </td>
+                                    <td class="text-end">
+                                      <a href="/admin/users/housemaids/<%=housemaid.userId%>" type="btn"
+                                        class="btn btn-light btn-small"><i class="bi bi-eye"></i>view</a>
+                                      <a href="" type="btn" class="btn btn-light btn-small"><i
+                                          class="bi bi-pencil">edit</i></a>
+                                      <!-- courses/editCourse/<1%=course.courseId%>" -->
+                                      <!-- delete action -->
+                                      <form id="remove-course-form" method="DELETE" action="" class="d-inline">
+                                        <button type="submit" class="btn btn-light btn-small">
+                                          <i class="bi bi-person-x"></i>
+                                          delete
+                                        </button>
+                                      </form>
+                                    </td>
+                                  </tr>
+                                  <% }); %>
+                              </tbody>
+                              <% }%>
+              </table>
+            </div>
           </main>
       </div>
     </div>

@@ -23,7 +23,7 @@
     overflow-y: auto;
   }
 </style>
-
+<link rel="stylesheet" href="/style/style.css">
 <body>
   <!-- navbar -->
   <%- include('_housemaid-nav')%>
@@ -89,6 +89,7 @@
 
           <div class="messages-box">
             <div class="list-group rounded-0">
+              <%if(houseOwnerArr){%>
               <%houseOwnerArr.forEach(ho=>{%>
                 <!-- chat contact -->
                 <div class="media-body ml-4  ">
@@ -102,7 +103,7 @@
                 <!-- chat contact -->
 
                 <%})%>
-
+            <%}%>
             </div>
           </div>
           <!-- </div> -->
@@ -131,7 +132,7 @@
     <!-- chat section -->
 
 
-
+  <div id="google_translate_element"></div>
     <!-- Footer -->
     <%- include('_housemaid-footer')%>
       <!-- end of footer -->
@@ -155,6 +156,14 @@
       <script src="/chat-maid-events.js"></script>
       <script src="/socket.io/socket.io.js"></script>
       <script src="/chatjs.js"></script>
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        }
+      </script>
+      
+      <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 

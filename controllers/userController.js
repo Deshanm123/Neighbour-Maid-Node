@@ -18,10 +18,10 @@ const encryptPassword = async (password) => {
 
 async function generateEmailVerificationCode() {
   // generatte seven digit password
-  return Math.floor(Math.random() * 10000000 + 1);
+  return Math.floor(Math.random() * 1000000 + 1);
 }
 
-const maxAge = 10 * 24 * 60 * 60; //millsieconds
+const maxAge = 10 * 24 * 60 * 60 * 1000; //millsieconds
 const createJWToken = (id) => {
   return jwt.sign({ id }, 'net ninja secret', {
     expiresIn: maxAge
@@ -261,7 +261,7 @@ exports.postverificationCodeInput = async (req, res) => {
         if (verifyResults.changedRows > 0) {
           res.status(200).send({ msgType: "success", msg: "Congratulations! your account has been successfully verified." });
         }
-      } else {  
+      } else {
         // not matching
         res.status(401).send({ msgType: "danger", msg: "user verification code is incorrect." });
       }
@@ -340,6 +340,8 @@ exports.postContact = async (req, res) => {
     res.status(500).send({ msgType: 'danger', msg: `Something went wrong With the Mail service.${err}` });
   }
 }
+
+
 
 
 

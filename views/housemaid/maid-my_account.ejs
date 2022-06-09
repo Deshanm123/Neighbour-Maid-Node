@@ -34,6 +34,7 @@
       display: none;
     }
   </style>
+  <link rel="stylesheet" href="/style/style.css">
 </head>
 
 <body>
@@ -304,7 +305,7 @@
 
 
 
-
+    <div id="google_translate_element"></div>
     <!-- Footer -->
     <%- include('_housemaid-footer')%>
       <!-- end of footer -->
@@ -331,6 +332,14 @@
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <!-- ajax JavaScript -->
         <script type="text/javascript" src="/maid_myaccount_ajax.js"></script>
+         script type="text/javascript">
+          function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+          }
+        </script>
+        
+        <script type="text/javascript"
+          src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 

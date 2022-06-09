@@ -5,6 +5,7 @@ const moment = require('moment');
 const { Admin } = require('mongodb');
 const Housemaid = require('../models/Housemaid');
 const Houseowner = require('../models/Houseowner');
+const User = require('../models/User');
 const Image = require('../models/Image');
 
 
@@ -516,3 +517,17 @@ exports.putConsumerPackagePayments= async (req, res) => {
 //     res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
 //   }
 // }
+
+// Reports
+exports.getUsersReport=async(req,res)=>{
+  let houseownerCountResults = await User.getUserCount('Houseowner');
+  let housemaidCountResults = await User.getUserCount('Housemaid');
+
+  let userRatio = ['Houseowner','Housemaid']
+  let userCountRatio = [houseownerCountResults[0]['COUNT(*)'], housemaidCountResults[0]['COUNT(*)']];
+
+  
+  res.render('admin/admin-report-user', {
+    userRatio, userCountRatio
+});
+}

@@ -41,7 +41,7 @@ function removeError(input) {
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   let verificationCodeInput = verificationInput.value;
-  let verificationCharacterCount = 7;
+  let verificationCharacterCount = 6;
   var url = window.location.href;
 
   // alert(url);
@@ -94,7 +94,7 @@ form.addEventListener('submit', function (e) {
     })
 
   } else {
-    showError(verificationInput, `please enter 7 digits code to verify`);
+    showError(verificationInput, `please enter 6 digits code to verify`);
   }
 });
 

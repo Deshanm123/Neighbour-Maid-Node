@@ -109,18 +109,67 @@ exports.getAllCourses = async (req, res,) => {
 
 // select course by id
 exports.getSingleCourse = async (req, res) => {
-  // please note that add function check numerical input if it;s string return 404
-  id = req.params.id;
+
+  console.log(" single course view admin")
   try {
+    let id = req.params.id;
     let course = await Coursemodel.selectCourseById(id);
-    if (course == null) res.redirect('/');
+    console.log(course)
+    let courseCategoryObj = await Housemaid.getServiceCategoryById(course[0].courseCategory);
+    let courseId = course[0].courseId;
+    let courseCategory = courseCategoryObj[0].serviceCategoryName;
+    let courseCategoryColor = courseCategoryObj[0].serviceCategoryColor;
+    let courseTitle = course[0].courseTitle;
+    let courseIntro = course[0].courseIntro;
+    //  correct way of geeting json
+    let courseParsedChapters = JSON.parse(course[0].courseDescription);
+    let course_Img = course[0].course_Img;
+
+
+    let numberOfChapters = Object.keys(courseParsedChapters).length;
+    console.log("number of chapters " + numberOfChapters);
+
+    console.log("req.query" + req.query);
+
+    let page = req.query.page ? Number(req.query.page) : 1;
+    console.log("page" + page)
+
+
+    let chapterContent = courseParsedChapters[page - 1];
+    console.log(chapterContent);
+    // if (page < 1) {
+
+    // res.status(200).redirect(`/admin/courses/viewCourse/${courseId}?page=` + encodeURIComponent(1));
+    // res.status(200).redirect(`/admin/courses/viewCourse/${courseId}?page=`+1);
+    // res.status(200).redirect(`https://www.google.com/`);
+    // } else {
+    //   let results = await Houseowner.populateDashboard(page);
+    //   res.status(200).render('houseowner/houseowner-dashboard', { housemaids: results.result, page: results.page, pageCount: results.numOfPages })
+    // }
+    if (course == null) res.redirect('/housemaid/courses');
     else {
-      res.status(200).render('housemaid/course-view', { courses: course });
+      res.status(200).render('housemaid/course-view', {
+        courseId: courseId, courseTitle: courseTitle, courseIntro: courseIntro, courseCategory: courseCategory, courseCategoryColor: courseCategoryColor, course_Img: course_Img, chapterContent: chapterContent, page: page, pageCount: numberOfChapters
+      });
     }
   } catch (error) {
     res.status(404);
     console.log(error);
   }
+  //  check
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 // /////////////////////////////////////coursees sction/////////////////////////////////////////
 
@@ -167,7 +216,7 @@ exports.addPersonalDetails = async (req, res) => {
     let result = await Housemaid.addPersonalDetails(req.body, userId)
     if (result == null) res.redirect('/');
     else {
-      let msg = ` Congratualations user-${userId}! We have sucessfully recorded your personal details.`
+      let msg = ` Congratualations! We have sucessfully recorded your personal details.`
       res.status(201).send({ msg: msg });
     }
   } catch (error) {
@@ -229,7 +278,7 @@ exports.puteditAccount = async (req, res) => {
     if (result.affectedRows > 0) {
       if (result == null) res.redirect('/');
       else {
-        let msg = ` Congratualations user:${userId}! We have sucessfully updated  your personal details.`
+        let msg = ` Congratualations! We have sucessfully updated  your personal details.`
         res.status(201).send({ msg: msg });
       }
     } else {
@@ -319,7 +368,7 @@ exports.postMyService = async (req, res) => {
     if (result == null) res.redirect('/');
     else {
       console.log(result);
-      let msg = ` Congratualations user-${userId}! We have sucessfully recorded your service details.`
+      let msg = ` Congratualations! We have sucessfully recorded your service details.`
       res.status(201).send({ msg: msg });
     }
   } catch (error) {
@@ -343,7 +392,7 @@ exports.putEditMyService = async (req, res) => {
     if (result.affectedRows > 0) {
       if (result == null) res.redirect('/');
       else {
-        let msg = ` Congratualations user:${userId}! We have sucessfully updated  your service details.`
+        let msg = ` Congratualations! We have sucessfully updated  your service details.`
         res.status(201).send({ msg: msg });
       }
     } else {

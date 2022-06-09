@@ -13,9 +13,9 @@
   <!-- font awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-
+<link rel="stylesheet" href="/style/style.css">
   <!-- page title -->
-  <title>NeighbourMaid | Home</title>
+  <title>NeighbourMaid | Housemaid Account</title>
   <script type="text/javascript" src="/city_state.js"></script>
 
   <style>
@@ -432,7 +432,7 @@
 
 
 
-
+    <div id="google_translate_element"></div>
     <!-- Footer -->
     <%- include('_housemaid-footer')%>
       <!-- end of footer -->
@@ -459,6 +459,14 @@
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <!-- ajax JavaScript -->
         <script type="text/javascript" src="/maid_myaccount_update_ajax.js"></script>
+        <script type="text/javascript">
+          function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+          }
+        </script>
+        
+        <script type="text/javascript"
+          src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 

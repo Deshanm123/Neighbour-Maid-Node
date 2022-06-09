@@ -225,11 +225,41 @@ exports.getChat = async (req, res) => {
 
 }
 // vide chat
+exports.accessVideoChat = (req, res) => {
+  try {
+    console.log("get video chat")
+    let currenthouseOwnerId = res.locals.user.userId;
+    console.log(currenthouseOwnerId)
+    res.redirect(`/houseowner/videoChat/${currenthouseOwnerId}`)
+
+    // let currenthouseOwnerPackage = res.locals.housemaidPackage;
+    // console.log('houseowner package' + currenthouseOwnerPackage);
+    // if (currenthouseOwnerPackage == 'consumer-package') {
+
+    //   let currentId = res.locals.user.userId;
+    //   let housemaidId = req.params.housemaidId;
+
+
+    //   res.status(200).render('houseowner/houseowner-video-chat', { currentId: currentId, otherPartyId: housemaidId })
+    //   //   // res.status(200).send({ searhousechResults: searchResults });
+    // } else {
+    //   console.log(" observer package direct to upgrade")
+    //   res.status(200).redirect('/houseowner/upgradePackage');
+    // }
+
+  } catch (e) {
+    console.log(e);
+  }
+
+
+
+
+}
 exports.getVideoChat = (req, res) => {
   try {
-    console.log("RES LOCLS")
-    console.log(res.locals)
-    let currenthouseOwnerId = res.locals.user.userId;
+    
+    // let currenthouseOwnerId = res.locals.user.userId;
+
     let currenthouseOwnerPackage = res.locals.housemaidPackage;
     console.log('houseowner package' + currenthouseOwnerPackage);
     if (currenthouseOwnerPackage == 'consumer-package') {
@@ -238,8 +268,8 @@ exports.getVideoChat = (req, res) => {
       let housemaidId = req.params.housemaidId;
 
 
-      res.status(200).render('houseowner/chat-interface');
-      //   // res.status(200).send({ searchResults: searchResults });
+      res.status(200).render('houseowner/houseowner-video-chat', { currentId: currentId, otherPartyId: housemaidId })
+      //   // res.status(200).send({ searhousechResults: searchResults });
     } else {
       console.log(" observer package direct to upgrade")
       res.status(200).redirect('/houseowner/upgradePackage');
@@ -267,25 +297,36 @@ exports.getVideoChat = (req, res) => {
 
 // make housemaid interview appointment
 exports.postInterviewAppointment = (req, res) => {
+  try {
+    let utcDatetime = req.body.appointmentDate + " " + req.body.appointmentTime
+    let localDatetime = moment(utcDatetime + '+00:00').utc().format('YYYY-MM-DD HH:mm:ss');
 
+    const appointment = new Appointment({
+      housemaidId: req.body.housemaidId,
+      houseownerId: res.locals.user.userId,
+      appointmentDescription: req.body.appointmentDescription,
+      appointmentDateandTime: localDatetime
+      // appointmentDateandTime: date
+    });
 
-  let utcDatetime = req.body.appointmentDate + " " + req.body.appointmentTime
-  let localDatetime = moment(utcDatetime + '+00:00').utc().format('YYYY-MM-DD HH:mm:ss');
+    appointment.save((err, doc) => {
+      if (err) {
+        res.status(406).send({ msgType: "danger", msg: `Appointment UPLOAD FAIL : ERROR ${err}` });
+      } else {
+        console.log(doc);
+        res.status(200).send({ msgType: "success", msg: `Appointment UPLOAD SUCCESSFUL : your Appointment is uploaded.` });
+      }
+    });
+  } catch (err) {
+    if (err.code === 'ER_DUP_ENTRY') {
+      // duplicate entry handled by 304 :not modified status code
+      res.status(406).send({ msgType: "danger", msg: `Appointment UPLOAD FAIL : ERROR Appointment is already uploaded` });
 
-  const appointment = new Appointment({
-    housemaidId: req.body.housemaidId,
-    houseownerId: res.locals.user.userId,
-    appointmentDescription: req.body.appointmentDescription,
-    appointmentDateandTime: localDatetime
-    // appointmentDateandTime: date
-  });
-
-  appointment.save(function (err, doc) {
-    if (err) return console.error(err);
-    console.log("Document inserted succussfully");
-    // utc stores get current time 
-    // console.log(doc.appointmentDateandTime.toLocaleString());
-  });
+    } else {
+      // conflict -not sure
+      res.status(500).send({ msgType: "danger", msg: `${err.message}` });
+    }
+  }
 
 }
 

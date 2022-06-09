@@ -104,7 +104,26 @@ class User {
   }
 
 
-
+//  ADminser REports
+// get user Count
+  static getUserCount(userRole) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT COUNT(*) FROM user_tb WHERE userRole = ?', [userRole], (err, rows) => {
+          // return connection to tthe pool
+          connection.release();
+          if (!err) {
+            resolve(rows);
+            // res.send(`course with course Name ${courseTitle} has been sucessfully added `);
+          }
+          else {
+            reject(err);
+          }
+        });
+      });
+    });
+  }
 
 
 

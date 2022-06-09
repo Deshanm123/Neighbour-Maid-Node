@@ -14,18 +14,18 @@
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
   <!-- page title -->
-  <title>NeighbourMaid | Home</title>
+  <title>NeighbourMaid | Portifolio</title>
   <script type="text/javascript" src="/city_state.js"></script>
-
+  
   <style>
     * {
       font-size: 16px;
     }
-
+    
     .list-group li {
       border: none;
     }
-
+    
     #bg {
       min-height: 60vh;
       background: #009FFF;
@@ -36,6 +36,7 @@
       justify-content: center;
     }
   </style>
+  <link rel="stylesheet" href="/style/style.css">
 </head>
 
 <body>
@@ -56,7 +57,7 @@
       <% personalDetails.forEach(pd=>{ %>
 
         <!-- Card Section -->
-        <section  id=" bg">
+        <section  id="bg">
           <div class="container py-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
               <div class="col-md-12 col-xl-4">
@@ -76,16 +77,16 @@
                       <%= pd.uFName%>
                         <%=pd.uLName %>
                     </h4>
-                    <% if(pd.uDOB){%>
-                      <% let bday=pd.uDOB; %>
-                        <% }%>
+                   <script>
+                    let bday = '<%-pd.uDOB%>';
 
-
-                          <p class="text-muted mb-4">
-                            <%= pd.uGender%>
-                              <%= pd.uMaritalStatus%><span class="mx-2">|</span>
-                                <span id="age"></span> years old
-                          </p>
+                  </script>
+                  
+                  <p class="text-muted mb-4">
+                    <%= pd.uGender%>
+                      <%= pd.uMaritalStatus%><span class="mx-2">|</span>
+                        <span id="age"></span> years old
+                  </p>
                           <div class="mb-4 pb-2">
                             👋 I work as <%=userEmpService%>r .
                               I can offer services in
@@ -105,11 +106,11 @@
                         </button>
                       </div> -->
 
-                          <div class="d-flex justify-content-center ">
+                          <!-- <div class="d-flex justify-content-center ">
                             <button type="button" class="btn btn-primary btn-rounded btn-lg m-2  btn-sm">Message
                               Now</button>
                             <button type="button" class="btn btn-outline-primary btn-rounded btn-lg m-2  btn-sm">Appoint
-                              Now</button>
+                              Now</button> -->
 
                           </div>
                           <!-- 
@@ -225,7 +226,7 @@
           <%}); %>
 
 
-
+            <div id="google_translate_element"></div>
             <!-- view Profile -->
             <%- include('_housemaid-footer')%>
               <!-- end of footer -->
@@ -254,11 +255,11 @@
                 <!-- ajax JavaScript -->
                 <!-- <script type="text/javascript" src="/maid_myaccount_ajax.js"></script> -->
                 <script>
-                  //console.log();
-                  // var birthday = new Date(1998, 04, 01)
-                  if (bday) {
+                  let birthday = bday;
 
-                    let birthday = '<%= personalDetails[0].uDOB %>';
+                    //let birthday = typeof ('<1%= portifolioDetails[0].uDOB %>') !== 'undefined' ? '<1%= portifolioDetails[0].uDOB %>' : '';
+
+
 
                     function _calculateAge(inputBirthday) {
                       // birthday is a date
@@ -267,12 +268,14 @@
                       var ageDate = new Date(ageDifMs); // miliseconds from epoch
                       return Math.abs(ageDate.getUTCFullYear() - 1970);
                     }
-                    let age = _calculateAge('<%= personalDetails[0].uDOB %>');
+                    let age
+                    if (birthday) {
+                      age = _calculateAge(birthday);
+                    } else {
+                      age = '';
+                    }
                     // console.log(age);
                     document.getElementById('age').innerHTML = age;
-                  }
-
-
 
 
                   //color change background 
@@ -281,6 +284,15 @@
                    //   $("#bg").css("background-color", '#' + randomColor);
                    // });
                 </script>
+                <script type="text/javascript">
+                  function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+                  }
+                </script>
+                
+                <script type="text/javascript"
+                  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 
 </body>
 

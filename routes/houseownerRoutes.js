@@ -20,6 +20,7 @@ router.post('/searchByRequirements', houseownerController.postRequirementSearchR
 router.get('/chat', houseownerPackageInfoAccess, houseownerController.getChat);
 
 //video chat
+router.get('/videoChat', houseownerPackageInfoAccess, houseownerController.accessVideoChat);
 router.get('/videoChat/:housemaidId', houseownerPackageInfoAccess, houseownerController.getVideoChat);
 
 //make appointment

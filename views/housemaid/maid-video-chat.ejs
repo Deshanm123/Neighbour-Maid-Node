@@ -21,11 +21,11 @@
     integrity="sha512-/b9G70XUEYGTOv2bh4ZKwvysh6pIwvrfXOkuVIvmg5nwfuJZoSH0a4MD1rF92SmQtDz4W+e3MiX9niGw15kaPw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- peer js-->
-<!-- <script defer src="/libraries/peerjs.min.js"></script> -->
+  <!-- <script defer src="/libraries/peerjs.min.js"></script> -->
   <script defer src="/socket.io/socket.io.js"></script>
   <script>
     let myPeerId = '<%- currentId %>';
-    let otherPartyId  = '<%- otherPartyId %>'
+    let otherPartyId = '<%- otherPartyId %>'
   </script>
   <script defer src="/videochatjs.js"></script>
 
@@ -112,7 +112,7 @@
 
 
 
-
+    <div id="google_translate_element"></div>
     <!-- view Profile -->
     <%- include('_housemaid-footer')%>
       <!-- end of footer -->
@@ -128,6 +128,15 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
           crossorigin="anonymous"></script>
+        <script type="text/javascript">
+          function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+          }
+        </script>
+
+        <script type="text/javascript"
+          src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 
 
 
