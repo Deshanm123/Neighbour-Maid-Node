@@ -448,7 +448,7 @@ async function getProofRecords(results) {
     let nameResults = await Houseowner.getHouseOwnerNamebyId(results[i].userId)
     let userhouseownerName = nameResults[0].userName;
 
-    const record ={
+    const record = {
       paymentId: results[i].paymentId,
       userId: results[i].userId,
       houseownerName: userhouseownerName,
@@ -466,33 +466,33 @@ async function getProofRecords(results) {
 
 
 
-exports.getConsumerPackagePayments= async (req, res) => {
+exports.getConsumerPackagePayments = async (req, res) => {
   try {
     console.log("consumer package  payment")
 
-   
-    
-    let proofResults= await Houseowner.getProofOfPayments();
+
+
+    let proofResults = await Houseowner.getProofOfPayments();
     let resultswithMaidName = await getProofRecords(proofResults);
-    
-    res.render('admin/admin-consumer-package-view', { payments: resultswithMaidName})
-   
+
+    res.render('admin/admin-consumer-package-view', { payments: resultswithMaidName })
+
   } catch (err) {
     res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
   }
 }
 
-exports.putConsumerPackagePayments= async (req, res) => {
+exports.putConsumerPackagePayments = async (req, res) => {
   try {
     console.log("activate conumer package via payment")
-    const {paymentId}= req.params;
+    const { paymentId } = req.params;
     // update statement
     let resultswithMaidName = await Houseowner.activateProofOfPayment(paymentId);
     console.log(resultswithMaidName)
-    if (resultswithMaidName.affectedRows >0){
+    if (resultswithMaidName.affectedRows > 0) {
       res.status(200).redirect("/admin/payments/consumerPackage")
     }
-   
+
   } catch (err) {
     res.status(500).send({ msgType: "danger", msg: `${err.message}` });;
   }
@@ -501,7 +501,7 @@ exports.putConsumerPackagePayments= async (req, res) => {
 //   try {
 //     console.log("consumer package  payment")
 
-   
+
 //     let result = await Houseowner.getProofOfPayments();
 //     console.log(results)
 
@@ -519,15 +519,46 @@ exports.putConsumerPackagePayments= async (req, res) => {
 // }
 
 // Reports
-exports.getUsersReport=async(req,res)=>{
+exports.getUsersReport = async (req, res) => {
   let houseownerCountResults = await User.getUserCount('Houseowner');
   let housemaidCountResults = await User.getUserCount('Housemaid');
+  let userRatio = ["Houseowner", "Housemaid"]
 
-  let userRatio = ['Houseowner','Housemaid']
-  let userCountRatio = [houseownerCountResults[0]['COUNT(*)'], housemaidCountResults[0]['COUNT(*)']];
-
-  
   res.render('admin/admin-report-user', {
-    userRatio, userCountRatio
-});
+    userRatio, houseownerCount: houseownerCountResults[0]['COUNT(*)'],
+    housemaidCount: housemaidCountResults[0]['COUNT(*)']
+  });
 }
+
+
+async function getCountryArr(countryResults){
+  let countryArr=[] ;
+  for(let i=0;i<countryResults.length;i++){
+    console.log(countryResults[i]['userLocCountry'])
+    countryArr.push(countryResults[i]['userLocCountry'])
+  }
+  return countryArr;
+}
+async function getAmountOfUsersFromCountry(countryResults){
+  let countryUsersArr=[] ;
+  for(let i=0;i<countryResults.length;i++){
+    console.log(countryResults[i])
+    let usersFromACountry = await Housemaid.getAmountOfUsersFromACountry(countryResults[i]);
+    let derivedUserCount =usersFromACountry[0]['COUNT(*)'];
+    countryUsersArr.push(derivedUserCount);
+  }
+  return countryUsersArr;
+}
+
+
+exports.getSiteTraffic = async (req, res) => {
+  // get no of countries
+  let countryResults = await Housemaid.getCountries();
+  
+  let countryArr =await getCountryArr(countryResults);
+  let countryCountArr = await getAmountOfUsersFromCountry(countryArr);
+  console.log(countryCountArr)
+  res.render('admin/admin-dashboard',{
+    countryArr, countryCountArr
+});
+};

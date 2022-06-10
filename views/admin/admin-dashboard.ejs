@@ -35,62 +35,41 @@
 
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                         <div>
-                          
-                            
+
+
                             <h3 class="pt-5 text-center">Site Traffic</h3>
-                           
+
                         </div>
 
                         <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
 
-                        <h2>Section title</h2>
+                        <h2>Site Traffic</h2>
                         <div class="table-responsive">
                             <table class="table table-striped table-sm">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Header</th>
-                                        <th>Header</th>
-                                        <th>Header</th>
-                                        <th>Header</th>
+                                        <th>Country</th>
+                                        <th>Amount Of Housemaids</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1,001</td>
-                                        <td>Lorem</td>
-                                        <td>ipsum</td>
-                                        <td>dolor</td>
-                                        <td>sit</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1,002</td>
-                                        <td>amet</td>
-                                        <td>consectetur</td>
-                                        <td>adipiscing</td>
-                                        <td>elit</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1,003</td>
-                                        <td>Integer</td>
-                                        <td>nec</td>
-                                        <td>odio</td>
-                                        <td>Praesent</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1,003</td>
-                                        <td>libero</td>
-                                        <td>Sed</td>
-                                        <td>cursus</td>
-                                        <td>ante</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1,004</td>
-                                        <td>dapibus</td>
-                                        <td>diam</td>
-                                        <td>Sed</td>
-                                        <td>nisi</td>
-                                    </tr>
+                                   
+                                        <%for(let i=0;i<countryArr.length;i++){%>
+                                            <tr>
+                                            <td>
+                                                <%=countryArr[i]%>
+                                            </td>
+                                            <td>
+                                                <%=countryCountArr[i]%>
+                                            </td>
+                                            <%};%>
+                                        </tr>
+                                       
+
+
+                                  
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -131,16 +110,33 @@
 
         <!-- Graphs -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+        <!-- var xValues = ["Italy", "France", "Spain", "USA", "Argentina"]; -->
+        <!-- var yValues = [55, 49, 44, 24, 15]; -->
+        <!-- var yValues = '<   %- JSON.stringify(countryCountArr) %>'; -->
+        <!-- var xValues = '<1%- JSON.stringify(countryArr) %>'; -->
         <script>
             var ctx = document.getElementById("myChart");
+         var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+            var yValues =  [55, 49, 44, 24, 15];
+            var barColors = ["red", "green", "blue", "orange", "brown"];
+
             var myChart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
-                    labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                    labels: xValues,
                     datasets: [{
-                        data: [15339, 21345, 18483, 24003, 23489, 24092, 26034],
+                        data: yValues,
                         lineTension: 0,
-                        backgroundColor: 'transparent',
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(155, 159, 164, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 235, 86, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        //backgroundColor: 'transparent',
                         borderColor: '#007bff',
                         borderWidth: 4,
                         pointBackgroundColor: '#007bff'

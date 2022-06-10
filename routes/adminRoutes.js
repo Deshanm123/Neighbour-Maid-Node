@@ -7,10 +7,7 @@ const adminController = require('../controllers/adminController');
 
 // COURSES//
 // course home
-router.get('/', (req, res) => {
-  res.render('admin/admin-dashboard');
-});
-
+router.get('/', adminController.getSiteTraffic);
 // get all courses
 router.get('/courses', adminController.getAllCourses);
 // get single course

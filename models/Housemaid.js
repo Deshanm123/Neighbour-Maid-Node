@@ -390,6 +390,42 @@ class Housemaid {
     });
   }
   
+  static getCountries() {
+   
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT DISTINCT userLocCountry FROM maid_service_tb',  (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+  static getAmountOfUsersFromACountry(country) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query('SELECT COUNT(*) FROM maid_service_tb WHERE userLocCountry =?', country,  (err, rows) => {
+          connection.release();
+          if (!err) {
+            resolve(rows);
+          }
+          else {
+            console.log(err)
+            reject(err);
+          }
+        });
+      });
+    });
+  }
+  
 
 
 
